@@ -1,5 +1,6 @@
 import CoursesMainPage from "../pages/course/CoursesMainPage";
 import GroupsMainPage from "../pages/groupChat/GroupsMainPage";
+import DefaultPage from "../pages/others/DefaultPage";
 import PlaylistMainPage from "../pages/playlist/PlaylistMainPage";
 import EduShortsMainPage from "../pages/shorts/EduShortsMainPage";
 import FocusTimerMainPage from "../pages/timer/FocusTimerMainPage";
@@ -7,6 +8,7 @@ import LoginPage from "../pages/user/LoginPage";
 import SignUpPage from "../pages/user/SignUpPage";
 import UserMainPage from "../pages/user/UserMainPage";
 
+export const ROUTE_DEFAULT = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
 export const ROUTE_USER_PAGE = "/user"
@@ -15,8 +17,14 @@ export const ROUTE_GROUPS = "/groups";
 export const ROUTE_COURSES = "/courses";
 export const ROUTE_FOCUS_TIMER = "/focus-timer";
 export const ROUTE_SHORTS = "/edu-shorts";
+export const ROUTE_ANY = "*";
 
 export const APP_ROUTES = [
+    {
+        id: -1,
+        path: ROUTE_DEFAULT,
+        element: DefaultPage
+    },
     {
         id: 0,
         path: ROUTE_SIGNUP,

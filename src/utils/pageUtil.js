@@ -4,3 +4,10 @@ export const scrollToTop = () => {
         behavior: 'smooth'
     })
 }
+
+export const changeRoute = (navigate, newRoute, toTop = false) => {
+    navigate(newRoute);
+    if (toTop) {
+        scrollToTop();
+    }
+}
