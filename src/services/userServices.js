@@ -25,7 +25,6 @@ export const sendSignUpRequest = async (signUpForm) => {
 export const sendUserDetailsRequest = async () => {
     try {
         const localToken = getAuthToken();
-        console.log(localToken);
         return await getAuthenticatedRequest(`${API_BASE_URL}${API_URI_USER_DETAILS}`, localToken);
 
     } catch (error) {

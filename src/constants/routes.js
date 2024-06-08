@@ -12,11 +12,18 @@ export const ROUTE_DEFAULT = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
 export const ROUTE_USER_PAGE = "/user"
+
 export const ROUTE_PLAYLIST = "/playlist";
+export const ROUTE_PLAYLIST_SUBJECT = "/playlist/subject:id";
+
 export const ROUTE_GROUPS = "/groups";
+
 export const ROUTE_COURSES = "/courses";
+
 export const ROUTE_FOCUS_TIMER = "/focus-timer";
+
 export const ROUTE_SHORTS = "/edu-shorts";
+
 export const ROUTE_ANY = "*";
 
 export const APP_ROUTES = [

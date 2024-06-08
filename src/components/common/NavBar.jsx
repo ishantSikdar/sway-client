@@ -8,7 +8,7 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed w-full px-4 h-[60px] shadow-md text-3xl flex justify-between items-center">
+    <div className="z-50 fixed top-0 bg-black opacity-90 w-full px-4 h-[60px] shadow-md text-3xl flex justify-between items-center">
       <div className="flex gap-5">
         <button onClick={() => changeRoute(navigate, ROUTE_USER_PAGE)}>
           <FontAwesomeIcon icon={faUser} />
