@@ -3,13 +3,10 @@ import { changeRoute } from "../../utils/pageUtil";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
-import { useSetRecoilState } from "recoil";
-import { authStateAtom } from "../../recoil/atoms/authAtoms";
 
 export default function LoginPage() {
 
   const [invalidCredsFlag, setInvalidCredsFlag] = useState(false);
-  const setAuthState = useSetRecoilState(authStateAtom);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,9 +30,10 @@ export default function LoginPage() {
 
       if (loginResponse.status === 200) {
         localStorage.setItem('auth', loginResponse.data.data.authToken);
-        setAuthState({ token: loginResponse.data.data.authToken });
+        console.log("Saved Auth Token into Storage");
 
         const from = location.state?.from?.pathname + location.state?.from?.search || '/';
+        console.log(from)
         changeRoute(navigate, from);
 
       } else if (loginResponse.status === 404 || loginResponse.status === 401) {

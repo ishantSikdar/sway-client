@@ -1,0 +1,1 @@
+export const INVALID_AUTH_TOKEN = "Invalid Auth Token";
