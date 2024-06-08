@@ -1,10 +1,23 @@
 import PHOTO from "/photo.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from "../../hooks/authHooks";
+import { useRecoilValue } from "recoil";
+import { authStateAtom } from "../../recoil/atoms/authAtoms";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ROUTE_LOGIN } from "../../constants/routes";
 
 export default function UserMainPage() {
-  const auth = useAuth();
+
+  const authState = useRecoilValue(authStateAtom);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!authState.token) {
+      navigate(ROUTE_LOGIN, { state: { from: location } });
+    }
+  }, [authState, navigate, location]);
 
   const USER = {
     name: "Ishant Sikdar",
@@ -19,7 +32,7 @@ export default function UserMainPage() {
       <div className="relative my-auto flex flex-col items-center rounded-3xl border-white border-[1pt] p-5">
         <div className="absolute -top-24">
           <img src={PHOTO} className="rounded-full aspect-square overflow-hidden w-40" alt={USER.name} />
-          <button className="absolute bottom-3 right-0 rounded-full bg-blue-400 w-10 h-10">
+          <button className="absolute bottom-3 right-0 rounded-full bg-blue w-10 h-10">
             <FontAwesomeIcon icon={faPenToSquare} className="text-[#FFFFFF]" />
           </button>
         </div>

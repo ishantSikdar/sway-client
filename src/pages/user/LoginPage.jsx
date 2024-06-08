@@ -1,14 +1,17 @@
 import { useState } from "react"
 import { changeRoute } from "../../utils/pageUtil";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
 import { useSetRecoilState } from "recoil";
 import { authStateAtom } from "../../recoil/atoms/authAtoms";
 
 export default function LoginPage() {
+
   const setAuthState = useSetRecoilState(authStateAtom);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: ""
@@ -23,9 +26,18 @@ export default function LoginPage() {
   }
 
   const handleLoginRequest = async () => {
-    const loginResponse = await sendLoginRequest(loginForm);
-    localStorage.setItem('auth', loginResponse.data.authToken);
-    setAuthState(loginResponse.data.authToken);
+    try {
+      const loginResponse = await sendLoginRequest(loginForm);
+      localStorage.setItem('auth', loginResponse.data.authToken);
+      setAuthState({ token: loginResponse.data.authToken });
+
+      const from = location.state?.from?.pathname + location.state?.from?.search || '/';
+      console.log('Redirecting to:', from);
+      changeRoute(navigate, from);
+
+    } catch (error) {
+      alert("Error during Login: " + error.message);
+    }
   }
 
   const handleSignUp = () => {
