@@ -1,18 +1,22 @@
-import axios from 'axios'
-import { API_BASE_URL, API_URI_USER_LOGIN } from '../constants/api';
+import { API_BASE_URL, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
+import { postJSONBodyRequest } from './apiServices';
 
 export const sendLoginRequest = async (loginForm) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}${API_URI_USER_LOGIN}`,
-            JSON.stringify(loginForm), {
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-        return response.data;
+        return await postJSONBodyRequest(`${API_BASE_URL}${API_URI_USER_LOGIN}`, loginForm);
 
     } catch (error) {
-        console.error(error.message);
-        throw new Error(`Failed to fetch data`);
+        console.error(`Login request failed, ${error.message}`);
+        throw new Error(`Login request failed, ${error.message}`);
+    }
+};
+
+export const sendSignUpRequest = async (signUpForm) => {
+    try {
+        return await postJSONBodyRequest(`${API_BASE_URL}${API_URI_USER_SIGNUP}`, signUpForm);
+
+    } catch (error) {
+        console.error(`Login request failed, ${error.message}`);
+        throw new Error(`Login request failed, ${error.message}`);
     }
 };

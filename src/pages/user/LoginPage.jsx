@@ -8,6 +8,7 @@ import { authStateAtom } from "../../recoil/atoms/authAtoms";
 
 export default function LoginPage() {
 
+  const [invalidCredsFlag, setInvalidCredsFlag] = useState(false);
   const setAuthState = useSetRecoilState(authStateAtom);
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,13 +28,19 @@ export default function LoginPage() {
 
   const handleLoginRequest = async () => {
     try {
+      setInvalidCredsFlag(false);
       const loginResponse = await sendLoginRequest(loginForm);
-      localStorage.setItem('auth', loginResponse.data.authToken);
-      setAuthState({ token: loginResponse.data.authToken });
 
-      const from = location.state?.from?.pathname + location.state?.from?.search || '/';
-      console.log('Redirecting to:', from);
-      changeRoute(navigate, from);
+      if (loginResponse.status === 200) {
+        localStorage.setItem('auth', loginResponse.data.data.authToken);
+        setAuthState({ token: loginResponse.data.data.authToken });
+
+        const from = location.state?.from?.pathname + location.state?.from?.search || '/';
+        changeRoute(navigate, from);
+
+      } else if (loginResponse.status === 404 || loginResponse.status === 401) {
+        setInvalidCredsFlag(true);
+      }
 
     } catch (error) {
       alert("Error during Login: " + error.message);
@@ -64,7 +71,7 @@ export default function LoginPage() {
 
         <div className="my-5 text-xs flex flex-col gap-2">
           <div>
-            <p className="uppercase py-1">Email, Mobile or Username</p>
+            <p className={`uppercase py-1 ${invalidCredsFlag ? 'text-red-600' : ''}`}>Email, Mobile or Username {invalidCredsFlag && <span className="italic normal-case">- Login or password is invalid</span>}</p>
             <input
               onChange={handleLoginInput}
               value={loginForm.username}
@@ -75,7 +82,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <p className="uppercase py-1">Password</p>
+            <p className={`uppercase py-1 ${invalidCredsFlag ? 'text-red-600' : ''}`}>Password {invalidCredsFlag && <span className="italic normal-case">- Login or password is invalid</span>}</p>
             <input
               onChange={handleLoginInput}
               value={loginForm.password}
