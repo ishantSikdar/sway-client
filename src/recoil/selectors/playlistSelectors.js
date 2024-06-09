@@ -1,5 +1,5 @@
 import { selector, selectorFamily } from "recoil";
-import { fetchAllSubjects, fetchSubjectDetailsById, fetchSubjectsByName } from "../../services/playlistServices";
+import { fetchAllSubjects, fetchSubjectDetailsById, fetchSubjectsByName, fetchYoutubeVideosByTitle } from "../../services/playlistServices";
 
 export const fetchSubjectListSelector = selector({
     key: 'fetchSubjectsSelector',
@@ -23,6 +23,16 @@ export const fetchSubjectDetailsByIdSelectorFamily = selectorFamily({
     key: 'fetchSubjectDetailsByIdSelectorFamily',
     get: (id) => async () => {
         const response = await fetchSubjectDetailsById(id);
+        console.log(response);
+        return response.data.data;
+    }
+})
+
+export const fetchYoutubeVideosByTitleSelectorFamily = selectorFamily({
+    key: 'fetchYoutubeVideoByTitleSelectorFamily',
+    get: (videoTitle) => async () => {
+        console.log(videoTitle)
+        const response = await fetchYoutubeVideosByTitle(videoTitle);
         console.log(response);
         return response.data.data;
     }

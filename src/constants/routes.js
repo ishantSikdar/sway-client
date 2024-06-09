@@ -9,6 +9,7 @@ import LoginPage from "../pages/user/LoginPage";
 import SignUpPage from "../pages/user/SignUpPage";
 import UserMainPage from "../pages/user/UserMainPage";
 import TopicPage from "../pages/playlist/TopicPage";
+import VideoPage from "../pages/playlist/VideoPage";
 
 
 // ROUTES
@@ -19,7 +20,8 @@ export const ROUTE_USER_PAGE = "/user"
 
 export const ROUTE_PLAYLIST = "/playlist/subjects";
 export const ROUTE_PLAYLIST_SUBJECT = "/playlist/subjects/:id";
-export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/subjects/:subjectId/:topicName";
+export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/subjects/:subjectName/:topicName";
+export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/videos/:subjectName/:videoId/:videoTitle";
 
 export const ROUTE_GROUPS = "/groups";
 
@@ -86,5 +88,10 @@ export const APP_ROUTES = [
         id: 9,
         path: ROUTE_PLAYLIST_SUBJECT_TOPIC,
         element: TopicPage
+    },
+    {
+        id: 10,
+        path: ROUTE_PLAYLIST_SUBJECT_VIDEOS,
+        element: VideoPage
     }
 ]
