@@ -5,8 +5,8 @@ import { INVALID_AUTH_TOKEN } from "../../constants/message";
 export const userDetailsSelector = selector({
     key: "userDetailsSelector",
     get: async () => {
-        console.log("fetching");
         const response = await sendUserDetailsRequest();
+        console.log(response);
 
         if (response.status === 200) {
             return response.data.data.loggedInUser;

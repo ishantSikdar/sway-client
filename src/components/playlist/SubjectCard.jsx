@@ -11,13 +11,13 @@ export default function SubjectCard({ id, name, thumbnail, desc }) {
   return (
     <button
       onClick={goToSubjectPage}
-      className="bg-gray rounded-xl flex w-[90%] h-40 p-4"
+      className="bg-gray rounded-xl flex justify-between w-[90%] h-36 p-4"
     >
-      <div className="h-full">
-        <img src="/photo.jpg" alt="" className="h-full aspect-square rounded-md" />
+      <div className="h-full w-full">
+        <img src="/photo.jpg" alt="" className="aspect-square rounded-md h-full" />
       </div>
-      <div className="h-full flex flex-col justify-center text-left gap-2 p-5 w-[65%]">
-        <p className="text-2xl text-frostWhite capitalize">{name}</p>
+      <div className="h-full flex flex-col justify-center gap-2 text-left px-5 w-[65%]">
+        <p className="text-xl text-frostWhite capitalize">{name}</p>
         <p className="text-xs overflow-hidden whitespace-nowrap overflow-ellipsis">{desc}</p>
       </div>
     </button>
