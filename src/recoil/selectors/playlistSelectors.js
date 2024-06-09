@@ -31,9 +31,13 @@ export const fetchSubjectDetailsByIdSelectorFamily = selectorFamily({
 export const fetchYoutubeVideosByTitleSelectorFamily = selectorFamily({
     key: 'fetchYoutubeVideoByTitleSelectorFamily',
     get: (videoTitle) => async () => {
-        console.log(videoTitle)
         const response = await fetchYoutubeVideosByTitle(videoTitle);
         console.log(response);
-        return response.data.data;
+
+        if (response.status === 200) {
+            return response.data.data;
+        } else {
+            throw new Error(response.data.message);
+        }
     }
 })
