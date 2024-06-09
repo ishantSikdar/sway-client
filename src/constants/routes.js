@@ -8,7 +8,10 @@ import FocusTimerMainPage from "../pages/timer/FocusTimerMainPage";
 import LoginPage from "../pages/user/LoginPage";
 import SignUpPage from "../pages/user/SignUpPage";
 import UserMainPage from "../pages/user/UserMainPage";
+import TopicPage from "../pages/playlist/TopicPage";
 
+
+// ROUTES
 export const ROUTE_DEFAULT = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
@@ -16,6 +19,7 @@ export const ROUTE_USER_PAGE = "/user"
 
 export const ROUTE_PLAYLIST = "/playlist/subjects";
 export const ROUTE_PLAYLIST_SUBJECT = "/playlist/subjects/:id";
+export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/subjects/:subjectId/:topicName";
 
 export const ROUTE_GROUPS = "/groups";
 
@@ -78,4 +82,9 @@ export const APP_ROUTES = [
         path: ROUTE_PLAYLIST_SUBJECT,
         element: SubjectPage
     },
+    {
+        id: 9,
+        path: ROUTE_PLAYLIST_SUBJECT_TOPIC,
+        element: TopicPage
+    }
 ]

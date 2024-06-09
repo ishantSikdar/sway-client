@@ -1,13 +1,14 @@
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { subjectAtomFamily } from "../../recoil/atoms/playlistAtoms";
+import { ROUTE_PLAYLIST_SUBJECT_TOPIC } from "../../constants/routes";
 
 export default function SubjectPageData({ id }) {
   const navigate = useNavigate();
   const subject = useRecoilValue(subjectAtomFamily(id));
 
-  const sendToTopicPage = () => {
-    navigate();
+  const sendToTopicPage = (event) => {
+    navigate(`${ROUTE_PLAYLIST_SUBJECT_TOPIC.replace(":subjectId", id).replace(":topicName", event.target.value)}`);
   }
 
   return (
@@ -36,6 +37,7 @@ export default function SubjectPageData({ id }) {
             <button
               key={idx}
               onClick={sendToTopicPage}
+              value={topic}
               className="w-full text-left border-t-[1pt] py-3 text-xl font-medium capitalize border-white"
             >
               {topic}
