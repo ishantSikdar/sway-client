@@ -1,15 +1,16 @@
 import PHOTO from "/photo.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_LOGIN } from "../../constants/routes";
 import { getAuthToken } from "../../utils/authUtil";
-import { userDetailsSelector } from "../../recoil/selectors/userSelectors";
 import { changeRoute } from "../../utils/pageUtil";
 import { INVALID_AUTH_TOKEN } from "../../constants/message";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
+import UserPageData from "./UserPageData";
+import UserPageSkeleton from "./UserPageSkeleton";
 
 export default function UserMainPage() {
   const navigate = useNavigate();
@@ -23,41 +24,11 @@ export default function UserMainPage() {
   }, [navigate, location]);
 
   if (userDetailsLoadable.state === "hasValue") {
-    const userDetails = userDetailsLoadable.contents;
-    return (
-      <div className="flex justify-center h-screen">
-        <div className="relative my-auto flex flex-col items-center rounded-3xl border-white border-[1pt] p-5">
-          <div className="absolute -top-24">
-            <img src={PHOTO} className="rounded-full aspect-square overflow-hidden w-40" alt={userDetails?.name} />
-            <button className="absolute bottom-3 right-0 rounded-full bg-blue w-10 h-10">
-              <FontAwesomeIcon icon={faPenToSquare} className="text-[#FFFFFF]" />
-            </button>
-          </div>
-          <div className="text-center text-4xl mt-16">
-            <p>{userDetails?.name}</p>
-          </div>
-
-          <div className="flex flex-col gap-3 my-3 text-xl">
-            <div>
-              <p>Username</p>
-              <p>{userDetails?.username}</p>
-            </div>
-            <div>
-              <p>Email</p>
-              <p>{userDetails?.email}</p>
-            </div>
-            <div>
-              <p>Mobile</p>
-              <p>{userDetails?.mobile}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    return <UserPageData />;    
   }
 
   else if (userDetailsLoadable.state === "loading") {
-    return <div>Loading</div>
+    return <UserPageSkeleton />
   }
 
   else if (userDetailsLoadable.state === "hasError") {

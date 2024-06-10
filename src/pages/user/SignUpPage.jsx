@@ -60,8 +60,6 @@ export default function SignUpPage() {
     changeRoute(navigate, ROUTE_LOGIN);
   }
 
-  console.log(signUpForm);
-
   return (
     <div
       className="flex justify-center items-center w-full h-screen"
