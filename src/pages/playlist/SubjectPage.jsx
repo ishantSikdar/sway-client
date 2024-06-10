@@ -3,10 +3,16 @@ import { useRecoilValueLoadable } from "recoil";
 import { subjectAtomFamily } from "../../recoil/atoms/playlistAtoms";
 import SubjectPageData from "./SubjectPageData";
 import SubjectPageSkeleton from "./SubjectPageSkeleton";
+import { useEffect } from "react";
+import { scrollToTop } from "../../utils/pageUtil";
 
 export default function SubjectPage() {
   const { id } = useParams();
   const subjectLoadable = useRecoilValueLoadable(subjectAtomFamily(id));
+
+  useEffect(() => {
+    scrollToTop();
+  })
 
   if (subjectLoadable.state === "hasValue") {
     return (
