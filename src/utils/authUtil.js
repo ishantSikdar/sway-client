@@ -1,4 +1,9 @@
 export const getAuthToken = () => {
     const token = localStorage.getItem('auth');
-    return token;
+
+    if (token) {
+        return token;
+    } else {
+        throw new Error("No auth token available");
+    }
 }

@@ -36,6 +36,28 @@ export const getAuthenticatedRequest = async (url, token) => {
     }
 };
 
+export const putAuthenticatedJSONBodyRequest = async (url, token, body) => {
+    console.log(body);
+    try {
+        const response = await axios.put(url, JSON.stringify(body), {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        return { status: response.status, data: response.data };
+
+    } catch (error) {
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+
+        } else {
+            console.error(`PUT Authenticated JSON Body request failed, ${error.message}`);
+            throw error;
+        }
+    }
+}
+
 export const getNoOptionsRequest = async (url) => {
     try {
         const response = await axios.get(url);

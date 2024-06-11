@@ -3,19 +3,24 @@ import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
 import ProfileButton from "../../components/common/ProfileButton";
 import { faPenToSquare, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Contacts from "./Contacts";
+import Contacts from "../../components/user/Contacts";
+import EditUser from "../../components/user/EditUser";
 
 export default function UserPageData() {
   const [showContact, setShowContact] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(false);
   const userDetails = useRecoilValue(userDetailsAtom);
+
+  const handleEditUser = () => {
+    setShowContact(false);
+    setShowEditUser(true);
+  }
 
   return (
     <div className="mt-16 relative">
       <div className="relative">
         {/* banner */}
-        <div className="bg-[#ababab] h-28">
-
-        </div>
+        <div className="bg-[#ababab] h-28"></div>
 
         {/* user */}
         <div className="relative">
@@ -36,22 +41,21 @@ export default function UserPageData() {
             </div>
 
             {/* Additional */}
-            <div className="py-5 border-b-[1pt] border-white pb-4">
+            {userDetails.joined && <div className="py-5 border-b-[1pt] border-white pb-4">
               <h2 className="uppercase text-frostWhite text-lg font-bold">Member Since</h2>
               <p className="font-medium">{userDetails.joined}</p>
-            </div>
+            </div>}
 
             <div className="pt-3 w-full">
-              <ProfileButton onClickHandler={() => console.log("Not Implemented")} btnName={`Edit Profile`} icon={faPenToSquare} />
+              <ProfileButton onClickHandler={handleEditUser} btnName={`Edit Profile`} icon={faPenToSquare} />
               <ProfileButton onClickHandler={() => setShowContact(true)} btnName={`Contact`} icon={faPhone} />
             </div>
           </div>
         </div>
       </div>
 
-
+      {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
-
     </div>
   )
 }
