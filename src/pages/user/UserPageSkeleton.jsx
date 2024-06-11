@@ -1,17 +1,22 @@
-export default function UserPageSkeleton() {
+export default function UserPageData() {
   return (
-    <div className="flex justify-center h-screen">
-      <div className="w-72 relative my-auto flex flex-col items-center rounded-3xl  p-5">
-        <div className="absolute -top-24">
-          <div className="rounded-full aspect-square overflow-hidden bg-coal h-40 w-40 animate-pulse"></div>
-        </div>
-        <div className="text-center text-4xl mt-14 mb-4 h-12 bg-coal w-full animate-pulse">
+    <div className="mt-16 relative">
+      <div className="relative">
+        <div className="bg-[#ababab] h-28 animate-pulse">
+
         </div>
 
-        <div className="flex flex-col gap-3 my-3 text-xl w-full">
-          <div className="bg-coal h-10 w-full animate-pulse"></div>
-          <div className="bg-coal h-10 w-full animate-pulse"></div>
-          <div className="bg-coal h-10 w-full animate-pulse"></div>
+        <div className="relative">
+          <div className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden animate-black-gray-pulse"></div>
+
+          <div className="h-20"></div>
+
+          <div className="mx-5 p-5 bg-coal rounded-xl flex flex-col gap-4">
+            <div className="h-20 pb-4 bg-black rounded-md animate-pulse"></div>
+            <div className="py-5 h-16 pb-4 bg-black rounded-md animate-pulse"></div>
+            <div className="pt-3 w-full h-20 bg-black rounded-md animate-pulse">
+            </div>
+          </div>
         </div>
       </div>
     </div>

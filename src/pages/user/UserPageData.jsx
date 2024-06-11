@@ -1,39 +1,57 @@
 import { useRecoilValue } from "recoil"
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import ProfileButton from "../../components/common/ProfileButton";
+import { faPenToSquare, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import Contacts from "./Contacts";
 
 export default function UserPageData() {
+  const [showContact, setShowContact] = useState(false);
   const userDetails = useRecoilValue(userDetailsAtom);
 
   return (
-    <div className="flex justify-center h-screen">
-      <div className="relative my-auto flex flex-col items-center rounded-3xl p-5">
-        <div className="absolute -top-24">
-          <img src="/photo.jpg" className="rounded-full aspect-square overflow-hidden w-40" alt={userDetails.name} />
-          <button className="absolute bottom-3 right-0 rounded-full bg-blue w-10 h-10">
-            <FontAwesomeIcon icon={faPenToSquare} className="text-[#FFFFFF]" />
-          </button>
-        </div>
-        <div className="text-center text-4xl mt-16">
-          <p>{userDetails.name}</p>
+    <div className="mt-16 relative">
+      <div className="relative">
+        {/* banner */}
+        <div className="bg-[#ababab] h-28">
+
         </div>
 
-        <div className="flex flex-col gap-3 my-3 text-xl">
-          <div>
-            <p>Username</p>
-            <p>{userDetails.username}</p>
+        {/* user */}
+        <div className="relative">
+          {/* image */}
+          <div className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden">
+            <img src="/photo.jpg" alt="" className="rounded-full  " />
           </div>
-          <div>
-            <p>Email</p>
-            <p>{userDetails.email}</p>
-          </div>
-          <div>
-            <p>Mobile</p>
-            <p>{userDetails.mobile}</p>
+
+          <div className="h-20"></div>
+
+          {/* information */}
+          <div className="mx-5 p-5  bg-coal rounded-xl">
+
+            {/* Headers */}
+            <div className="text-frostWhite border-b-[1pt] border-white pb-4">
+              <h2 className="text-2xl font-bold">{userDetails.name}</h2>
+              <p className="font-medium">{userDetails.username}</p>
+            </div>
+
+            {/* Additional */}
+            <div className="py-5 border-b-[1pt] border-white pb-4">
+              <h2 className="uppercase text-frostWhite text-lg font-bold">Member Since</h2>
+              <p className="font-medium">{userDetails.joined}</p>
+            </div>
+
+            <div className="pt-3 w-full">
+              <ProfileButton onClickHandler={() => console.log("Not Implemented")} btnName={`Edit Profile`} icon={faPenToSquare} />
+              <ProfileButton onClickHandler={() => setShowContact(true)} btnName={`Contact`} icon={faPhone} />
+            </div>
           </div>
         </div>
       </div>
+
+
+      {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
+
     </div>
   )
 }

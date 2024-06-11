@@ -16,9 +16,17 @@ export default {
         blue: '#5865f2',
         lightBlue: '#0798e2',
       },
-
       fontFamily: {
         mukta: ['Mukta', 'sans-serif'],
+      },
+      animation: {
+        'black-gray-pulse': 'black-gray-pulse 2s infinite',
+      },
+      keyframes: {
+        'black-gray-pulse': {
+          '50%': { backgroundColor: '#1e1f22' }, 
+          '0%, 100%': { backgroundColor: '#2a2a2a' }, 
+        },
       },
     },
   },
