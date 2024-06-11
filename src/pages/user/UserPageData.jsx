@@ -8,7 +8,7 @@ export default function UserPageData() {
 
   return (
     <div className="flex justify-center h-screen">
-      <div className="relative my-auto flex flex-col items-center rounded-3xl border-white border-[1pt] p-5">
+      <div className="relative my-auto flex flex-col items-center rounded-3xl p-5">
         <div className="absolute -top-24">
           <img src="/photo.jpg" className="rounded-full aspect-square overflow-hidden w-40" alt={userDetails.name} />
           <button className="absolute bottom-3 right-0 rounded-full bg-blue w-10 h-10">
