@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_LOGIN } from "../../constants/routes";
 import { getAuthToken } from "../../utils/authUtil";
 import { changeRoute } from "../../utils/pageUtil";
-import { INVALID_AUTH_TOKEN } from "../../constants/message";
+import { INVALID_AUTH_TOKEN, NO_AUTH_TOKEN } from "../../constants/message";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
 import UserPageData from "./UserPageData";
 import UserPageSkeleton from "./UserPageSkeleton";
@@ -24,7 +24,7 @@ export default function UserMainPage() {
   }, [navigate, location]);
 
   if (userDetailsLoadable.state === "hasValue") {
-    return <UserPageData />;    
+    return <UserPageData />;
   }
 
   else if (userDetailsLoadable.state === "loading") {
@@ -32,7 +32,7 @@ export default function UserMainPage() {
   }
 
   else if (userDetailsLoadable.state === "hasError") {
-    if (userDetailsLoadable.contents.message === INVALID_AUTH_TOKEN) {
+    if (userDetailsLoadable.contents.message === INVALID_AUTH_TOKEN || userDetailsLoadable.contents.message === NO_AUTH_TOKEN) {
       changeRoute(navigate, ROUTE_LOGIN);
       window.location.reload();
     }

@@ -88,7 +88,7 @@ export default function EditUser({ setShowEditUser }) {
 
       {loading && <div className="fixed inset-0 bg-opacity-50 z-50 flex justify-center items-center bg-black">
         <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-      </div>}
+      </div>} 
     </div>
   )
 }
