@@ -10,7 +10,7 @@ export default function PlaylistMainPage() {
 
   return (
     <div className="flex flex-col items-center gap-5 px-2 pt-20 py-10">
-      <input type="text" name="searchTag" placeholder="What's on your mind?" className="outline-none w-[90%] h-12 bg-gray text-frostWhite font-bold rounded-full my-2 p-7 capitalize" onChange={handleSearchTagInput} />
+      <input type="text" name="searchTag" placeholder="Try typing a subject..." className="outline-none w-[90%] h-12 bg-midDark font-bold rounded-full my-2 p-7" onChange={handleSearchTagInput} />
       <PlaylistContent search={searchTag} />
     </div>
   )

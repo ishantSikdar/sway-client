@@ -1,7 +1,8 @@
 import { NO_AUTH_TOKEN } from "../constants/message";
+import { getBearerToken } from "./localStorageUtil";
 
 export const getAuthToken = () => {
-    const token = localStorage.getItem('auth');
+    const token = getBearerToken();
 
     if (token) {
         return token;
