@@ -32,6 +32,7 @@ export default function UserMainPage() {
   }
 
   else if (userDetailsLoadable.state === "hasError") {
+    console.log(userDetailsLoadable.contents.message)
     if (userDetailsLoadable.contents.message === INVALID_AUTH_TOKEN || userDetailsLoadable.contents.message === NO_AUTH_TOKEN) {
       changeRoute(navigate, ROUTE_LOGIN);
       window.location.reload();

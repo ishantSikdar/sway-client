@@ -6,6 +6,7 @@ export const getAuthToken = () => {
     if (token) {
         return token;
     } else {
+        console.log("No auth token available");
         throw new Error(NO_AUTH_TOKEN);
     }
 }

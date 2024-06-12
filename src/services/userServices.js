@@ -29,7 +29,7 @@ export const sendUserDetailsRequest = async () => {
 
     } catch (error) {
         console.error(`User Details request failed, ${error.message}`);
-        throw new Error(`User Details request failed, ${error.message}`);
+        throw new Error(`${error.message}`);
     }
 }
 
@@ -41,6 +41,6 @@ export const sendEditUserDetailsRequest = async (userDetails) => {
     
     } catch (error) {
         console.error(`Edit User Details request failed, ${error.message}`);
-        throw new Error(`Edit User Details request failed, ${error.message}`);
+        throw new Error(`${error.message}`);
     }
 }
