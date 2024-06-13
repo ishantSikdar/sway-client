@@ -1,15 +1,21 @@
 import { faCancel, faCheck, faCircleStop, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRecoilState } from "recoil";
+import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
 
-export default function StopTimer({ toggleTimerByBreak, setShowStop, finishFocus, restart, showStopDuration }) {
+export default function StopTimer({ pause, finish, restart }) {
+  
+  const [timerData, setTimerData] = useRecoilState(timerDataAtom);
+  const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
+  
   return (
     <div className='fixed inset-0 z-40 flex flex-col gap-2 justify-center items-center bg-black bg-opacity-50'>
 
 
       <div className='bg-coal py-10 px-5 rounded-md relative'>
-        <h1 className="text-center mb-4">Screen will close in {showStopDuration} seconds</h1>
+        <h1 className="text-center mb-4">Screen will close in {timerData.showStopDuration} seconds</h1>
         <button
-          onClick={toggleTimerByBreak}
+          onClick={pause}
           className='w-20'
         >
           <FontAwesomeIcon icon={faCircleStop} className='text-4xl' />
@@ -18,7 +24,7 @@ export default function StopTimer({ toggleTimerByBreak, setShowStop, finishFocus
 
         <button
           className='w-20'
-          onClick={finishFocus}
+          onClick={finish}
         >
           <FontAwesomeIcon icon={faCheck} className='text-4xl' />
           <p>Finish</p>
@@ -34,7 +40,10 @@ export default function StopTimer({ toggleTimerByBreak, setShowStop, finishFocus
 
         <button
           className='w-20'
-          onClick={() => setShowStop(false)}
+          onClick={() => setTimerFlags((prevFlags) => ({
+            ...prevFlags,
+            showStop: false
+          }))}
         >
           <FontAwesomeIcon icon={faCancel} className='text-4xl' />
           <p>Cancel</p>

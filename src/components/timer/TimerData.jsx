@@ -1,16 +1,30 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatTimeToHHMMSS, gradeFocusLevel } from "../../utils/timeUtil";
 import { faA, faB, faC, faD, faE, faF, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
+import { useRecoilState } from "recoil";
 
-export default function TimerData({ goalTimeSeconds, setShowEditGoalTime, recentFocus, timeElapsed, breakDuration }) {
-  const efficiencyFactor = (timeElapsed / breakDuration) * 100;
+export default function TimerData() {
+
+  const [timerData, setTimerData] = useRecoilState(timerDataAtom);
+  const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
+
+  const efficiencyFactor = (timerData.timeElapsed / timerData.breakSecondsElapsed) * 100;
   const grade = gradeFocusLevel(efficiencyFactor);
+
+
+  const openGoalTimeEditScreen = () => {
+    setTimerFlags((prevFlags) => ({
+      ...prevFlags,
+      showEditGoalTime: true,
+    }));
+  }
 
   return (
     <div className="px-2 py-4 flex justify-evenly h-full text-center text-xl">
-      <button onClick={() => setShowEditGoalTime(true)} className='flex flex-col justify-center w-[35%] items-center'>
+      <button onClick={openGoalTimeEditScreen} className='flex flex-col justify-center w-[35%] items-center'>
         <p className='text-xs'>Goal Time</p>
-        <p className='py-2 text-frostWhite'>{formatTimeToHHMMSS(goalTimeSeconds)}</p>
+        <p className='py-2 text-frostWhite'>{formatTimeToHHMMSS(timerData.goalTimeSeconds)}</p>
       </button>
       <div className='flex items-center gap-4'>
         <div className='h-[30%] w-[0.1pt] bg-white'>{/* Middle White Bar */}</div>
@@ -30,7 +44,7 @@ export default function TimerData({ goalTimeSeconds, setShowEditGoalTime, recent
       </div>
       <div className='flex flex-col justify-center w-[35%]'>
         <p className='text-xs'>Recent Focus</p>
-        <p className='py-2 text-frostWhite'>{formatTimeToHHMMSS(recentFocus)}</p>
+        <p className='py-2 text-frostWhite'>{formatTimeToHHMMSS(timerData.recentFocus)}</p>
       </div>
     </div>
   )

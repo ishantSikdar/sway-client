@@ -7,62 +7,91 @@ import { getGoalTime } from '../../utils/localStorageUtil';
 import EditGoalTime from '../../components/timer/EditGoalTime';
 import TimerData from '../../components/timer/TimerData';
 import StopTimer from '../../components/timer/StopTimer';
+import { useRecoilState } from 'recoil';
+import { timerDataAtom, timerFlagsAtom } from '../../recoil/atoms/timerAtoms';
 
 export default function FocusTimerMainPage() {
   // counters
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [breaks, setBreaks] = useState(0);
-  const [breakSecondsElapsed, setBreakSecondsElapsed] = useState(0);
-  const [completionPercent, setCompletionPercent] = useState(0);
-  const [recentFocus, setRecentFocus] = useState(0);
-  const [showStopDuration, setShowStopDuration] = useState(5);
-  const [goalTimeSeconds, setGoalTimeSeconds] = useState(getGoalTime() ? parseInt(getGoalTime()) : 3600);
+  // const [timeElapsed, setTimeElapsed] = useState(0);
+  // const [breaks, setBreaks] = useState(0);
+  // const [breakSecondsElapsed, setBreakSecondsElapsed] = useState(0);
+  // const [completionPercent, setCompletionPercent] = useState(0);
+  // const [recentFocus, setRecentFocus] = useState(0);
+  // const [showStopDuration, setShowStopDuration] = useState(5);
+  // const [goalTimeSeconds, setGoalTimeSeconds] = useState(getGoalTime() ? parseInt(getGoalTime()) : 3600);
 
   // flags
-  const [playing, setPlaying] = useState(false);
-  const [showStop, setShowStop] = useState(false);
-  const [showEditGoalTime, setShowEditGoalTime] = useState(false);
+  // const [playing, setPlaying] = useState(false);
+  // const [showStop, setShowStop] = useState(false);
+  // const [showEditGoalTime, setShowEditGoalTime] = useState(false);
+
+  const [timerData, setTimerData] = useRecoilState(timerDataAtom);
+  const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
 
   const finishFocusTimer = () => {
-    setPlaying(false);
-    setTimeElapsed(goalTimeSeconds);
-    setCompletionPercent(100);
-    setShowStop(false);
+    setTimerFlags((prevFlags) => ({
+      ...prevFlags,
+      playing: false,
+      showStop: false,
+    }));
+
+    setTimerData((prevData) => ({
+      ...prevData,
+      timeElapsed: timerData.goalTimeSeconds,
+      completionPercent: 100,
+    }));
   }
 
   const resetFocusTimer = () => {
-    setPlaying(false);
-    setTimeElapsed(0);
-    setBreaks(0);
-    setBreakSecondsElapsed(0);
-    setCompletionPercent(0);
-    setRecentFocus(0);
-    setShowStop(false);
+    setTimerFlags((prevFlags) => ({
+      ...prevFlags,
+      playing: false,
+      showStop: false,
+    }));
+
+    setTimerData((prevData) => ({
+      ...prevData,
+      timeElapsed: 0,
+      breaks: 0,
+      breakSecondsElapsed: 0,
+      completionPercent: 0,
+      recentFocus: 0,
+    }));
   }
 
   useEffect(() => {
     const timeElapsedInterval = setInterval(() => {
-      if (playing) {
-        setTimeElapsed(seconds => seconds + 1);
-        setRecentFocus(seconds => seconds + 1);
+      if (timerFlags.playing) {
+        setTimerData((prevData) => ({
+          ...prevData,
+          timeElapsed: prevData.timeElapsed + 1,
+          recentFocus: prevData.recentFocus + 1,
+        }));
       }
     }, 1 * 1000);
 
-    setCompletionPercent((timeElapsed / goalTimeSeconds) * 100);
+    setTimerData((prevData) => ({
+      ...prevData,
+      completionPercent: (timerData.timeElapsed / timerData.goalTimeSeconds) * 100,
+    }))
 
     return () => {
       clearInterval(timeElapsedInterval);
     };
-  }, [playing, goalTimeSeconds, timeElapsed]);
+  }, [timerFlags.playing, timerData.goalTimeSeconds, timerData.timeElapsed]);
+
 
   useEffect(() => {
     const breakTimeElapsedInterval = setInterval(() => {
-      if (!playing && timeElapsed > 0) {
-        setBreakSecondsElapsed(seconds => seconds + 1);
+      if (!timerFlags.playing && timerFlags.timeElapsed > 0) {
+        setTimerData((prevData) => ({
+          ...prevData,
+          breakSecondsElapsed: prevData.breakSecondsElapsed + 1,
+        }));
       }
     }, 1 * 1000);
 
-    if (timeElapsed >= goalTimeSeconds) {
+    if (timerData.timeElapsed >= timerData.goalTimeSeconds) {
       clearInterval(breakTimeElapsedInterval);
     }
 
@@ -70,21 +99,34 @@ export default function FocusTimerMainPage() {
       clearInterval(breakTimeElapsedInterval);
     }
 
-  }, [breaks, breakSecondsElapsed]);
+  }, [timerData.breaks, timerData.breakSecondsElapsed]);
 
 
   useEffect(() => {
     let showStopInterval;
 
-    if (showStop) {
+    if (timerFlags.showStop) {
+
       showStopInterval = setInterval(() => {
-        if (showStopDuration <= 1) {
-          setShowStop(false);
-          setShowStopDuration(15);
+        if (timerData.showStopDuration <= 1) {
+          setTimerData((prevData) => ({
+            ...prevData,
+            showStopDuration: 15
+          }));
+
+          setTimerFlags((prevFlag) => ({
+            ...prevFlag,
+            showStop: false,
+          }));
+
           clearInterval(showStopInterval);
 
         } else {
-          setShowStopDuration(duration => duration - 1);
+          setTimerData((prevData) => ({
+            ...prevData,
+            showStopDuration: prevData.showStopDuration - 1,
+          }));
+
         }
       }, 1 * 1000);
     }
@@ -92,24 +134,34 @@ export default function FocusTimerMainPage() {
     return () => {
       clearInterval(showStopInterval);
     }
-  }, [showStop, showStopDuration]);
+  }, [timerFlags.showStop, timerData.showStopDuration]);
 
 
-  const toggleTimerByBreak = () => {
-    if (playing) {
-      setBreaks(breaks => breaks + 1);
-      setRecentFocus(0);
+  const pausePlayTimer = () => {
+    if (timerFlags.playing) {
+      setTimerData((prevData) => ({
+        ...prevData,
+        breaks: prevData.breaks + 1,
+        recentFocus: 0,
+      }));
     }
-    setPlaying(playing => !playing);
-    setShowStop(false);
+
+    setTimerFlags((prevFlags) => ({
+      ...prevFlags,
+      showStop: false,
+      playing: !prevFlags.playing
+    }));
   };
 
   const handleClockToggle = () => {
-    if (!playing) {
-      toggleTimerByBreak();
+    if (!timerFlags.playing) {
+      pausePlayTimer();
 
     } else {
-      setShowStop(true);
+      setTimerFlags((prevFlags) => ({
+        ...prevFlags,
+        showStop: true,
+      }));
     }
   }
 
@@ -131,7 +183,7 @@ export default function FocusTimerMainPage() {
   };
 
   const circleStyle = {
-    background: `conic-gradient(#cdcfd2 ${calculateCompletionDegree(completionPercent)}deg, transparent 0)`,
+    background: `conic-gradient(#cdcfd2 ${calculateCompletionDegree(timerData.completionPercent)}deg, transparent 0)`,
   };
 
   return (
@@ -149,25 +201,25 @@ export default function FocusTimerMainPage() {
           className="z-20 absolute cursor-pointer w-[300px] h-[300px] bg-coal rounded-full"
         >
           <div className="absolute h-full w-full rounded-full flex justify-center items-center opacity-10 text-9xl">
-            {!playing ? <FontAwesomeIcon className='ml-4' icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
+            {!timerData.playing ? <FontAwesomeIcon className='ml-4' icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
           </div>
 
           <div className="z-30 absolute h-full w-full flex flex-col items-center justify-around py-8">
             <div>
-              {calculateRemainingTime(timeElapsed, goalTimeSeconds)}
+              {calculateRemainingTime(timerData.timeElapsed, timerData.goalTimeSeconds)}
             </div>
             <div className="text-5xl font-bold">
-              {formatTimeToHHMMSS(timeElapsed)}
+              {formatTimeToHHMMSS(timerData.timeElapsed)}
             </div>
             <div>
-              Break: {breaks} times
+              Break: {timerData.breaks} times
             </div>
           </div>
         </div>
       </div>
 
-      {showStop && <StopTimer finishFocus={finishFocusTimer} showStopDuration={showStopDuration} toggleTimerByBreak={toggleTimerByBreak} setShowStop={setShowStop} setTimeElapsed={setTimeElapsed} goalTimeSeconds={goalTimeSeconds} restart={resetFocusTimer} />}
-      {showEditGoalTime && <EditGoalTime setGoalTimeSeconds={setGoalTimeSeconds} setShowEditGoalTime={setShowEditGoalTime} />}
+      {timerFlags.showStop && <StopTimer finish={finishFocusTimer} pause={pausePlayTimer} restart={resetFocusTimer} />}
+      {timerFlags.showEditGoalTime && <EditGoalTime />}
 
       <div className="absolute bottom-10 w-[90%] inset h-40 bg-coal rounded-md">
         {/* Upload focus timer data */}
@@ -175,7 +227,7 @@ export default function FocusTimerMainPage() {
           <FontAwesomeIcon icon={faCloudUploadAlt} className='text-3xl my-auto' />
         </div>}
 
-        <TimerData setShowEditGoalTime={setShowEditGoalTime} goalTimeSeconds={goalTimeSeconds} recentFocus={recentFocus} timeElapsed={timeElapsed} breakDuration={breakSecondsElapsed} />
+        <TimerData />
       </div>
     </div>
   );

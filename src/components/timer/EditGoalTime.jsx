@@ -2,57 +2,75 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { hhMMssToSeconds } from "../../utils/timeUtil";
-import { setGoalTime as saveGoalTimeToLocalStorage  } from "../../utils/localStorageUtil";
+import { setGoalTime as saveGoalTimeToLocalStorage } from "../../utils/localStorageUtil";
+import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
-export default function EditGoalTime({ setGoalTimeSeconds, setShowEditGoalTime }) {
+export default function EditGoalTime() {
 
-  const [goalTime, setGoalTime] = useState({
+  const setTimerData = useSetRecoilState(timerDataAtom);
+  const setTimerFlags = useSetRecoilState(timerFlagsAtom);
+
+  const [newGoalTime, setNewGoalTime] = useState({
     "hh": "",
     "mm": "",
     "ss": "",
   });
-  const [showSuccess, setShowSuccess] = useState(false);
+
+  const [showGoalTimeSuccessScreen, setShowGoalTimeSuccessScreen] = useState(false);
 
   const handleInput = (event) => {
     const { name, value } = event.target;
 
-    setGoalTime({
-      ...goalTime,
+    setNewGoalTime({
+      ...newGoalTime,
       [name]: value
     });
   }
 
   const handleUpdateGoalTime = () => {
-    if (goalTime.hh === "") {
-      goalTime.hh = 0;
+    if (newGoalTime.hh === "") {
+      newGoalTime.hh = 0;
     }
-    if (goalTime.ss === "") {
-      goalTime.ss = 0;
+    if (newGoalTime.ss === "") {
+      newGoalTime.ss = 0;
     }
-    if (goalTime.mm === "") {
-      goalTime.mm = 0;
+    if (newGoalTime.mm === "") {
+      newGoalTime.mm = 0;
     }
 
-    const timeInSeconds = hhMMssToSeconds(goalTime.hh, goalTime.mm, goalTime.ss);
+    const timeInSeconds = hhMMssToSeconds(newGoalTime.hh, newGoalTime.mm, newGoalTime.ss);
     saveGoalTimeToLocalStorage(timeInSeconds);
-    setGoalTimeSeconds(timeInSeconds);
-    setShowSuccess(true);
+
+    setTimerData((prevData) => ({
+      ...prevData,
+      goalTimeSeconds: timeInSeconds,
+    }));
+
+    setShowGoalTimeSuccessScreen(true);
+  }
+
+  const closeEditGoalTimeWindow = () => {
+    setTimerFlags((prevData) => ({
+      ...prevData,
+      showEditGoalTime: false
+    }))
   }
 
   return <div className='z-30 fixed inset-0 flex justify-center items-center bg-opacity-50 bg-black'>
-    
-    {!showSuccess ? (<div className='relative bg-coal rounded-md p-10'>
+
+    {!showGoalTimeSuccessScreen ? (<div className='relative bg-coal rounded-md p-10'>
       <button
-        onClick={() => setShowEditGoalTime(false)}
+        onClick={closeEditGoalTimeWindow}
         className='absolute right-4 top-4 text-xl'
       >
         <FontAwesomeIcon icon={faX} />
       </button>
       <h2 className='text-center mb-5 text-xl'>New Goal Time</h2>
       <div className='flex gap-4'>
-        <input type="number" name="hh" value={goalTime.hh} onChange={handleInput} max={23} placeholder='HH' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
-        <input type="number" name="mm" value={goalTime.mm} onChange={handleInput} max={59} placeholder='MM' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
-        <input type="number" name="ss" value={goalTime.ss} onChange={handleInput} max={59} placeholder='SS' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
+        <input type="number" name="hh" value={newGoalTime.hh} onChange={handleInput} max={23} placeholder='HH' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
+        <input type="number" name="mm" value={newGoalTime.mm} onChange={handleInput} max={59} placeholder='MM' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
+        <input type="number" name="ss" value={newGoalTime.ss} onChange={handleInput} max={59} placeholder='SS' className='w-16 rounded-md h-16 outline-none bg-midDark text-center text-2xl' />
       </div>
 
       <button
@@ -64,7 +82,7 @@ export default function EditGoalTime({ setGoalTimeSeconds, setShowEditGoalTime }
 
     </div>) : (<div className="rounded-md p-10 bg-coal">
       <p>Goal Time Updated!</p>
-      <button onClick={() => setShowEditGoalTime(false)} className="bg-blue w-full rounded-md py-2 mt-4">OK</button>
+      <button onClick={closeEditGoalTimeWindow} className="bg-blue w-full rounded-md py-2 mt-4">OK</button>
     </div>)}
   </div>
 }
