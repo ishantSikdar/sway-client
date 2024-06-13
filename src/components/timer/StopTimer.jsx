@@ -1,7 +1,7 @@
 import { faCancel, faCheck, faCircleStop, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function StopTimer({ toggleTimerByBreak, setShowStop, setTimeElapsed, goalTimeSeconds, restart, showStopDuration }) {
+export default function StopTimer({ toggleTimerByBreak, setShowStop, finishFocus, restart, showStopDuration }) {
   return (
     <div className='fixed inset-0 z-40 flex flex-col gap-2 justify-center items-center bg-black bg-opacity-50'>
 
@@ -18,10 +18,7 @@ export default function StopTimer({ toggleTimerByBreak, setShowStop, setTimeElap
 
         <button
           className='w-20'
-          onClick={() => {
-            setTimeElapsed(goalTimeSeconds);
-            setShowStop(false)
-          }}
+          onClick={finishFocus}
         >
           <FontAwesomeIcon icon={faCheck} className='text-4xl' />
           <p>Finish</p>

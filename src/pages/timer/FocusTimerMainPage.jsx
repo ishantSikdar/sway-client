@@ -23,8 +23,15 @@ export default function FocusTimerMainPage() {
   const [showStop, setShowStop] = useState(false);
   const [showEditGoalTime, setShowEditGoalTime] = useState(false);
 
+  const finishFocusTimer = () => {
+    setPlaying(false);
+    setTimeElapsed(goalTimeSeconds);
+    setCompletionPercent(100);
+    setShowStop(false);
+  }
+
   const resetFocusTimer = () => {
-    setPlaying(0);
+    setPlaying(false);
     setTimeElapsed(0);
     setBreaks(0);
     setBreakSecondsElapsed(0);
@@ -42,11 +49,6 @@ export default function FocusTimerMainPage() {
     }, 1 * 1000);
 
     setCompletionPercent((timeElapsed / goalTimeSeconds) * 100);
-
-    if (timeElapsed >= goalTimeSeconds) {  // focus time complete
-      // clearInterval(timeElapsedInterval)
-
-    }
 
     return () => {
       clearInterval(timeElapsedInterval);
@@ -82,7 +84,6 @@ export default function FocusTimerMainPage() {
           clearInterval(showStopInterval);
 
         } else {
-          console.log(showStopDuration);
           setShowStopDuration(duration => duration - 1);
         }
       }, 1 * 1000);
@@ -165,7 +166,7 @@ export default function FocusTimerMainPage() {
         </div>
       </div>
 
-      {showStop && <StopTimer showStopDuration={showStopDuration} toggleTimerByBreak={toggleTimerByBreak} setShowStop={setShowStop} setTimeElapsed={setTimeElapsed} goalTimeSeconds={goalTimeSeconds} restart={resetFocusTimer} />}
+      {showStop && <StopTimer finishFocus={finishFocusTimer} showStopDuration={showStopDuration} toggleTimerByBreak={toggleTimerByBreak} setShowStop={setShowStop} setTimeElapsed={setTimeElapsed} goalTimeSeconds={goalTimeSeconds} restart={resetFocusTimer} />}
       {showEditGoalTime && <EditGoalTime setGoalTimeSeconds={setGoalTimeSeconds} setShowEditGoalTime={setShowEditGoalTime} />}
 
       <div className="absolute bottom-10 w-[90%] inset h-40 bg-coal rounded-md">
