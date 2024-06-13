@@ -34,3 +34,11 @@ export function gradeFocusLevel(focusFactor) {
         return 'F'
     }
 }
+
+export function calculateRemainingTime(timeElapsed, goalTime) {
+    if (timeElapsed > goalTime) {
+        return "00:00:00";
+    }
+
+    return formatTimeToHHMMSS(goalTime - timeElapsed);
+}

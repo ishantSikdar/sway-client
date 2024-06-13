@@ -1,7 +1,7 @@
 import { faPause, faPlay, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { formatTimeToHHMMSS } from '../../utils/timeUtil';
+import { calculateRemainingTime, formatTimeToHHMMSS } from '../../utils/timeUtil';
 import { getAuthToken } from '../../utils/authUtil';
 import { getGoalTime } from '../../utils/localStorageUtil';
 import EditGoalTime from '../../components/timer/EditGoalTime';
@@ -15,7 +15,7 @@ export default function FocusTimerMainPage() {
   const [breakSecondsElapsed, setBreakSecondsElapsed] = useState(0);
   const [completionPercent, setCompletionPercent] = useState(0);
   const [recentFocus, setRecentFocus] = useState(0);
-  const [showStopDuration, setShowStopDuration] = useState(15);
+  const [showStopDuration, setShowStopDuration] = useState(5);
   const [goalTimeSeconds, setGoalTimeSeconds] = useState(getGoalTime() ? parseInt(getGoalTime()) : 3600);
 
   // flags
@@ -44,7 +44,7 @@ export default function FocusTimerMainPage() {
     setCompletionPercent((timeElapsed / goalTimeSeconds) * 100);
 
     if (timeElapsed >= goalTimeSeconds) {  // focus time complete
-      clearInterval(timeElapsedInterval)
+      // clearInterval(timeElapsedInterval)
 
     }
 
@@ -123,6 +123,9 @@ export default function FocusTimerMainPage() {
   }
 
   const calculateCompletionDegree = (percent) => {
+    if (percent > 100) {
+      percent = 100;
+    }
     return (percent / 100) * 360;
   };
 
@@ -144,13 +147,13 @@ export default function FocusTimerMainPage() {
           onClick={handleClockToggle}
           className="z-20 absolute cursor-pointer w-[300px] h-[300px] bg-coal rounded-full"
         >
-          <div className="absolute h-full w-full rounded-full flex justify-center items-center opacity-30 text-9xl">
+          <div className="absolute h-full w-full rounded-full flex justify-center items-center opacity-10 text-9xl">
             {!playing ? <FontAwesomeIcon className='ml-4' icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
           </div>
 
           <div className="z-30 absolute h-full w-full flex flex-col items-center justify-around py-8">
             <div>
-              {formatTimeToHHMMSS(goalTimeSeconds - timeElapsed)}
+              {calculateRemainingTime(timeElapsed, goalTimeSeconds)}
             </div>
             <div className="text-5xl font-bold">
               {formatTimeToHHMMSS(timeElapsed)}
