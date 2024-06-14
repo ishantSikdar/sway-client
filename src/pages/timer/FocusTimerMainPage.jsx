@@ -1,29 +1,15 @@
 import { faPause, faPlay, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
 import { calculateRemainingTime, formatTimeToHHMMSS } from '../../utils/timeUtil';
-import { getAuthToken } from '../../utils/authUtil';
-import { getGoalTime } from '../../utils/localStorageUtil';
+import { checkLoggedIn, getAuthToken } from '../../utils/authUtil';
 import EditGoalTime from '../../components/timer/EditGoalTime';
 import TimerData from '../../components/timer/TimerData';
 import StopTimer from '../../components/timer/StopTimer';
 import { useRecoilState } from 'recoil';
 import { timerDataAtom, timerFlagsAtom } from '../../recoil/atoms/timerAtoms';
+import { calculateCompletionDegreeByPercent } from '../../utils/pageUtil';
 
 export default function FocusTimerMainPage() {
-  // counters
-  // const [timeElapsed, setTimeElapsed] = useState(0);
-  // const [breaks, setBreaks] = useState(0);
-  // const [breakSecondsElapsed, setBreakSecondsElapsed] = useState(0);
-  // const [completionPercent, setCompletionPercent] = useState(0);
-  // const [recentFocus, setRecentFocus] = useState(0);
-  // const [showStopDuration, setShowStopDuration] = useState(5);
-  // const [goalTimeSeconds, setGoalTimeSeconds] = useState(getGoalTime() ? parseInt(getGoalTime()) : 3600);
-
-  // flags
-  // const [playing, setPlaying] = useState(false);
-  // const [showStop, setShowStop] = useState(false);
-  // const [showEditGoalTime, setShowEditGoalTime] = useState(false);
 
   const [timerData, setTimerData] = useRecoilState(timerDataAtom);
   const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
@@ -59,84 +45,6 @@ export default function FocusTimerMainPage() {
     }));
   }
 
-  useEffect(() => {
-    const timeElapsedInterval = setInterval(() => {
-      if (timerFlags.playing) {
-        setTimerData((prevData) => ({
-          ...prevData,
-          timeElapsed: prevData.timeElapsed + 1,
-          recentFocus: prevData.recentFocus + 1,
-        }));
-      }
-    }, 1 * 1000);
-
-    setTimerData((prevData) => ({
-      ...prevData,
-      completionPercent: (timerData.timeElapsed / timerData.goalTimeSeconds) * 100,
-    }))
-
-    return () => {
-      clearInterval(timeElapsedInterval);
-    };
-  }, [timerFlags.playing, timerData.goalTimeSeconds, timerData.timeElapsed]);
-
-
-  useEffect(() => {
-    const breakTimeElapsedInterval = setInterval(() => {
-      if (!timerFlags.playing && timerFlags.timeElapsed > 0) {
-        setTimerData((prevData) => ({
-          ...prevData,
-          breakSecondsElapsed: prevData.breakSecondsElapsed + 1,
-        }));
-      }
-    }, 1 * 1000);
-
-    if (timerData.timeElapsed >= timerData.goalTimeSeconds) {
-      clearInterval(breakTimeElapsedInterval);
-    }
-
-    return () => {
-      clearInterval(breakTimeElapsedInterval);
-    }
-
-  }, [timerData.breaks, timerData.breakSecondsElapsed]);
-
-
-  useEffect(() => {
-    let showStopInterval;
-
-    if (timerFlags.showStop) {
-
-      showStopInterval = setInterval(() => {
-        if (timerData.showStopDuration <= 1) {
-          setTimerData((prevData) => ({
-            ...prevData,
-            showStopDuration: 15
-          }));
-
-          setTimerFlags((prevFlag) => ({
-            ...prevFlag,
-            showStop: false,
-          }));
-
-          clearInterval(showStopInterval);
-
-        } else {
-          setTimerData((prevData) => ({
-            ...prevData,
-            showStopDuration: prevData.showStopDuration - 1,
-          }));
-
-        }
-      }, 1 * 1000);
-    }
-
-    return () => {
-      clearInterval(showStopInterval);
-    }
-  }, [timerFlags.showStop, timerData.showStopDuration]);
-
-
   const pausePlayTimer = () => {
     if (timerFlags.playing) {
       setTimerData((prevData) => ({
@@ -165,25 +73,8 @@ export default function FocusTimerMainPage() {
     }
   }
 
-  const checkLoggedIn = () => {
-    try {
-      getAuthToken();
-      return true;
-
-    } catch (error) {
-      return false;
-    }
-  }
-
-  const calculateCompletionDegree = (percent) => {
-    if (percent > 100) {
-      percent = 100;
-    }
-    return (percent / 100) * 360;
-  };
-
   const circleStyle = {
-    background: `conic-gradient(#cdcfd2 ${calculateCompletionDegree(timerData.completionPercent)}deg, transparent 0)`,
+    background: `conic-gradient(#cdcfd2 ${calculateCompletionDegreeByPercent(timerData.completionPercent)}deg, transparent 0)`,
   };
 
   return (
@@ -219,7 +110,7 @@ export default function FocusTimerMainPage() {
       </div>
 
       {timerFlags.showStop && <StopTimer finish={finishFocusTimer} pause={pausePlayTimer} restart={resetFocusTimer} />}
-      {timerFlags.showEditGoalTime && <EditGoalTime />}
+      {timerFlags.showEditGoalTime && <EditGoalTime reset={resetFocusTimer} />}
 
       <div className="absolute bottom-10 w-[90%] inset h-40 bg-coal rounded-md">
         {/* Upload focus timer data */}

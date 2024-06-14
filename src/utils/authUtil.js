@@ -11,3 +11,13 @@ export const getAuthToken = () => {
         throw new Error(NO_AUTH_TOKEN);
     }
 }
+
+export const checkLoggedIn = () => {
+    try {
+        getAuthToken();
+        return true;
+
+    } catch (error) {
+        return false;
+    }
+}

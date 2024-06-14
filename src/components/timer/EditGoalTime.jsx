@@ -4,9 +4,9 @@ import { useState } from "react";
 import { hhMMssToSeconds } from "../../utils/timeUtil";
 import { setGoalTime as saveGoalTimeToLocalStorage } from "../../utils/localStorageUtil";
 import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
-export default function EditGoalTime() {
+export default function EditGoalTime({ reset }) {
 
   const setTimerData = useSetRecoilState(timerDataAtom);
   const setTimerFlags = useSetRecoilState(timerFlagsAtom);
@@ -47,6 +47,7 @@ export default function EditGoalTime() {
       goalTimeSeconds: timeInSeconds,
     }));
 
+    reset();
     setShowGoalTimeSuccessScreen(true);
   }
 
