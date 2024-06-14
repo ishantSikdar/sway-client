@@ -1,90 +1,39 @@
 import { faPause, faPlay, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { calculateRemainingTime, formatTimeToHHMMSS } from '../../utils/timeUtil';
-import { checkLoggedIn, getAuthToken } from '../../utils/authUtil';
+import { checkLoggedIn } from '../../utils/authUtil';
 import EditGoalTime from '../../components/timer/EditGoalTime';
 import TimerData from '../../components/timer/TimerData';
 import StopTimer from '../../components/timer/StopTimer';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { timerDataAtom, timerFlagsAtom } from '../../recoil/atoms/timerAtoms';
 import { calculateCompletionDegreeByPercent } from '../../utils/pageUtil';
+import { useTimer } from '../../services/timerServices';
 
 export default function FocusTimerMainPage() {
 
-  const [timerData, setTimerData] = useRecoilState(timerDataAtom);
-  const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
-
-  const finishFocusTimer = () => {
-    setTimerFlags((prevFlags) => ({
-      ...prevFlags,
-      playing: false,
-      showStop: false,
-    }));
-
-    setTimerData((prevData) => ({
-      ...prevData,
-      timeElapsed: timerData.goalTimeSeconds,
-      completionPercent: 100,
-    }));
-  }
-
-  const resetFocusTimer = () => {
-    setTimerFlags((prevFlags) => ({
-      ...prevFlags,
-      playing: false,
-      showStop: false,
-    }));
-
-    setTimerData((prevData) => ({
-      ...prevData,
-      timeElapsed: 0,
-      breaks: 0,
-      breakSecondsElapsed: 0,
-      completionPercent: 0,
-      recentFocus: 0,
-    }));
-  }
-
-  const pausePlayTimer = () => {
-    if (timerFlags.playing) {
-      setTimerData((prevData) => ({
-        ...prevData,
-        breaks: prevData.breaks + 1,
-        recentFocus: 0,
-      }));
-    }
-
-    setTimerFlags((prevFlags) => ({
-      ...prevFlags,
-      showStop: false,
-      playing: !prevFlags.playing
-    }));
-  };
-
-  const handleClockToggle = () => {
-    if (!timerFlags.playing) {
-      pausePlayTimer();
-
-    } else {
-      setTimerFlags((prevFlags) => ({
-        ...prevFlags,
-        showStop: true,
-      }));
-    }
-  }
-
-  const circleStyle = {
-    background: `conic-gradient(#cdcfd2 ${calculateCompletionDegreeByPercent(timerData.completionPercent)}deg, transparent 0)`,
-  };
+  const timerData = useRecoilValue(timerDataAtom);
+  const timerFlags = useRecoilValue(timerFlagsAtom);
+  const { handleClockToggle, pausePlayTimer, finishFocusTimer, resetFocusTimer } = useTimer();
 
   return (
     <div className="pt-16 h-screen relative flex flex-col items-center">
 
-      <h1 className="my-10 text-lg text-center font-bold bg-coal w-max mx-auto px-4 py-2 rounded-full">&gt; Focus Timer</h1>
+      <h1 className="my-10 text-lg text-center font-bold bg-coal w-max mx-auto px-4 py-2 rounded-full">
+        &gt; Focus Timer
+      </h1>
 
       <div className='flex justify-center items-center'>
-        <div style={circleStyle} className='z-10 cursor-pointer w-[310px] h-[310px] rounded-full '></div>
 
+        {/* Background circular border that shows completion status */}
+        <div
+          style={{
+            background: `conic-gradient(#cdcfd2 ${calculateCompletionDegreeByPercent(timerData.completionPercent)}deg, transparent 0)`,
+          }}
+          className='z-10 cursor-pointer w-[310px] h-[310px] rounded-full '
+        ></div>
+
+        {/* Foreground Timer Div */}
         <div
           role='button'
           tabIndex={0}
