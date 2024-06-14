@@ -21,7 +21,7 @@ export const ROUTE_USER_PAGE = "/user"
 export const ROUTE_PLAYLIST = "/playlist/subjects";
 export const ROUTE_PLAYLIST_SUBJECT = "/playlist/subjects/:id";
 export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/subjects/:subjectName/:topicName";
-export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/videos/:subjectName/:videoId/:videoTitle";
+export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/subjects/videos/:subjectName/:videoId/:videoTitle";
 
 export const ROUTE_GROUPS = "/groups";
 

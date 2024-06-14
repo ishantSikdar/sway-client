@@ -6,6 +6,7 @@ import Footer from './components/common/Footer';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { timerDataAtom, timerFlagsAtom } from './recoil/atoms/timerAtoms';
+import { lastVisitedRouteAtom } from './recoil/atoms/routeAtoms';
 
 function App() {
   const location = useLocation();
@@ -14,6 +15,24 @@ function App() {
 
   const [timerData, setTimerData] = useRecoilState(timerDataAtom);
   const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
+
+  const [lastVisitedRoutes, setLastVisitedRoutes] = useRecoilState(lastVisitedRouteAtom);
+
+  // updates the track of last visited routes
+  useEffect(() => {
+    const currentRoute = location.pathname;
+    const routeKeys = Object.keys(lastVisitedRoutes);
+
+    routeKeys.forEach((route) => {
+      if (currentRoute.startsWith(route)) {
+        setLastVisitedRoutes((prevRoutes) => ({
+          ...prevRoutes,
+          [route]: currentRoute
+        }))
+      }
+    });
+
+  }, [location.pathname])
   
   useEffect(() => {
     const timeElapsedInterval = setInterval(() => {
