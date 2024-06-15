@@ -1,10 +1,12 @@
 import { useRecoilValue } from "recoil"
 import { topicVideosAtomFamily } from "../../recoil/atoms/playlistAtoms"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import VideoCard from "../../components/playlist/VideoCard";
 import { ROUTE_PLAYLIST_SUBJECT_VIDEOS } from "../../constants/routes";
 
 export default function TopicPageData({ subjectName, topicName }) {
+
+  const { id } = useParams();
   const navigate = useNavigate();
   const videoDataList = useRecoilValue(topicVideosAtomFamily(`${topicName} in ${subjectName}`));
   console.log(videoDataList);
@@ -13,11 +15,8 @@ export default function TopicPageData({ subjectName, topicName }) {
     const videoId = event.currentTarget.getAttribute('data-id');
     const videoTitle = event.currentTarget.getAttribute('data-title');
 
-    navigate(`${ROUTE_PLAYLIST_SUBJECT_VIDEOS
-      .replace(":subjectName", subjectName)
-      .replace(":videoId", videoId)
-      .replace(":videoTitle", videoTitle)
-    }`);
+    const url = `${ROUTE_PLAYLIST_SUBJECT_VIDEOS.replace(":id", id)}`
+    navigate(`${url}?subjectName=${encodeURIComponent(subjectName)}&videoId=${encodeURIComponent(videoId)}&videoTitle=${encodeURIComponent(videoTitle)}`);
   }
 
   return (

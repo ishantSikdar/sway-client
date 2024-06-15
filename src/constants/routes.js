@@ -16,12 +16,12 @@ import VideoPage from "../pages/playlist/VideoPage";
 export const ROUTE_DEFAULT = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
-export const ROUTE_USER_PAGE = "/user"
+export const ROUTE_USER_PAGE = "/user";
 
-export const ROUTE_PLAYLIST = "/playlist/subjects";
-export const ROUTE_PLAYLIST_SUBJECT = "/playlist/subjects/:id";
-export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/subjects/:subjectName/:topicName";
-export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/subjects/videos/:subjectName/:videoId/:videoTitle";
+export const ROUTE_PLAYLIST = "/playlist";
+export const ROUTE_PLAYLIST_SUBJECT = "/playlist/:id";
+export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/:id/videoPage";
+export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/:id/otherVideos";
 
 export const ROUTE_GROUPS = "/groups";
 

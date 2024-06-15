@@ -18,3 +18,21 @@ export const calculateCompletionDegreeByPercent = (percent) => {
     }
     return (percent / 100) * 360;
 };
+
+export const trimRouteDescending = (route) => {
+    // Remove trailing slash if it exists
+    if (route.endsWith('/')) {
+      route = route.slice(0, -1);
+    }
+    
+    // Find the index of the last '/'
+    const lastSlashIndex = route.lastIndexOf('/');
+    
+    // If '/' is not found, return the original string
+    if (lastSlashIndex === -1) {
+      return route;
+    }
+    
+    // Return the substring up to the last '/'
+    return route.substring(0, lastSlashIndex);
+  }

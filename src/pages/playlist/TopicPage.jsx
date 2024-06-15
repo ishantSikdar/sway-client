@@ -1,11 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRecoilValueLoadable } from "recoil";
 import { topicVideosAtomFamily } from "../../recoil/atoms/playlistAtoms";
 import TopicPageData from "./TopicPageData";
 import VideoPageSkeleton from "./VideoPageSkeleton";
 
 export default function TopicPage() {
-  const { subjectName, topicName } = useParams();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
+  const subjectName = params.get("subjectName");
+  const topicName = params.get("topicName");
+
   const videoListLoadable = useRecoilValueLoadable(topicVideosAtomFamily(`${topicName} in ${subjectName}`));
 
   if (videoListLoadable.state === "hasValue") {

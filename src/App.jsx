@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { lastVisitedRouteAtom } from './recoil/atoms/routeAtoms';
 import TimerOverlay from './components/common/TimerOverlay';
+import PreviousPageButton from './components/common/PreviousPageButton';
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
   return (
     <div className='font-mukta bg-black text-white'>
       {insideApp && <NavBar />}
+      <PreviousPageButton />
       <Routes>
         {APP_ROUTES.map((route) => (
           <Route path={route.path} element={<route.element />} key={route.id} />

@@ -8,9 +8,10 @@ export default function SubjectPageData({ id }) {
   const subject = useRecoilValue(subjectAtomFamily(id));
 
   const sendToTopicPage = (event) => {
-    navigate(`${ROUTE_PLAYLIST_SUBJECT_TOPIC.replace(":subjectName", subject.name).replace(":topicName", event.target.value)}`);
+    const url = `${ROUTE_PLAYLIST_SUBJECT_TOPIC.replace(":id", id)}`;
+    navigate(`${url}?subjectName=${encodeURIComponent(subject.name)}&topicName=${encodeURIComponent(event.target.value)}`);
   }
-
+  
   return (
     <div className="pt-16">
       <div

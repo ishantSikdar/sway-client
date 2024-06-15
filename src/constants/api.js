@@ -1,5 +1,5 @@
-// export const API_BASE_URL = "http://localhost:3000";
-export const API_BASE_URL = "https://sway-express.vercel.app"
+export const API_BASE_URL = "http://localhost:3000";
+// export const API_BASE_URL = "https://sway-express.vercel.app"
 
 export const API_URI_USER_LOGIN = "/user/signin";
 export const API_URI_USER_SIGNUP = "/user/signup"; 
