@@ -11,13 +11,14 @@ import PreviousPageButton from './components/common/PreviousPageButton';
 function App() {
   const location = useLocation();
   const [lastVisitedRoutes, setLastVisitedRoutes] = useRecoilState(lastVisitedRouteAtom);
+  console.log(lastVisitedRoutes);
 
   const outsideAppRoutes = [ROUTE_SIGNUP, ROUTE_LOGIN];
   const insideApp = !outsideAppRoutes.includes(location.pathname);
 
   // updates the track of last visited routes
   useEffect(() => {
-    const currentRoute = location.pathname;
+    const currentRoute = `${location.pathname}${location.search}`;
     const routeKeys = Object.keys(lastVisitedRoutes);
 
     routeKeys.forEach((route) => {
@@ -25,16 +26,16 @@ function App() {
         setLastVisitedRoutes((prevRoutes) => ({
           ...prevRoutes,
           [route]: currentRoute
-        }))
+        }));
       }
     });
 
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   return (
     <div className='font-mukta bg-black text-white'>
       {insideApp && <NavBar />}
-      <PreviousPageButton />
+      {!Object.keys(lastVisitedRoutes).includes(location.pathname) && <PreviousPageButton />}
       <Routes>
         {APP_ROUTES.map((route) => (
           <Route path={route.path} element={<route.element />} key={route.id} />
