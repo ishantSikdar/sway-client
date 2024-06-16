@@ -3,8 +3,10 @@ import ChatMessage from "../../components/chat/ChatMessage";
 import GroupChatIconButton from "../../components/group/GroupChatIconButton";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function GroupsMainPage() {
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight || 720);
   const chatDivRef = useRef(null);
   const [message, setMessage] = useState("");
 
@@ -14,12 +16,26 @@ export default function GroupsMainPage() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleMessageInput = (event) => {
     setMessage(event.target.value);
   }
 
+  console.log(windowHeight);
+
   return (
-    <div className="flex h-screen pt-16">
+    <div className={`flex pt-16 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <GroupChatIconButton />
         <GroupChatIconButton />
@@ -118,7 +134,7 @@ export default function GroupsMainPage() {
               className="rounded-lg p-4 flex-grow text-lg outline-none bg-light-gray h-full"
             />
             <button className="absolute right-3 bottom-2 z-10">
-              <FontAwesomeIcon icon={faLocationArrow} className="text-3xl rotate-45"/>
+              <FontAwesomeIcon icon={faLocationArrow} className="text-3xl rotate-45" />
             </button>
           </div>
         </div>
