@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'light-gray': '#383a40',
         gray: '#2a2a2a',
         black: "#313338",
         midDark: '#2b2d31',
@@ -24,8 +25,8 @@ export default {
       },
       keyframes: {
         'black-gray-pulse': {
-          '50%': { backgroundColor: '#1e1f22' }, 
-          '0%, 100%': { backgroundColor: '#2a2a2a' }, 
+          '50%': { backgroundColor: '#1e1f22' },
+          '0%, 100%': { backgroundColor: '#2a2a2a' },
         },
       },
     },

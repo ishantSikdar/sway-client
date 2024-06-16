@@ -10,7 +10,7 @@ export default function NavBar() {
   const lastVisitedRoutes = useRecoilValue(lastVisitedRouteAtom);
 
   return (
-    <div className="z-50 fixed top-0 text-frostWhite bg-black opacity-90 w-full px-4 h-16 shadow-md text-3xl flex justify-between items-center">
+    <div className="z-50 fixed top-0 text-frostWhite bg-black opacity-90 w-full px-4 h-16 shadow-xl text-3xl flex justify-between items-center">
       <div className="flex gap-5">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_USER_PAGE])}>
           <FontAwesomeIcon icon={faUser} />
