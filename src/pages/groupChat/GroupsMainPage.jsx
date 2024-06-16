@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function GroupsMainPage() {
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight || 720);
   const chatDivRef = useRef(null);
   const [message, setMessage] = useState("");
 
@@ -16,23 +15,9 @@ export default function GroupsMainPage() {
     }
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowHeight(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const handleMessageInput = (event) => {
     setMessage(event.target.value);
   }
-
-  console.log(windowHeight);
 
   return (
     <div className={`flex pt-16 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
