@@ -104,15 +104,15 @@ export default function GroupsMainPage() {
           <ChatMessage />
         </div>
 
-        <div className="px-4 pb-4 w-full">
-          <div className="w-full rounded-lg h-[50px] flex bg-light-gray">
+        <div className="px-3 pb-4 w-full">
+          <div className="relative w-full rounded-lg h-[50px] flex bg-light-gray">
             <input
               type="text"
               onChange={handleMessageInput}
               placeholder="Message"
               className="rounded-lg p-4 flex-grow text-lg outline-none bg-light-gray h-full"
             />
-            <button className="w-14">
+            <button className="absolute right-3 bottom-2 z-10">
               <FontAwesomeIcon icon={faLocationArrow} className="text-3xl rotate-45"/>
             </button>
           </div>
