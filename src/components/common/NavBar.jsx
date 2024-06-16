@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faBookBookmark, faClock, faPlay, faComments, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBookBookmark, faClock, faPlay, faComments, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { ROUTE_COURSES, ROUTE_FOCUS_TIMER, ROUTE_GROUPS, ROUTE_PLAYLIST, ROUTE_SHORTS, ROUTE_USER_PAGE } from '../../constants/routes';
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
@@ -10,7 +11,7 @@ export default function NavBar() {
   const lastVisitedRoutes = useRecoilValue(lastVisitedRouteAtom);
 
   return (
-    <div className="z-50 fixed top-0 text-frostWhite bg-black opacity-90 w-full px-4 h-16 shadow-xl text-3xl flex justify-between items-center">
+    <div className="z-50 fixed top-0 text-frostWhite bg-black  w-full px-4 h-14 shadow-xl text-3xl flex justify-between items-center">
       <div className="flex gap-5">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_USER_PAGE])}>
           <FontAwesomeIcon icon={faUser} />
@@ -22,7 +23,7 @@ export default function NavBar() {
 
       <div className="flex gap-5">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_PLAYLIST])}>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <FontAwesomeIcon icon={faYoutube} />
         </button>
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_COURSES])}>
           <FontAwesomeIcon icon={faBookBookmark} />

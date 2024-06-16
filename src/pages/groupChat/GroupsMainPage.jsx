@@ -29,22 +29,8 @@ export default function GroupsMainPage() {
   }
 
   return (
-    <div className={`flex pt-16 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
+    <div className={`flex pt-14 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
         <GroupChatIconButton />
         <GroupChatIconButton />
         <GroupChatIconButton />
@@ -55,42 +41,7 @@ export default function GroupsMainPage() {
       </div>
 
       <div className="h-full flex flex-col flex-grow">
-        <div ref={chatDivRef} className="overflow-y-scroll pb-3" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
+        <div ref={chatDivRef} className="overflow-y-scroll pb-3 flex h-full flex-col justify-end" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <ChatMessage />
           <ChatMessage />
           <ChatMessage />

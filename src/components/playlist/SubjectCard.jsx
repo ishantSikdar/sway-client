@@ -11,7 +11,7 @@ export default function SubjectCard({ id, name, thumbnail, desc }) {
   return (
     <button
       onClick={goToSubjectPage}
-      className="bg-gray rounded-md shadow-md flex justify-between w-[90%] h-28 p-3"
+      className="bg-gray shadow-md flex justify-between w-[90%] h-28"
     >
       <div className="h-full aspect-square">
         <img src="/photo.jpg" alt="" className="aspect-square rounded-sm h-full" />

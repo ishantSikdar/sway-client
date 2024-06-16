@@ -9,8 +9,10 @@ export default function PlaylistMainPage() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-5 px-2 pt-20 py-10">
-      <input type="text" name="searchTag" placeholder="Try typing a subject..." className="outline-none w-[90%] h-12 bg-midDark font-bold rounded-full my-2 p-7" onChange={handleSearchTagInput} />
+    <div className="relative flex flex-col items-center gap-5 px-2 pt-20 py-10">
+      <div className="fixed bottom-0 h-24 w-full bg-midDark z-20 rounded-t-md">
+        <input type="text" name="searchTag" placeholder="Try typing a subject..." className="outline-none  bg-light-gray py-4 px-6 rounded-md w-full" onChange={handleSearchTagInput} />
+      </div>
       <PlaylistContent search={searchTag} />
     </div>
   )
