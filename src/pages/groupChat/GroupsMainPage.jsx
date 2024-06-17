@@ -31,13 +31,13 @@ export default function GroupsMainPage() {
   return (
     <div className={`flex pt-14 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <div className="w-full h-[1px] bg-white mt-1 mb-4"></div>
         <CommunityButtons setShowCreateChat={setShowCreateChat} setShowJoinChat={setShowJoinChat} setShowExploreGroups={setShowExploreGroups} />
+        <div className="w-full h-[1px] bg-white mt-4 mb-2"></div>
+        <GroupChatIconButton />
+        <GroupChatIconButton />
+        <GroupChatIconButton />
+        <GroupChatIconButton />
+        <GroupChatIconButton />
       </div>
 
       <div className="h-full flex flex-col flex-grow">
