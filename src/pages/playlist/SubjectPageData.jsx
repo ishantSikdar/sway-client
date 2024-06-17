@@ -6,6 +6,7 @@ import { ROUTE_PLAYLIST_SUBJECT_TOPIC } from "../../constants/routes";
 export default function SubjectPageData({ id }) {
   const navigate = useNavigate();
   const subject = useRecoilValue(subjectAtomFamily(id));
+  console.log(subject)
 
   const sendToTopicPage = (event) => {
     const url = `${ROUTE_PLAYLIST_SUBJECT_TOPIC.replace(":id", id)}`;
@@ -16,7 +17,7 @@ export default function SubjectPageData({ id }) {
     <div className="pt-16">
       <div
         style={{
-          backgroundImage: `url('/photo.jpg')`,
+          backgroundImage: `url('${subject.thumbnailUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
