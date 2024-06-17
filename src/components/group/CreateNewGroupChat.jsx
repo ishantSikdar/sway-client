@@ -1,4 +1,4 @@
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Switch from "react-switch";
@@ -11,6 +11,8 @@ export default function CreateNewGroupChat({ closeWindow }) {
   const navigate = useNavigate();
   const [createCommunityLoading, setCreateCommunityLoading] = useState(false);
   const [showCreateCommunitySuccess, setShowCreateCommunitySuccess] = useState(false);
+  const [createCommunityErrorMessage, setCreateCommunityErrorMessage] = useState('');
+
   const [communityDetails, setCommunityDetails] = useState({
     image: null,
     name: "",
@@ -46,6 +48,8 @@ export default function CreateNewGroupChat({ closeWindow }) {
 
       if (response.status === 200) {
         setShowCreateCommunitySuccess(true);
+      } else {
+        setCreateCommunityErrorMessage(response.data.message);
       }
 
     } catch (error) {
@@ -61,7 +65,7 @@ export default function CreateNewGroupChat({ closeWindow }) {
         <p className="text-center text-sm">Give your new group a personality with a name and an icon. You can always change later.</p>
 
         <label htmlFor="imageUpload" className="cursor-pointer  rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
-          <FontAwesomeIcon icon={faCamera} className="text-4xl" />
+          {!communityDetails.image ? (<FontAwesomeIcon icon={faCamera} className="text-4xl" />) : (<FontAwesomeIcon icon={faCheck} className="text-green-500 text-4xl"/>)}
           <input
             type="file"
             id="imageUpload"
@@ -72,6 +76,7 @@ export default function CreateNewGroupChat({ closeWindow }) {
         </label>
 
         <div className="w-full">
+          <p className="text-red-600 text-center w-full normal-case font-normal">{createCommunityErrorMessage}</p>
           <p className="font-bold uppercase text-sm mb-1 ml-1">Server Name</p>
           <input
             className="outline-none w-full bg-coal h-10 p-5 text-xl rounded-md"

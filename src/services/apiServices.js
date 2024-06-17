@@ -98,7 +98,7 @@ export const postMultipartFormDataAuthenticatedRequest = async (url, formData, t
 
 export const patchAuthenticatedNoOptionsRequest = async (url, token) => {
     try {
-        const response = await axios.patch(url, {
+        const response = await axios.patch(url, null, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         return { status: response.status, data: response.data };
