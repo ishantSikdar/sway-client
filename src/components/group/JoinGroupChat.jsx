@@ -23,9 +23,10 @@ export default function JoinGroupChat({ closeWindow }) {
 
         <div className="text-left w-full">
           <p className="font-bold uppercase mt-3 mb-1">Invites should look like</p>
-          <p className="text-frostWhite">hTKzmak</p>
-          <p className="text-frostWhite">gtk@353</p>
-          <p className="text-frostWhite">EwiT34d</p>
+          <p className="text-frostWhite">B29E72065F</p>
+          <p className="text-frostWhite">A76BA94E6D</p>
+          <p className="text-frostWhite">C83RABZJ5W</p>
+
         </div>
 
       </div>
