@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.4.0",
     "react-router-dom": "^6.23.1",
+    "react-switch": "^7.0.0",
     "recoil": "^0.7.7",
     "swr": "^2.2.5"
   },

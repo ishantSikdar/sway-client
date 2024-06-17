@@ -76,6 +76,7 @@ export const getNoOptionsRequest = async (url) => {
 
 export const postMultipartFormDataAuthenticatedRequest = async (url, formData, token) => {
     try {
+        console.log(formData);
         const response = await axios.post(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
