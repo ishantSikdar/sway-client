@@ -47,7 +47,7 @@ export default function PreviousPageButton() {
     <button
       ref={buttonRef}
       onClick={goToPrevious}
-      className={`fixed rounded-full text-3xl bg-coal border-[0.1pt] border-gray p-3 top-20 left-4 flex justify-center items-center transition-opacity duration-300 ${isVisible ? '' : 'hidden'}`}
+      className={`fixed rounded-full text-xl bg-light-gray border-[0.1pt] border-light-gray p-3 top-20 left-4 flex justify-center items-center transition-opacity duration-300 ${isVisible ? '' : 'hidden'}`}
     >
       <FontAwesomeIcon icon={faArrowLeft} />
     </button>
