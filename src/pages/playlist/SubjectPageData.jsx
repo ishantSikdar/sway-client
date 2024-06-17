@@ -6,7 +6,6 @@ import { ROUTE_PLAYLIST_SUBJECT_TOPIC } from "../../constants/routes";
 export default function SubjectPageData({ id }) {
   const navigate = useNavigate();
   const subject = useRecoilValue(subjectAtomFamily(id));
-  console.log(subject)
 
   const sendToTopicPage = (event) => {
     const url = `${ROUTE_PLAYLIST_SUBJECT_TOPIC.replace(":id", id)}`;

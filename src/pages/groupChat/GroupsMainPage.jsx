@@ -1,21 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ChatMessage from "../../components/chat/ChatMessage";
-import GroupChatIconButton from "../../components/group/GroupChatIconButton";
-import { faCamera, faLocationArrow, faPeopleGroup, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
 import CenterOverlay from "../../components/common/CenterOverlay";
 import CreateNewGroupChat from "../../components/group/CreateNewGroupChat";
 import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";
+import JoinedGroups from "../../components/group/JoinedGroups";
+import { useParams } from "react-router-dom";
+import ChatWindow from "../../components/group/ChatWindow";
 
 export default function GroupsMainPage() {
   const chatDivRef = useRef(null);
-
+  const { gcId } = useParams();
   const [showCreateChat, setShowCreateChat] = useState(false);
   const [showJoinChat, setShowJoinChat] = useState(false);
   const [showExploreGroups, setShowExploreGroups] = useState(false);
-
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -30,26 +30,15 @@ export default function GroupsMainPage() {
 
   return (
     <div className={`flex pt-14 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
+
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <CommunityButtons setShowCreateChat={setShowCreateChat} setShowJoinChat={setShowJoinChat} setShowExploreGroups={setShowExploreGroups} />
         <div className="w-full h-[1px] bg-white mt-4 mb-2"></div>
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
-        <GroupChatIconButton />
+        <JoinedGroups />
       </div>
 
       <div className="h-full flex flex-col flex-grow">
-        <div ref={chatDivRef} className="overflow-y-scroll pb-3 flex h-full flex-col justify-end" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-          <ChatMessage />
-        </div>
+        <ChatWindow chatDivRef={chatDivRef} gcId={gcId} />
 
         <div className="px-3 pb-4 w-full">
           <div className="relative w-full rounded-lg h-[50px] flex bg-light-gray">

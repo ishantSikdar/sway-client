@@ -11,3 +11,4 @@ export const API_URI_PLAYLIST_SUBJECT_TOPIC = "/playlist/subject/topicVideo";
 export const API_URI_COMMUNITY_CREATE_COMMUNITY = "/community/createCommunity";
 export const API_URI_COMMUNITY_JOIN_COMMUNITY = "/community/joinCommunity";
 export const API_URI_COMMUNITY_GENERATE_INVITATION_CODE = "/community/getInvitationCode";
+export const API_URI_COMMUNITY_JOINED_COMMUNITIES = "/community/joinedCommunities";

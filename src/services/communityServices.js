@@ -1,4 +1,4 @@
-import { API_BASE_URL, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOIN_COMMUNITY } from "../constants/api";
+import { API_BASE_URL, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOINED_COMMUNITIES, API_URI_COMMUNITY_JOIN_COMMUNITY } from "../constants/api";
 import { getAuthToken } from "../utils/authUtil";
 import { getAuthenticatedRequest, patchAuthenticatedNoOptionsRequest, postMultipartFormDataAuthenticatedRequest } from "./apiServices";
 
@@ -38,5 +38,16 @@ export const generateInvitationRequest = async (communityId) => {
     } catch (error) {
         console.error(`Join community request failed, ${error.message}`);
         throw new Error(`${error.message}`);
+    }
+}
+
+export const fetchJoinedCommunities = async () => {
+    try {
+        const localToken = getAuthToken();
+        return await getAuthenticatedRequest(`${API_BASE_URL}${API_URI_COMMUNITY_JOINED_COMMUNITIES}`, localToken);
+
+    } catch (error) {
+        console.error(`Failed fetching joined communities, ${error.message}`);
+        throw new Error(`Failed fetching joined communities, ${error.message}`);
     }
 }

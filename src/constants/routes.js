@@ -23,7 +23,7 @@ export const ROUTE_PLAYLIST_SUBJECT = "/playlist/:id";
 export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/:id/videoPage";
 export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/:id/otherVideos";
 
-export const ROUTE_GROUPS = "/groups";
+export const ROUTE_GROUPS = "/groups/:gcId";
 
 export const ROUTE_COURSES = "/courses";
 

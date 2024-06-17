@@ -8,8 +8,6 @@ export default function SubjectCard({ id, name, thumbnail, desc }) {
     navigate(`${ROUTE_PLAYLIST_SUBJECT.replace(":id", id)}`);
   }
 
-  console.log(thumbnail)
-
   return (
     <button
       onClick={goToSubjectPage}
