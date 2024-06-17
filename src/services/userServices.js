@@ -36,7 +36,6 @@ export const sendUserDetailsRequest = async () => {
 export const sendEditUserDetailsRequest = async (userDetails) => {
     try {
         const localToken = getAuthToken();
-        console.log(localToken);
         return await putAuthenticatedJSONBodyRequest(`${API_BASE_URL}${API_URI_USER_DETAILS}`, localToken, userDetails);
     
     } catch (error) {
