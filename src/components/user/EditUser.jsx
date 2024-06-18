@@ -1,9 +1,10 @@
-import { faSpinner, faCheck, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { sendEditUserDetailsRequest } from "../../services/userServices";
 import GrayContainer from "../common/GrayContainer";
+import LoaderOverlay from "../common/LoaderOverlay";
 
 export default function EditUser({ setShowEditUser }) {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -53,8 +54,12 @@ export default function EditUser({ setShowEditUser }) {
     }
   }
 
+  const refreshPage = () => {
+    navigate(0);
+  }
+
   return (
-    <GrayContainer submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={handleEditRequest} width={350}>
+    <GrayContainer submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={!showSuccess ? (handleEditRequest) : (refreshPage)} width={350}>
       {!showSuccess ?
         (<div className="">
           <h1 className="text-center uppercase text-lg font-medium text-frostWhite">Edit your details</h1>
@@ -93,14 +98,11 @@ export default function EditUser({ setShowEditUser }) {
             </div>
           </div>
 
-        </div>) : (<div className="bg-coal p-10 flex flex-col gap-2 justify-center items-center rounded-md">
+        </div>) : (<div className=" flex flex-col gap-2 justify-center items-center">
           <p>Your Details have been Updated</p>
-          <button onClick={() => navigate(0)} className="bg-blue px-5 py-2 rounded-full">OK</button>
         </div>)}
 
-      {loading && <div className="fixed inset-0 bg-opacity-50 z-50 flex justify-center items-center bg-black">
-        <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-      </div>}
+      {loading && <LoaderOverlay />}
     </GrayContainer>
   )
 

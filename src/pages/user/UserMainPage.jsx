@@ -1,6 +1,3 @@
-import PHOTO from "/photo.jpg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValueLoadable } from "recoil";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
-import CenterOverlay from "../../components/common/CenterOverlay";
 import CreateNewGroupChat from "../../components/group/CreateNewGroupChat";
 import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";

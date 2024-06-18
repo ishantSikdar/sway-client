@@ -12,7 +12,7 @@ export default function JoinedGroups() {
 
   useEffect(() => {
     if (joinedCommunitiesLoadable.state === "hasValue") {
-      navigate(`${ROUTE_GROUPS.replace(":gcId", joinedCommunitiesLoadable.contents.joinedCommunities[0].id)}`)
+      navigate(`${ROUTE_GROUPS.replace(":gcId", joinedCommunitiesLoadable.contents.joinedCommunities[0]?.id)}`)
     }
   }, [joinedCommunitiesLoadable])
 
@@ -38,7 +38,7 @@ export default function JoinedGroups() {
 
   } else if (joinedCommunitiesLoadable.state === "hasError") {
     console.error(joinedCommunitiesLoadable.contents.message);
-    return <>{joinedCommunitiesLoadable.contents.message}</>
+    return <></>
 
   } else {
     return <></>;

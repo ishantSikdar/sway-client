@@ -1,14 +1,16 @@
 import { useRecoilValue } from "recoil"
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
 import ProfileButton from "../../components/common/ProfileButton";
-import { faPenToSquare, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPhone, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
+import LogoutConfirm from "../../components/user/LogoutConfirm";
 
 export default function UserPageData() {
   const [showContact, setShowContact] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const userDetails = useRecoilValue(userDetailsAtom);
 
   const handleEditUser = () => {
@@ -25,9 +27,14 @@ export default function UserPageData() {
         {/* user */}
         <div className="relative">
           {/* image */}
-          <div className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden">
-            <img src="/photo.jpg" alt="" className="rounded-full  " />
-          </div>
+          <div
+            style={{
+              backgroundImage: `url("${userDetails.photoUrl}")`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+            className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden"
+          ></div>
 
           <div className="h-20"></div>
 
@@ -49,11 +56,13 @@ export default function UserPageData() {
             <div className="pt-3 w-full">
               <ProfileButton onClickHandler={handleEditUser} btnName={`Edit Profile`} icon={faPenToSquare} />
               <ProfileButton onClickHandler={() => setShowContact(true)} btnName={`Contact`} icon={faPhone} />
+              <ProfileButton onClickHandler={() => setShowLogoutConfirm(true)} icon={faRightFromBracket} btnName={`Logout`} />
             </div>
           </div>
         </div>
       </div>
 
+      {showLogoutConfirm && <LogoutConfirm cancel={() => setShowLogoutConfirm(false)} />}
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
     </div>
