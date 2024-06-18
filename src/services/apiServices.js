@@ -76,7 +76,6 @@ export const getNoOptionsRequest = async (url) => {
 
 export const postMultipartFormDataAuthenticatedRequest = async (url, formData, token) => {
     try {
-        console.log(formData);
         const response = await axios.post(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -109,6 +108,26 @@ export const patchAuthenticatedNoOptionsRequest = async (url, token) => {
 
         } else {
             console.error(`POST Multipart Authenticated request failed, ${error.message}`);
+            throw error;
+        }
+    }
+}
+
+export const postMultipartFormDataRequest = async (url, formData) => {
+    try {
+        const response = await axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        });
+        return { status: response.status, data: response.data };
+
+    } catch (error) {
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+
+        } else {
+            console.error(`POST Multipart request failed, ${error.message}`);
             throw error;
         }
     }

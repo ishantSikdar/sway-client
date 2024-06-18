@@ -1,6 +1,6 @@
 import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
-import { getAuthenticatedRequest, postJSONBodyRequest, putAuthenticatedJSONBodyRequest } from './apiServices';
+import { getAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest } from './apiServices';
 
 export const sendLoginRequest = async (loginForm) => {
     try {
@@ -14,7 +14,16 @@ export const sendLoginRequest = async (loginForm) => {
 
 export const sendSignUpRequest = async (signUpForm) => {
     try {
-        return await postJSONBodyRequest(`${API_BASE_URL}${API_URI_USER_SIGNUP}`, signUpForm);
+        const formData = new FormData();
+        formData.append('image', signUpForm.image);
+        formData.append('json', JSON.stringify(JSON.stringify({
+            email: signUpForm.email,
+            name: signUpForm.name,
+            username: signUpForm.username,
+            mobile: signUpForm.mobile,
+            password: signUpForm.password,
+        })));
+        return await postMultipartFormDataRequest(`${API_BASE_URL}${API_URI_USER_SIGNUP}`, signUpForm);
 
     } catch (error) {
         console.error(`Login request failed, ${error.message}`);

@@ -3,10 +3,13 @@ import { changeRoute } from "../../utils/pageUtil";
 import { ROUTE_LOGIN } from "../../constants/routes";
 import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
   const [signUpForm, setSignUpForm] = useState({
+    image: null,
     email: "",
     name: "",
     username: "",
@@ -16,15 +19,23 @@ export default function SignUpPage() {
   })
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [userExistsFlag, setUserExistsFlag] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSignUpInput = (event) => {
-    const { name, value } = event.target;
-    setSignUpForm({
-      ...signUpForm,
-      [name]: value
-    })
+    const { name, value, files } = event.target;
+
+    if (name === 'image') {
+      setSignUpForm({
+        ...signUpForm,
+        image: files[0]
+      })
+    } else {
+      setSignUpForm({
+        ...signUpForm,
+        [name]: value
+      })
+    }
 
     if (name === "password" || name === "confirmPassword") {
       setPasswordsMatch(signUpForm.password === value || signUpForm.confirmPassword === value);
@@ -47,12 +58,14 @@ export default function SignUpPage() {
       if (signUpResponse.status === 200) {
         setShowSuccess(true);
 
-      } else if (signUpResponse.status === 409) {
-        setUserExistsFlag(true);
+      } else {
+        console.log(signUpResponse)
+        setErrorMessage(signUpResponse.data.message);
       }
 
     } catch (error) {
-      alert(`Error during signup: ${error.message}`);
+      console.error(error.message);
+      alert(`Error during signup, ${error.message}`);
     }
   }
 
@@ -79,11 +92,20 @@ export default function SignUpPage() {
             <p className="font-light">Learning awaits you ahead!</p>
           </div>
 
+          <div className="mb-5 text-xs flex flex-col gap-2">
+            <p className="mb-3 font-light text-base text-center text-red-500">{errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}</p>
 
-          <div className="my-5 text-xs flex flex-col gap-2">
-            <p className="font-light text-base text-center text-red-500">All fields are required *</p>
-
-            {userExistsFlag && <p className="text-red-600 italic text-xs">User already exists by this Email, username or mobile</p>}
+            <label htmlFor="imageUpload" className="w-[100px] mx-auto cursor-pointer  rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
+              {!signUpForm.image ? (<FontAwesomeIcon icon={faCamera} className="text-4xl" />) : (<FontAwesomeIcon icon={faCheck} className="text-green-500 text-4xl" />)}
+              <input
+                type="file"
+                id="imageUpload"
+                className="hidden"
+                name="image"
+                onChange={handleSignUpInput}
+              />
+            </label>
+            <p className="text-center text-xs font-medium uppercase">Profile Picture</p>
 
             <div>
               <p className="uppercase py-1">Email</p>
@@ -97,7 +119,7 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <p className="uppercase py-1">Display Name</p>
+              <p className="uppercase py-1">Name</p>
               <input
                 onChange={handleSignUpInput}
                 value={signUpForm.name}
