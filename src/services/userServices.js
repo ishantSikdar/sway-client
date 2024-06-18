@@ -1,6 +1,6 @@
 import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
-import { getAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest } from './apiServices';
+import { getAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
 
 export const sendLoginRequest = async (loginForm) => {
     try {
@@ -45,7 +45,15 @@ export const sendUserDetailsRequest = async () => {
 export const sendEditUserDetailsRequest = async (userDetails) => {
     try {
         const localToken = getAuthToken();
-        return await putAuthenticatedJSONBodyRequest(`${API_BASE_URL}${API_URI_USER_DETAILS}`, localToken, userDetails);
+        const formData = new FormData();
+        formData.append('image', userDetails.image);
+        formData.append('json', JSON.stringify(JSON.stringify({
+            name: userDetails.name,
+            username: userDetails.username,
+            mobile: userDetails.mobile,
+            email: userDetails.email,
+        })))
+        return await putMultipartFormDataAuthenticatedRequest(`${API_BASE_URL}${API_URI_USER_DETAILS}`, formData, localToken);
     
     } catch (error) {
         console.error(`Edit User Details request failed, ${error.message}`);

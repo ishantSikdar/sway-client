@@ -1,13 +1,13 @@
-import { faX, faSpinner, faCheck, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faCheck, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { sendEditUserDetailsRequest } from "../../services/userServices";
-import CenterOverlay from "../common/CenterOverlay";
 import GrayContainer from "../common/GrayContainer";
 
 export default function EditUser({ setShowEditUser }) {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [editUserErrorMessage, setEditUserErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [newDetails, setNewDetails] = useState({
@@ -43,6 +43,8 @@ export default function EditUser({ setShowEditUser }) {
 
       if (response.status === 200) {
         setShowSuccess(true);
+      } else {
+        setEditUserErrorMessage(response.data.message);
       }
 
     } catch (error) {
@@ -55,9 +57,10 @@ export default function EditUser({ setShowEditUser }) {
     <GrayContainer submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={handleEditRequest} width={350}>
       {!showSuccess ?
         (<div className="">
-          <h1 className="text-center uppercase text-lg font-medium mb-5 text-frostWhite">Edit your details</h1>
+          <h1 className="text-center uppercase text-lg font-medium text-frostWhite">Edit your details</h1>
+          <p className="text-center">{editUserErrorMessage ? <span className="text-red-600 text-center">{editUserErrorMessage}</span> : <span>Only entered fields will be updated</span>} </p>
 
-          <label htmlFor="imageUpload" className="w-[100px] mx-auto cursor-pointer  rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
+          <label htmlFor="imageUpload" className="w-[100px] mt-7 mx-auto cursor-pointer  rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
             {!newDetails.image ? (<FontAwesomeIcon icon={faCamera} className="text-4xl" />) : (<FontAwesomeIcon icon={faCheck} className="text-green-500 text-4xl" />)}
             <input
               type="file"

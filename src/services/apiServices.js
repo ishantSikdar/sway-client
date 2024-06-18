@@ -58,6 +58,27 @@ export const putAuthenticatedJSONBodyRequest = async (url, token, body) => {
     }
 }
 
+export const putMultipartFormDataAuthenticatedRequest = async (url, formData, token) => {
+    try {
+        const response = await axios.put(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return { status: response.status, data: response.data };
+
+    } catch (error) {
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+
+        } else {
+            console.error(`POST Multipart Authenticated request failed, ${error.message}`);
+            throw error;
+        }
+    }
+}
+
 export const getNoOptionsRequest = async (url) => {
     try {
         const response = await axios.get(url);
