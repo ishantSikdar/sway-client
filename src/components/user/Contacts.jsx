@@ -1,23 +1,18 @@
 import { faEnvelope, faPhone, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import GrayContainer from "../common/GrayContainer";
 
 export default function Contacts({ email, mobile, setShowContact }) {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <GrayContainer close={() => setShowContact(false)} closeLabel={"Close"} width={350}>
+      <div className="flex flex-col gap-2">
 
-      <div className="relative flex flex-col gap-2 p-8 rounded-md bg-coal text-white">
-        <button
-          className="absolute right-8"
-          onClick={() => setShowContact(false)}
-        >
-          <FontAwesomeIcon icon={faX} className="text-lg" />
-        </button>
         <div className="flex text-lg">
           <div>
             <FontAwesomeIcon icon={faPhone} className="mr-5 my-2" />
           </div>
-          <div className="text-frostWhite">
-            <p>Mobile</p>
+          <div>
+            <p className="text-frostWhite">Mobile</p>
             <p>{mobile}</p>
           </div>
         </div>
@@ -28,12 +23,12 @@ export default function Contacts({ email, mobile, setShowContact }) {
           <div>
             <FontAwesomeIcon icon={faEnvelope} className="mr-5 my-2" />
           </div>
-          <div className="text-frostWhite">
-            <p>Mail</p>
+          <div>
+            <p className="text-frostWhite">Mail</p>
             <p>{email}</p>
           </div>
         </div>
       </div>
-    </div>
+    </GrayContainer >
   );
 }

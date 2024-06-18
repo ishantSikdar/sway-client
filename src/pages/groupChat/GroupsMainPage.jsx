@@ -55,20 +55,8 @@ export default function GroupsMainPage() {
         </div>
       </div>
 
-      {showCreateChat && <CenterOverlay>
-        <CreateNewGroupChat closeWindow={setShowCreateChat} />
-      </CenterOverlay>}
-
-      {showJoinChat && <CenterOverlay>
-        <JoinGroupChat closeWindow={setShowJoinChat} />
-      </CenterOverlay>}
-
-      {showExploreGroups && <CenterOverlay>
-        <div className="bg-coal p-5">
-          <p>Comming soon!</p>
-          <button className="bg-blue p-2 rounded-full w-full" onClick={() => setShowExploreGroups(false)}>Ok</button>
-        </div>
-      </CenterOverlay>}
+      {showCreateChat && <CreateNewGroupChat closeWindow={setShowCreateChat} />}
+      {showJoinChat && <JoinGroupChat closeWindow={setShowJoinChat} />}
     </div >
   );
 }

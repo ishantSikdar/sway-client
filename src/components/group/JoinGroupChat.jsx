@@ -3,6 +3,7 @@ import { joinCommunityRequest } from "../../services/communityServices";
 import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
 import LoaderOverlay from "../common/LoaderOverlay";
+import GrayContainer from "../common/GrayContainer";
 
 export default function JoinGroupChat({ closeWindow }) {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export default function JoinGroupChat({ closeWindow }) {
   }
 
   return (
-    <div>
-      <div className="p-5 bg-black w-[350px] flex flex-col items-center gap-2 rounded-t-md">
+    <GrayContainer close={close} submit={sendJoinCommunityRequest} closeLabel={"Cancel"} submitLabel={"Join"} width={350}>
+      <div className="flex flex-col items-center gap-2">
         <h1 className="text-xl font-bold text-center text-frostWhite">Join a Server</h1>
         <p className="text-center text-sm">Enter invitation code to join existing group chats</p>
 
@@ -50,16 +51,6 @@ export default function JoinGroupChat({ closeWindow }) {
           <p className="text-frostWhite">A76BA94E6D</p>
           <p className="text-frostWhite">C83RABZJ5W</p>
         </div>
-
-      </div>
-
-      <div className="bg-midDark w-full rounded-b-md p-4 flex justify-between">
-        <button onClick={close} className="px-3 py-3 rounded-md">
-          Cancel
-        </button>
-        <button onClick={sendJoinCommunityRequest} className="bg-blue px-6 py-3 rounded-md">
-          Join
-        </button>
       </div>
 
       {showJoined && <CenterOverlay>
@@ -70,6 +61,6 @@ export default function JoinGroupChat({ closeWindow }) {
       </CenterOverlay>}
 
       {joiningLoading && <LoaderOverlay />}
-    </div>
+    </GrayContainer>
   )
 }
