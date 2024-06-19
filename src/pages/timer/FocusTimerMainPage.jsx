@@ -7,7 +7,7 @@ import TimerData from '../../components/timer/TimerData';
 import StopTimer from '../../components/timer/StopTimer';
 import { useRecoilValue } from 'recoil';
 import { timerDataAtom, timerFlagsAtom } from '../../recoil/atoms/timerAtoms';
-import { calculateCompletionDegreeByPercent } from '../../utils/pageUtil';
+import { calculateCompletionDegreeByPercent, supportsDynamicViewport } from '../../utils/pageUtil';
 import { useTimer } from '../../services/timerServices';
 
 export default function FocusTimerMainPage() {
@@ -17,7 +17,7 @@ export default function FocusTimerMainPage() {
   const { handleClockToggle, pausePlayTimer, finishFocusTimer, resetFocusTimer } = useTimer();
 
   return (
-    <div className="pt-16 h-screen relative flex flex-col items-center">
+    <div className={`pt-16 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} relative flex flex-col items-center`}>
 
       <h1 className="my-10 text-lg text-center font-bold bg-coal w-max mx-auto px-4 py-2 rounded-full">
         &gt; Focus Timer

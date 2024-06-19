@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { changeRoute } from "../../utils/pageUtil";
+import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
@@ -51,7 +51,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="flex justify-center items-center w-full h-screen"
+      className={`flex justify-center items-center w-full ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}
       style={{
         backgroundImage: 'url("/login-bg.svg")',
         backgroundPosition: 'center',

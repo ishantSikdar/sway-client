@@ -1,11 +1,12 @@
 import { useLocation } from "react-router";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function NotFoundPage() {
     const location = useLocation();
     const { pathname } = location;
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen ">
+        <div className={`flex flex-col items-center justify-center ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} `}>
             <div className="absolute top-[30%] max-w-lg text-center px-4">
                 <h1 className="text-4xl font-semibold mb-4">
                     Page Not Found
