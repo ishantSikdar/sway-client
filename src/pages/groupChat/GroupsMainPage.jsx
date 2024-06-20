@@ -28,7 +28,7 @@ export default function GroupsMainPage() {
   }
 
   return (
-    <div className={`flex pt-14 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
+    <div className={`flex bg-light-black pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <CommunityButtons setShowCreateChat={setShowCreateChat} setShowJoinChat={setShowJoinChat} setShowExploreGroups={setShowExploreGroups} />

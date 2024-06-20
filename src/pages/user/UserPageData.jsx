@@ -6,6 +6,7 @@ import { useState } from "react";
 import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
 import LogoutConfirm from "../../components/user/LogoutConfirm";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function UserPageData() {
   const [showContact, setShowContact] = useState(false);
@@ -19,7 +20,7 @@ export default function UserPageData() {
   }
 
   return (
-    <div className="mt-16 relative">
+    <div className={`relative ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]' }`}>
       <div className="relative">
         {/* banner */}
         <div className="bg-[#ababab] h-28"></div>
@@ -39,17 +40,17 @@ export default function UserPageData() {
           <div className="h-20"></div>
 
           {/* information */}
-          <div className="mx-5 p-5  bg-coal rounded-xl">
+          <div className="mx-5 p-5 bg-gray rounded-xl">
 
             {/* Headers */}
             <div className="text-frostWhite border-b-[1pt] border-white pb-4">
-              <h2 className="text-2xl font-bold">{userDetails.name}</h2>
-              <p className="font-medium">{userDetails.username}</p>
+              <h2 className="text-xl font-bold">{userDetails.name}</h2>
+              <p className="font-medium text-sm">{userDetails.username}</p>
             </div>
 
             {/* Additional */}
             {userDetails.joined && <div className="py-5 border-b-[1pt] border-white pb-4">
-              <h2 className="uppercase text-frostWhite text-lg font-bold">Member Since</h2>
+              <h2 className="uppercase text-frostWhite font-bold">Member Since</h2>
               <p className="font-medium">{userDetails.joined}</p>
             </div>}
 

@@ -21,7 +21,7 @@ export default function PlaylistMainPage() {
 
   return (
     <div className="relative flex flex-col items-center gap-5 px-2 pt-20 py-10">
-      <input type="text" name="searchTag" placeholder="Try typing a subject..." className="fixed text-sm top-0 outline-none bg-gray py-4 px-6 w-full" onChange={handleSearchTagInput} />
+      <input type="text" name="searchTag" placeholder="Try typing a subject..." className="z-20 fixed text-sm top-0 outline-none bg-gray py-4 px-6 w-full" onChange={handleSearchTagInput} />
       <PlaylistContent search={searchDebounced} />
     </div>
   )

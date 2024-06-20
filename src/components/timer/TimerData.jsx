@@ -21,16 +21,16 @@ export default function TimerData() {
   }
 
   return (
-    <div className="px-2 py-4 flex justify-evenly h-full text-center text-xl">
+    <div className="px-2 py-4 flex justify-evenly h-full text-center text-lg">
       <button onClick={openGoalTimeEditScreen} className='flex flex-col justify-center w-[35%] items-center'>
         <p className='text-xs'>Goal Time</p>
         <p className='py-2 text-frostWhite'>{formatTimeToHHMMSS(timerData.goalTimeSeconds)}</p>
       </button>
-      <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-2'>
         <div className='h-[30%] w-[0.1pt] bg-white'>{/* Middle White Bar */}</div>
         <div className='flex flex-col justify-center items-center h-full'>
           <p className='text-xs'>Focus Level</p>
-          <p className='px-4 py-2 bg-gray w-max rounded-full mt-2'>
+          <p className='px-4 py-2 bg-black w-max rounded-full mt-2'>
             {grade === '?' && <FontAwesomeIcon icon={faQuestion} />}
             {grade === 'A' && <FontAwesomeIcon icon={faA} />}
             {grade === 'B' && <FontAwesomeIcon icon={faB} />}

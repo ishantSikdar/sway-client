@@ -21,7 +21,7 @@ export default function PreviousPageButton() {
     const handleScroll = () => {
       clearTimeout(timeout);
       setIsVisible(true);
-      
+
       timeout = setTimeout(() => {
         setIsVisible(false);
       }, 5000);
@@ -44,12 +44,13 @@ export default function PreviousPageButton() {
   }, []);
 
   return (
-    <button
+    <div
       ref={buttonRef}
-      onClick={goToPrevious}
-      className={`fixed rounded-full text-xl bg-light-gray border-[0.1pt] border-light-gray p-3 top-20 left-4 flex justify-center items-center transition-opacity duration-300 ${isVisible ? '' : 'hidden'}`}
+      className={`fixed h-12 w-full bg-black text-xl border-light-gray flex items-center transition-opacity duration-300 ${isVisible ? '' : 'hidden'}`}
     >
-      <FontAwesomeIcon icon={faArrowLeft} />
-    </button>
+      <button onClick={goToPrevious} className="h-full aspect-square border-light-gray border-r-[0.1pt]">
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
+    </div>
   )
 }

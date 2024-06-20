@@ -1,6 +1,6 @@
 export default function UserPageData() {
   return (
-    <div className="mt-16 relative">
+    <div className="relative">
       <div className="relative">
         <div className="bg-[#ababab] h-28 animate-pulse">
 
@@ -11,7 +11,7 @@ export default function UserPageData() {
 
           <div className="h-20"></div>
 
-          <div className="mx-5 p-5 bg-coal rounded-xl flex flex-col gap-4">
+          <div className="mx-5 p-5 bg-midDark rounded-xl flex flex-col gap-4">
             <div className="h-20 pb-4 bg-black rounded-md animate-pulse"></div>
             <div className="py-5 h-16 pb-4 bg-black rounded-md animate-pulse"></div>
             <div className="pt-3 w-full h-20 bg-black rounded-md animate-pulse">

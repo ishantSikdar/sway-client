@@ -7,6 +7,7 @@ import LoaderOverlay from "../common/LoaderOverlay";
 import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
 import GrayContainer from "../common/GrayContainer";
+import ImageInputButton from "../common/ImageInputButton";
 
 export default function CreateNewGroupChat({ closeWindow }) {
   const navigate = useNavigate();
@@ -60,26 +61,17 @@ export default function CreateNewGroupChat({ closeWindow }) {
   };
 
   return (
-    <GrayContainer close={close} submit={handleCreate} closeLabel={"Cancel"} submitLabel={"Create"} width={350}>
-      <h1 className="text-xl font-bold text-center text-frostWhite">Customize Your Group Chat</h1>
-      <p className="text-center text-sm">Give your new group a personality with a name and an icon. You can always change later.</p>
+    <GrayContainer close={close} submit={handleCreate} closeLabel={"Cancel"} submitLabel={"Create"} width={300}>
+      <h1 className="text-lg font-bold text-center text-frostWhite">Customize Your Group Chat</h1>
+      <p className="text-center text-xs">Give your new group a personality with a name and an icon. You can always change later.</p>
 
-      <label htmlFor="imageUpload" className="cursor-pointer h-[100px] mx-auto my-2 rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
-        {!communityDetails.image ? (<FontAwesomeIcon icon={faCamera} className="text-4xl" />) : (<FontAwesomeIcon icon={faCheck} className="text-green-500 text-4xl" />)}
-        <input
-          type="file"
-          id="imageUpload"
-          className="hidden"
-          name="image"
-          onChange={handleInput}
-        />
-      </label>
+      <ImageInputButton inputHandler={handleInput} image={communityDetails.image} />
 
       <div className="w-full">
         <p className="text-red-600 text-center w-full normal-case font-normal">{createCommunityErrorMessage}</p>
-        <p className="font-bold uppercase text-sm mb-1 ml-1">Server Name</p>
+        <p className="font-bold uppercase text-xs mb-1 ml-1">Server Name</p>
         <input
-          className="outline-none w-full bg-coal h-10 p-5 text-xl rounded-md"
+          className="outline-none w-full bg-coal h-10 p-5 text-lg rounded-md"
           type="text"
           name="name"
           onChange={handleInput}
@@ -87,9 +79,11 @@ export default function CreateNewGroupChat({ closeWindow }) {
         />
       </div>
 
-      <div className="flex w-full justify-between my-4 font-medium px-2">
-        <p>Want your group public?</p>
+      <div className="flex text-sm w-full justify-between my-4 font-medium px-2">
+        <p className="">Want your group public?</p>
         <Switch
+          height={25}
+          width={50}
           onChange={() => setCommunityDetails((prevDetails) => ({
             ...prevDetails,
             visibility: !prevDetails.visibility

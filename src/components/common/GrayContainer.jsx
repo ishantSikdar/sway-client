@@ -4,11 +4,11 @@ export default function GrayContainer({ children, close, closeLabel, submit, sub
   return (
     <CenterOverlay>
       <div>
-        <div className={`bg-black p-5 rounded-t-md ${width && `w-[${width}px]` }`}>
+        <div className={`bg-midDark p-5 rounded-t-md ${width && `w-[${width}px]` }`}>
           {children}
         </div>
 
-        <div className="bg-midDark w-full rounded-b-md p-4 flex justify-between">
+        <div className="bg-light-black w-full rounded-b-md p-4 flex justify-between">
           {close && closeLabel && <button onClick={close} className="px-3 py-3 rounded-md">
             {closeLabel}
           </button>}

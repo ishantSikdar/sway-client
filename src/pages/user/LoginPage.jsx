@@ -59,7 +59,7 @@ export default function LoginPage() {
     >
 
       {/* Form */}
-      <div className="bg-black w-[350px] h-max p-10 rounded-md">
+      <div className="bg-light-black w-[350px] h-max p-10 rounded-md">
 
         <div className="text-center">
           <h2 className="text-frostWhite text-2xl font-medium">Welcome Back!</h2>

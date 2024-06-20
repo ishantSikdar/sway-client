@@ -2,28 +2,27 @@ import { faCancel, faCheck, faCircleStop, faRotateRight } from "@fortawesome/fre
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState } from "recoil";
 import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
+import CenterOverlay from "../common/CenterOverlay";
 
 export default function StopTimer({ pause, finish, restart }) {
-  
+
   const [timerData, setTimerData] = useRecoilState(timerDataAtom);
   const [timerFlags, setTimerFlags] = useRecoilState(timerFlagsAtom);
-  
+
   return (
-    <div className='fixed inset-0 z-40 flex flex-col gap-2 justify-center items-center bg-black bg-opacity-50'>
-
-
-      <div className='bg-coal py-10 px-5 rounded-md relative'>
+    <CenterOverlay>
+      <div className='bg-gray py-10 px-5 rounded-md relative'>
         <h1 className="text-center mb-4">Screen will close in {timerData.showStopDuration} seconds</h1>
         <button
           onClick={pause}
-          className='w-20'
+          className='w-16'
         >
           <FontAwesomeIcon icon={faCircleStop} className='text-4xl' />
-          <p>Break Time</p>
+          <p>Break</p>
         </button>
 
         <button
-          className='w-20'
+          className='w-16'
           onClick={finish}
         >
           <FontAwesomeIcon icon={faCheck} className='text-4xl' />
@@ -31,7 +30,7 @@ export default function StopTimer({ pause, finish, restart }) {
         </button>
 
         <button
-          className='w-20'
+          className='w-16'
           onClick={restart}
         >
           <FontAwesomeIcon icon={faRotateRight} className='text-4xl' />
@@ -39,7 +38,7 @@ export default function StopTimer({ pause, finish, restart }) {
         </button>
 
         <button
-          className='w-20'
+          className='w-16'
           onClick={() => setTimerFlags((prevFlags) => ({
             ...prevFlags,
             showStop: false
@@ -49,6 +48,7 @@ export default function StopTimer({ pause, finish, restart }) {
           <p>Cancel</p>
         </button>
       </div>
-    </div>
+    </CenterOverlay>
+
   );
 }

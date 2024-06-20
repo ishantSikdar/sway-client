@@ -34,7 +34,6 @@ function App() {
   return (
     <div className='font-mukta bg-black text-white'>
       {insideApp && <NavBar />}
-      {!Object.keys(lastVisitedRoutes).includes(location.pathname) && !location.pathname.includes("/groups") && <PreviousPageButton />}
       <Routes>
         {APP_ROUTES.map((route) => (
           <Route path={route.path} element={<route.element />} key={route.id} />

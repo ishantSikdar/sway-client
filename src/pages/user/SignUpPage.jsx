@@ -5,6 +5,7 @@ import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
+import ImageInputButton from "../../components/common/ImageInputButton";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -85,26 +86,17 @@ export default function SignUpPage() {
 
       {!showSuccess ?
 
-        (<div className="bg-black w-[350px] h-max p-10 rounded-md">
+        (<div className="bg-light-black w-[350px] h-max px-10 py-7 rounded-md">
 
           <div className="text-center">
-            <h2 className="text-frostWhite text-2xl font-medium">Create an account</h2>
-            <p className="font-light">Learning awaits you ahead!</p>
+            <h2 className="text-frostWhite text-lg font-medium">Create an account</h2>
           </div>
 
-          <div className="mb-5 text-xs flex flex-col gap-2">
-            <p className="mb-3 font-light text-base text-center text-red-500">{errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}</p>
+          <div className="mb-5 text-xs flex flex-col gap-1">
+            <p className="mb-3 font-light text-sm text-center text-red-500">{errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}</p>
 
-            <label htmlFor="imageUpload" className="w-[100px] mx-auto cursor-pointer  rounded-full border-[3px] border-dashed border-white p-5 aspect-square flex justify-center items-center">
-              {!signUpForm.image ? (<FontAwesomeIcon icon={faCamera} className="text-4xl" />) : (<FontAwesomeIcon icon={faCheck} className="text-green-500 text-4xl" />)}
-              <input
-                type="file"
-                id="imageUpload"
-                className="hidden"
-                name="image"
-                onChange={handleSignUpInput}
-              />
-            </label>
+            <ImageInputButton image={signUpForm.image} inputHandler={handleSignUpInput} />
+
             <p className="text-center text-xs font-medium uppercase">Profile Picture</p>
 
             <div>

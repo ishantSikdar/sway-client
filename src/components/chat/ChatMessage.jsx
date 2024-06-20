@@ -3,10 +3,7 @@ export default function ChatMessage({ messageComponents }) {
     name: "Ishant",
     profileUrl: "/photo.jpg",
     time: "17/06/24 - 16:26",
-    messages: [
-      "I am so done",
-      "with this game", 
-    ],
+    messages: messageComponents,
   };
 
   return (
