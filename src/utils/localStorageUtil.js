@@ -7,6 +7,12 @@ export const deleteBearerToken = () => {
     console.log("Deleted Auth Token");
 }
 
+export const setBearerToken = (token) => {
+    localStorage.setItem('auth', token);
+    console.log("Saved Auth Token");
+    return token;
+}
+
 export const getGoalTime = () => {
     return localStorage.getItem('goal-time');
 }

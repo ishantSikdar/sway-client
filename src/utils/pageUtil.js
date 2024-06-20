@@ -1,3 +1,5 @@
+import { ROUTE_LOGIN } from "../constants/routes";
+
 export const scrollToTop = () => {
     window.scrollTo({
         top: 0
@@ -48,3 +50,8 @@ export const supportsDynamicViewport = () => {
 
     return supported;
 };
+
+export const redirectToLoginPage = (location, navigate) => {
+    navigate(`${ROUTE_LOGIN}`, { state: { from: location } });
+    window.location.reload();
+}

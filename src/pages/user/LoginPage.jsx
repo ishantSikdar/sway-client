@@ -3,6 +3,7 @@ import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
+import { setBearerToken } from "../../utils/localStorageUtil";
 
 export default function LoginPage() {
 
@@ -29,12 +30,10 @@ export default function LoginPage() {
       const loginResponse = await sendLoginRequest(loginForm);
 
       if (loginResponse.status === 200) {
-        localStorage.setItem('auth', loginResponse.data.data.authToken);
-        console.log("Saved Auth Token into Storage");
+        setBearerToken(loginResponse.data.data.authToken);
 
         const from = location.state?.from?.pathname + location.state?.from?.search || '/';
-        console.log(from)
-        changeRoute(navigate, from);
+        navigate(from);
 
       } else if (loginResponse.status === 404 || loginResponse.status === 401) {
         setInvalidCredsFlag(true);

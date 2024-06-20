@@ -1,17 +1,18 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GrayContainer from "../common/GrayContainer";
-import { ROUTE_LOGIN } from "../../constants/routes";
 import { deleteBearerToken } from "../../utils/localStorageUtil";
 import { useRecoilValue } from "recoil";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
+import { redirectToLoginPage } from "../../utils/pageUtil";
 
 export default function LogoutConfirm({ cancel }) {
+  const location = useLocation();
   const navigate = useNavigate();
   const userDetails = useRecoilValue(userDetailsAtom);
 
   const logoutUser = () => {
     deleteBearerToken();
-    navigate(`${ROUTE_LOGIN}`);
+    redirectToLoginPage(location, navigate);
   }
 
   return (

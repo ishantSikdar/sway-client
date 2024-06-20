@@ -1,13 +1,12 @@
 import { useRecoilValueLoadable } from "recoil";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ROUTE_LOGIN } from "../../constants/routes";
 import { getAuthToken } from "../../utils/authUtil";
-import { changeRoute } from "../../utils/pageUtil";
 import { INVALID_AUTH_TOKEN, NO_AUTH_TOKEN } from "../../constants/message";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
 import UserPageData from "./UserPageData";
 import UserPageSkeleton from "./UserPageSkeleton";
+import { redirectToLoginPage } from "../../utils/pageUtil";
 
 export default function UserMainPage() {
   const navigate = useNavigate();
@@ -16,7 +15,7 @@ export default function UserMainPage() {
 
   useEffect(() => {
     if (!getAuthToken) {
-      navigate(ROUTE_LOGIN, { state: { from: location } });
+      redirectToLoginPage(location, navigate);
     }
   }, [navigate, location]);
 
@@ -31,8 +30,7 @@ export default function UserMainPage() {
   else if (userDetailsLoadable.state === "hasError") {
     console.log(userDetailsLoadable.contents.message)
     if (userDetailsLoadable.contents.message === INVALID_AUTH_TOKEN || userDetailsLoadable.contents.message === NO_AUTH_TOKEN) {
-      changeRoute(navigate, ROUTE_LOGIN);
-      window.location.reload();
+      redirectToLoginPage(location, navigate);
     }
     return <div>{userDetailsLoadable.contents.message}</div>
   }
