@@ -1,6 +1,6 @@
 import ChatMessage from "../chat/ChatMessage";
 
-export default function ChatWindow({ chatDivRef, gcId }) {
+export default function ChatWindow({ chatDivRef }) {
   return (
     <div
       ref={chatDivRef}

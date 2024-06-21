@@ -4,8 +4,8 @@ import GrayContainer from "../common/GrayContainer";
 
 export default function Contacts({ email, mobile, setShowContact }) {
   return (
-    <GrayContainer close={() => setShowContact(false)} closeLabel={"Close"} width={300}>
-      <div className="flex flex-col gap-2">
+    <GrayContainer close={() => setShowContact(false)} closeLabel={"Close"}>
+      <div className="flex flex-col gap-2 w-[300px]">
 
         <div className="flex">
           <div>

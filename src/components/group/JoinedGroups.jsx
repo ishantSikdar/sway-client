@@ -1,7 +1,6 @@
 import { useRecoilValueLoadable } from "recoil"
 import { joinedCommunitiesAtom } from "../../recoil/atoms/communityAtoms"
 import GroupChatIconButton from "./GroupChatIconButton";
-import GroupChatIconSkeleton from "./GroupChatIconSkeleton";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_GROUPS } from "../../constants/routes";
 import { useEffect } from "react";
@@ -21,18 +20,6 @@ export default function JoinedGroups() {
       <>
         {joinedCommunitiesLoadable.contents.joinedCommunities.map((community) =>
           <GroupChatIconButton key={community.id} id={community.id} name={community.name} iconUrl={community.imageUrl} />)}
-      </>
-    )
-
-  } else if (joinedCommunitiesLoadable.state === "loading") {
-    return (
-      <>
-        <GroupChatIconSkeleton />
-        <GroupChatIconSkeleton />
-        <GroupChatIconSkeleton />
-        <GroupChatIconSkeleton />
-        <GroupChatIconSkeleton />
-        <GroupChatIconSkeleton />
       </>
     )
 

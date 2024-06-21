@@ -1,10 +1,10 @@
 import CenterOverlay from "./CenterOverlay";
 
-export default function GrayContainer({ children, close, closeLabel, submit, submitLabel, width }) {
+export default function GrayContainer({ children, close, closeLabel, submit, submitLabel }) {
   return (
     <CenterOverlay>
       <div>
-        <div className={`bg-midDark p-5 rounded-t-md ${width && `w-[${width}px]` }`}>
+        <div className="bg-midDark p-5 rounded-t-md">
           {children}
         </div>
 

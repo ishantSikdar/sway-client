@@ -11,7 +11,6 @@ import ChatWindow from "../../components/group/ChatWindow";
 
 export default function GroupsMainPage() {
   const chatDivRef = useRef(null);
-  const { gcId } = useParams();
   const [showCreateChat, setShowCreateChat] = useState(false);
   const [showJoinChat, setShowJoinChat] = useState(false);
   const [showExploreGroups, setShowExploreGroups] = useState(false);
@@ -37,7 +36,7 @@ export default function GroupsMainPage() {
       </div>
 
       <div className="h-full flex flex-col flex-grow">
-        <ChatWindow chatDivRef={chatDivRef} gcId={gcId} />
+        <ChatWindow chatDivRef={chatDivRef} />
 
         <div className="px-3 pb-4 w-full">
           <div className="relative w-full rounded-lg h-[50px] flex bg-light-gray">

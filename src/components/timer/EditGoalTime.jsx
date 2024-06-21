@@ -1,5 +1,3 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { hhMMssToSeconds } from "../../utils/timeUtil";
 import { setGoalTime as saveGoalTimeToLocalStorage } from "../../utils/localStorageUtil";
