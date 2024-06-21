@@ -7,11 +7,13 @@ import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
 import LogoutConfirm from "../../components/user/LogoutConfirm";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
+import CenterOverlay from "../../components/common/CenterOverlay";
 
 export default function UserPageData() {
   const [showContact, setShowContact] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [showPicture, setShowPicture] = useState(false);
   const userDetails = useRecoilValue(userDetailsAtom);
 
   const handleEditUser = () => {
@@ -20,7 +22,7 @@ export default function UserPageData() {
   }
 
   return (
-    <div className={`relative ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]' }`}>
+    <div className={`relative ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
       <div className="relative">
         {/* banner */}
         <div className="bg-[#ababab] h-28"></div>
@@ -29,6 +31,7 @@ export default function UserPageData() {
         <div className="relative">
           {/* image */}
           <div
+            onClick={() => setShowPicture(true)}
             style={{
               backgroundImage: `url("${userDetails.photoUrl}")`,
               backgroundPosition: 'center',
@@ -63,6 +66,15 @@ export default function UserPageData() {
         </div>
       </div>
 
+      {showPicture && <CenterOverlay bgClickHandler={() => setShowPicture(false)}>
+        <div className="w-[300px] h-[300px]" style={{
+          backgroundImage: `url('${userDetails.photoUrl}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+        </div>
+      </CenterOverlay>}
+      
       {showLogoutConfirm && <LogoutConfirm cancel={() => setShowLogoutConfirm(false)} />}
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
