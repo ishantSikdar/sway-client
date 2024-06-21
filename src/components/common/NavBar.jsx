@@ -11,26 +11,33 @@ export default function NavBar() {
   const lastVisitedRoutes = useRecoilValue(lastVisitedRouteAtom);
 
   return (
-    <div className="z-50 fixed bottom-0 text-frostWhite bg-gray w-full px-4 h-12 border-t-[0.5pt] border-light-gray text-xl flex justify-between items-center">
-      <div className="flex gap-5">
+    <div className="z-50 fixed bottom-0 text-white bg-gray w-full px-4 h-14 border-t-[0.5pt] border-light-gray text-xl flex justify-between items-center">
+      <div className="flex">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_USER_PAGE])}>
           <FontAwesomeIcon icon={faUser} />
         </button>
+        <div className='bg-light-gray w-[1pt] mx-3'></div>
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_FOCUS_TIMER])}>
           <FontAwesomeIcon icon={faClock} />
         </button>
       </div>
 
-      <div className="flex gap-5">
+      <div className="flex">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_PLAYLIST])}>
           <FontAwesomeIcon icon={faYoutube} />
         </button>
+        <div className='bg-light-gray w-[1pt] mx-3'></div>
+
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_COURSES])}>
           <FontAwesomeIcon icon={faBookBookmark} />
         </button>
+        <div className='bg-light-gray w-[1pt] mx-3'></div>
+
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_SHORTS])}>
           <FontAwesomeIcon icon={faPlay} />
         </button>
+        <div className='bg-light-gray w-[1pt] mx-3'></div>
+
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_GROUPS])}>
           <FontAwesomeIcon icon={faComments} />
         </button>

@@ -27,7 +27,7 @@ export default function GroupsMainPage() {
   }
 
   return (
-    <div className={`flex bg-light-black pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
+    <div className={`flex bg-light-black pb-14 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       <div className="w-16 h-full bg-coal items-center px-2 overflow-y-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <CommunityButtons setShowCreateChat={setShowCreateChat} setShowJoinChat={setShowJoinChat} setShowExploreGroups={setShowExploreGroups} />
@@ -38,7 +38,7 @@ export default function GroupsMainPage() {
       <div className="h-full flex flex-col flex-grow">
         <ChatWindow chatDivRef={chatDivRef} />
 
-        <div className="px-3 pb-4 w-full">
+        <div className="px-3 pb-3 w-full">
           <div className="relative w-full rounded-lg h-[50px] flex bg-light-gray">
             <input
               type="text"
