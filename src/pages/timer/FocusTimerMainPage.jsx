@@ -17,7 +17,7 @@ export default function FocusTimerMainPage() {
   const { handleClockToggle, pausePlayTimer, finishFocusTimer, resetFocusTimer } = useTimer();
 
   return (
-    <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} relative flex flex-col items-center`}>
+    <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} pt-12 relative flex flex-col items-center`}>
 
       <h1 className="my-10  text-center font-bold bg-gray w-max mx-auto px-4 py-2 rounded-full">
         &gt; Focus Timer

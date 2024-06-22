@@ -3,7 +3,7 @@ import { topicVideosAtomFamily } from "../../recoil/atoms/playlistAtoms";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTE_PLAYLIST_SUBJECT_VIDEOS } from "../../constants/routes";
 import VideoCard from "../../components/playlist/VideoCard";
-import PreviousPageButton from "../../components/common/PreviousPageButton";
+import TopBar from "../../components/common/TopBar";
 
 export default function VideoPageData({ subjectName, videoId, videoTitle }) {
   const { id } = useParams();
@@ -20,7 +20,7 @@ export default function VideoPageData({ subjectName, videoId, videoTitle }) {
 
   return (
     <>
-      <PreviousPageButton />
+      <TopBar />
       <div className="pt-12 px-5 bg-gray">
         {/* Recommended Section */}
         <div className="pt-2">

@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import PlaylistContent from "../../components/playlist/PlaylistContent"
+import { useRecoilValue } from "recoil";
+import { playlistSubjectSearchTagAtom } from "../../recoil/atoms/playlistAtoms";
 
 export default function PlaylistMainPage() {
-  const [searchTag, setSearchTag] = useState("");
-  const [searchDebounced, setSearchDebounced] = useState("");
-
-  const handleSearchTagInput = (event) => {
-    setSearchTag(event.target.value);
-  }
+  const searchTag = useRecoilValue(playlistSubjectSearchTagAtom);
+  const [searchDebounced, setSearchDebounced] = useState(searchTag);
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
@@ -21,7 +19,6 @@ export default function PlaylistMainPage() {
 
   return (
     <div className="relative flex flex-col items-center gap-5 px-2 pt-20 pb-24">
-      <input type="text" name="searchTag" placeholder="Try typing a subject..." className="z-20 fixed text-sm top-0 outline-none bg-gray py-4 px-6 w-full" onChange={handleSearchTagInput} />
       <PlaylistContent search={searchDebounced} />
     </div>
   )

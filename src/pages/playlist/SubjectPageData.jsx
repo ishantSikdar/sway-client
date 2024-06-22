@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { subjectAtomFamily } from "../../recoil/atoms/playlistAtoms";
 import { ROUTE_PLAYLIST_SUBJECT_TOPIC } from "../../constants/routes";
-import PreviousPageButton from "../../components/common/PreviousPageButton";
+import TopBar from "../../components/common/TopBar";
 
 export default function SubjectPageData({ id }) {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function SubjectPageData({ id }) {
 
   return (
     <>
-      <PreviousPageButton />
+      <TopBar />
       <div className="pt-12">
         <div
           style={{

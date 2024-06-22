@@ -1,10 +1,10 @@
-import PreviousPageButton from "../../components/common/PreviousPageButton";
+import TopBar from "../../components/common/TopBar";
 import VideoCardSkeleton from "../../components/playlist/VideoCardSkeleton";
 
 export default function VideoPageSkeleton() {
   return (
     <>
-      <PreviousPageButton />
+      <TopBar />
       <div className="pt-12 px-5 bg-gray">
         {/* Recommended Section */}
         <div className="pt-2">

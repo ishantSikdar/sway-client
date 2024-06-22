@@ -1,10 +1,10 @@
-import PreviousPageButton from "../../components/common/PreviousPageButton";
+import TopBar from "../../components/common/TopBar";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function SubjectPageSkeleton() {
   return (
     <>
-      <PreviousPageButton />
+      <TopBar />
       <div className="pt-12">
         <div className="w-full h-32 animate-pulse bg-light-gray"></div>
 

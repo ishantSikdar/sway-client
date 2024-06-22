@@ -22,7 +22,7 @@ export default function UserPageData() {
   }
 
   return (
-    <div className={`relative ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
+    <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
       <div className="relative">
         {/* banner */}
         <div className="bg-[#ababab] h-28"></div>

@@ -20,3 +20,8 @@ export const topicVideosAtomFamily = atomFamily({
     key: 'topicVideoAtomFamily',
     default: (videoTitle) => fetchYoutubeVideosByTitleSelectorFamily(videoTitle)
 });
+
+export const playlistSubjectSearchTagAtom = atom({
+    key: 'playlistSubjectSearchTagAtom',
+    default: ''
+})
