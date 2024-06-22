@@ -37,7 +37,7 @@ export default function UserPageData() {
               backgroundPosition: 'center',
               backgroundSize: 'cover'
             }}
-            className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden"
+            className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden"
           ></div>
 
           <div className="h-20"></div>
