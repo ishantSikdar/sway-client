@@ -7,7 +7,7 @@ export default function UserPageData() {
         </div>
 
         <div className="relative">
-          <div className="absolute -top-20 left-5 w-36 h-36 border-8 rounded-full border-black bg-coal overflow-hidden animate-black-gray-pulse"></div>
+          <div className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden animate-black-gray-pulse"></div>
 
           <div className="h-20"></div>
 
