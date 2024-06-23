@@ -1,12 +1,13 @@
 import { useState } from "react"
-import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
 import { setBearerToken } from "../../utils/localStorageUtil";
+import LoaderOverlay from "../../components/common/LoaderOverlay";
 
 export default function LoginPage() {
-
+  const [loginLoading, setLoginLoading] = useState(false);
   const [invalidCredsFlag, setInvalidCredsFlag] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +28,9 @@ export default function LoginPage() {
   const handleLoginRequest = async () => {
     try {
       setInvalidCredsFlag(false);
+      setLoginLoading(true);
       const loginResponse = await sendLoginRequest(loginForm);
+      setLoginLoading(false);
 
       if (loginResponse.status === 200) {
         setBearerToken(loginResponse.data.data.authToken);
@@ -36,16 +39,18 @@ export default function LoginPage() {
         navigate(from);
 
       } else if (loginResponse.status === 404 || loginResponse.status === 401) {
+        setLoginLoading(false);
         setInvalidCredsFlag(true);
       }
 
     } catch (error) {
+      setLoginLoading(false);
       alert("Error during Login: " + error.message);
     }
   }
 
   const handleSignUp = () => {
-    changeRoute(navigate, ROUTE_SIGNUP);
+    navigate(ROUTE_SIGNUP)
   }
 
   return (
@@ -105,6 +110,7 @@ export default function LoginPage() {
         <div className="py-2 text-sm">Need an account? <button className="text-lightBlue" onClick={handleSignUp}>Register</button></div>
       </div>
 
+      {loginLoading && <LoaderOverlay />}
     </div>
   )
 }

@@ -6,9 +6,11 @@ import { sendSignUpRequest } from "../../services/userServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
 import ImageInputButton from "../../components/common/ImageInputButton";
+import LoaderOverlay from "../../components/common/LoaderOverlay";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const [signupLoading, setSignupLoading] = useState(false);
   const [signUpForm, setSignUpForm] = useState({
     image: null,
     email: "",
@@ -54,17 +56,21 @@ export default function SignUpPage() {
     }
 
     try {
+      setSignupLoading(true);
       const signUpResponse = await sendSignUpRequest(signUpForm);
+      setSignupLoading(false);
 
       if (signUpResponse.status === 200) {
         setShowSuccess(true);
 
       } else {
+        setSignupLoading(false);
         console.log(signUpResponse)
         setErrorMessage(signUpResponse.data.message);
       }
 
     } catch (error) {
+      setSignupLoading(false);
       console.error(error.message);
       alert(`Error during signup, ${error.message}`);
     }
@@ -191,6 +197,7 @@ export default function SignUpPage() {
         </div>)
       }
 
+      {signupLoading && <LoaderOverlay />}
     </div>
   );
 }

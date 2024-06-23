@@ -62,6 +62,7 @@ export default function CreateNewGroupChat() {
       }
 
     } catch (error) {
+      setCreateCommunityLoading(false);
       console.error(error);
       alert(error);
     }

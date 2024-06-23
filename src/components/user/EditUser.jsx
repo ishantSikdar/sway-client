@@ -50,6 +50,7 @@ export default function EditUser({ setShowEditUser }) {
       }
 
     } catch (error) {
+      setLoading(false);
       console.error(error);
       alert(error);
     }
