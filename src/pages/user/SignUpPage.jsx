@@ -64,7 +64,6 @@ export default function SignUpPage() {
         setShowSuccess(true);
 
       } else {
-        setSignupLoading(false);
         console.log(signUpResponse)
         setErrorMessage(signUpResponse.data.message);
       }

@@ -22,7 +22,7 @@ export default function JoinGroupChat() {
       showJoinChat: false
     }));
   };
-  
+
   const sendJoinCommunityRequest = async () => {
     try {
       setJoiningLoading(true);
@@ -36,6 +36,7 @@ export default function JoinGroupChat() {
       }
 
     } catch (error) {
+      setJoiningLoading(false);
       console.error(error);
       alert(error);
     }

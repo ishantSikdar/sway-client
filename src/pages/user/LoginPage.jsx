@@ -39,7 +39,6 @@ export default function LoginPage() {
         navigate(from);
 
       } else if (loginResponse.status === 404 || loginResponse.status === 401) {
-        setLoginLoading(false);
         setInvalidCredsFlag(true);
       }
 
