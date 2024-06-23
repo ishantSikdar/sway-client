@@ -8,9 +8,13 @@ import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
 import GrayContainer from "../common/GrayContainer";
 import ImageInputButton from "../common/ImageInputButton";
+import { useSetRecoilState } from "recoil";
+import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
-export default function CreateNewGroupChat({ closeWindow }) {
+export default function CreateNewGroupChat() {
   const navigate = useNavigate();
+  const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
+
   const [createCommunityLoading, setCreateCommunityLoading] = useState(false);
   const [showCreateCommunitySuccess, setShowCreateCommunitySuccess] = useState(false);
   const [createCommunityErrorMessage, setCreateCommunityErrorMessage] = useState('');
@@ -27,7 +31,7 @@ export default function CreateNewGroupChat({ closeWindow }) {
     if (name === "image") {
       setCommunityDetails((prevDetails) => ({
         ...prevDetails,
-        image: files[0] // Assuming you only want to handle one file at a time
+        image: files[0] 
       }));
 
     } else {
@@ -39,7 +43,10 @@ export default function CreateNewGroupChat({ closeWindow }) {
   };
 
   const close = () => {
-    closeWindow(false);
+    setCommunityUIElements((prev) => ({
+      ...prev,
+      showCreateChat: false
+    }));
   };
 
   const handleCreate = async () => {

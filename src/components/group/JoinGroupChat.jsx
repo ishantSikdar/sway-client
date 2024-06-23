@@ -4,18 +4,25 @@ import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
 import LoaderOverlay from "../common/LoaderOverlay";
 import GrayContainer from "../common/GrayContainer";
+import { useSetRecoilState } from "recoil";
+import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
-export default function JoinGroupChat({ closeWindow }) {
+export default function JoinGroupChat() {
   const navigate = useNavigate();
+  const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
+
   const [joiningLoading, setJoiningLoading] = useState(false);
   const [showJoined, setShowJoined] = useState(false);
   const [code, setCode] = useState("");
   const [joiningErrorMessage, setJoiningErrorMessage] = useState('');
 
   const close = () => {
-    closeWindow(false);
-  }
-
+    setCommunityUIElements((prev) => ({
+      ...prev,
+      showJoinChat: false
+    }));
+  };
+  
   const sendJoinCommunityRequest = async () => {
     try {
       setJoiningLoading(true);

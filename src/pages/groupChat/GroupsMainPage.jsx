@@ -7,15 +7,13 @@ import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";
 import JoinedGroups from "../../components/group/JoinedGroups";
 import ChatWindow from "../../components/group/ChatWindow";
+import { useRecoilValue } from "recoil";
+import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function GroupsMainPage() {
   const chatDivRef = useRef(null);
   const [message, setMessage] = useState("");
-
-  const [sideBarWidth, setSideBarWidth] = useState(52);
-  const [showCreateChat, setShowCreateChat] = useState(false);
-  const [showJoinChat, setShowJoinChat] = useState(false);
-  const [showExploreGroups, setShowExploreGroups] = useState(false);
+  const communityElements = useRecoilValue(communityUserInterfaceAtom);
 
   useEffect(() => {
     if (chatDivRef.current) {
@@ -33,13 +31,13 @@ export default function GroupsMainPage() {
       <div
         className="h-full bg-black items-center px-2 overflow-y-scroll"
         style={{
-          width: `${sideBarWidth}px`,
+          width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}
       >
-        {sideBarWidth >= 52 && <>
-          <CommunityButtons setShowCreateChat={setShowCreateChat} setShowJoinChat={setShowJoinChat} setShowExploreGroups={setShowExploreGroups} />
+        {communityElements.sideBarWidth >= 52 && <>
+          <CommunityButtons />
           <div className="w-full h-[1px] bg-white mt-4 mb-2"></div>
           <JoinedGroups />
         </>}
@@ -63,8 +61,8 @@ export default function GroupsMainPage() {
         </div>
       </div>
 
-      {showCreateChat && <CreateNewGroupChat closeWindow={setShowCreateChat} />}
-      {showJoinChat && <JoinGroupChat closeWindow={setShowJoinChat} />}
+      {communityElements.showCreateChat && <CreateNewGroupChat />}
+      {communityElements.showJoinChat && <JoinGroupChat />}
     </div >
   );
 }
