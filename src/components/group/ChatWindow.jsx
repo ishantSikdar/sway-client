@@ -2,11 +2,17 @@ import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { communityDetailsAtomFamily, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import ChatMessage from "../chat/ChatMessage";
 import GroupChatOptions from "./GroupChatOptions";
+import { useEffect } from "react";
 
-export default function ChatWindow({ chatDivRef }) {
+export default function ChatWindow() {
   const selectedChat = useRecoilValue(selectedChatAtom);
   const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(selectedChat));
-  console.log(communityDetailsLoadable);
+
+  useEffect(() => {
+    if (chatDivRef.current) {
+      chatDivRef.current.scrollTop = chatDivRef.current.scrollHeight;
+    }
+  }, []);
 
   return (
     <div
