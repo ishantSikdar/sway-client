@@ -8,12 +8,15 @@ import CommunityButtons from "../../components/group/CommunityButtons";
 import JoinedGroups from "../../components/group/JoinedGroups";
 import ChatWindow from "../../components/group/ChatWindow";
 import { useRecoilValue } from "recoil";
-import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
+import { communityUserInterfaceAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import Wumpus from "../../components/common/Wumpus";
 
 export default function GroupsMainPage() {
+
   const chatDivRef = useRef(null);
   const [message, setMessage] = useState("");
   const communityElements = useRecoilValue(communityUserInterfaceAtom);
+  const selectedChat = useRecoilValue(selectedChatAtom);
 
   useEffect(() => {
     if (chatDivRef.current) {
@@ -59,23 +62,28 @@ export default function GroupsMainPage() {
       </div>
 
       <div className="h-full flex flex-col flex-grow bg-midDark">
-        <ChatWindow chatDivRef={chatDivRef} />
+        {selectedChat ?
+          <>
+            <ChatWindow chatDivRef={chatDivRef} />
+            <div className="px-3 pb-2 w-full">
+              <div className="relative w-full h-auto flex">
+                <textarea
+                  onChange={handleMessageInput}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Message"
+                  className="rounded-md px-4 py-3 flex-grow outline-none bg-black resize-none overflow-hidden"
+                  rows="1"
+                  value={message}
+                />
+                <button onClick={sendMessage} className="absolute right-3 bottom-2 z-10">
+                  <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
+                </button>
+              </div>
+            </div>
+          </>
+          : <Wumpus />}
 
-        <div className="px-3 pb-2 w-full">
-          <div className="relative w-full h-auto flex">
-            <textarea
-              onChange={handleMessageInput}
-              onKeyDown={handleKeyDown}
-              placeholder="Message"
-              className="rounded-md px-4 py-3 flex-grow outline-none bg-black resize-none overflow-hidden"
-              rows="1"
-              value={message}
-            />
-            <button onClick={sendMessage} className="absolute right-3 bottom-2 z-10">
-              <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
-            </button>
-          </div>
-        </div>
+
       </div>
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}

@@ -4,7 +4,7 @@ import { fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors"
 export const joinedCommunitiesAtom = atom({
     key: "joinedCommunitiesAtom",
     default: fetchJoinedCommunitiesSelector
-})
+});
 
 export const communityUserInterfaceAtom = atom({
     key: 'communityUserInterfaceAtom',
@@ -14,4 +14,9 @@ export const communityUserInterfaceAtom = atom({
         showJoinChat: false,
         showExploreGroups: false,
     }
+});
+
+export const selectedChatAtom = atom({
+    key: 'selectedChat',
+    default: null,
 })

@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom"
-import { ROUTE_GROUPS } from "../../constants/routes";
+import { useSetRecoilState } from "recoil"
+import { selectedChatAtom } from "../../recoil/atoms/communityAtoms"
 
 export default function GroupChatIconButton({ id, name, iconUrl }) {
-  const navigate = useNavigate();
+  const setSelectedChat = useSetRecoilState(selectedChatAtom);
 
   const openChat = () => {
-    navigate(`${ROUTE_GROUPS.replace(":gcId", id)}`);
+    setSelectedChat(id);
   }
 
   return (
