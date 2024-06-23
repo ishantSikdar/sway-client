@@ -1,6 +1,9 @@
+import { useRecoilValueLoadable } from 'recoil';
 import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
 import { getAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
+import { userDetailsAtom } from '../recoil/atoms/userAtoms';
+import { useEffect } from 'react';
 
 export const sendLoginRequest = async (loginForm) => {
     try {
@@ -60,3 +63,11 @@ export const sendEditUserDetailsRequest = async (userDetails) => {
         throw new Error(`${error.message}`);
     }
 }
+
+// export function useUser() {
+//     const userDetails = useRecoilValueLoadable(userDetailsAtom);
+
+//     useEffect(() => {
+
+//     }, [])
+// }
