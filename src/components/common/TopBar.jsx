@@ -1,16 +1,19 @@
-import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation, useNavigate } from "react-router-dom";
 import { trimRouteDescending } from "../../utils/pageUtil";
 import SearchTextBox from "./SearchTextBox";
-import { ROUTE_PLAYLIST, ROUTE_USER_PAGE } from "../../constants/routes";
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { ROUTE_GROUPS, ROUTE_PLAYLIST, ROUTE_USER_PAGE } from "../../constants/routes";
+import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { playlistSubjectSearchTagAtom } from "../../recoil/atoms/playlistAtoms";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
+import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function TopBar() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [communityUIElements, setCommunityUIElements] = useRecoilState(communityUserInterfaceAtom);
   const setSearchTag = useSetRecoilState(playlistSubjectSearchTagAtom);
   const userDetailsLoadable = useRecoilValueLoadable(userDetailsAtom);
 
@@ -21,6 +24,13 @@ export default function TopBar() {
 
   const handleSearchTagInput = (event) => {
     setSearchTag(event.target.value);
+  }
+
+  const toggleCommunitySidebar = () => {
+    setCommunityUIElements((prev) => ({
+      ...prev,
+      sideBarWidth: prev.sideBarWidth === 0 ? 56 : 0,
+    }));
   }
 
   return (
@@ -47,6 +57,12 @@ export default function TopBar() {
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>}
 
+      {location.pathname.includes(ROUTE_GROUPS) && <button onClick={toggleCommunitySidebar} className="h-full aspect-square ">
+        <FontAwesomeIcon
+          icon={faAngleRight}
+          className={`transform transition-transform duration-300 ${communityUIElements.sideBarWidth === 0 ? '' : 'rotate-180'}`}
+        />
+      </button>}
     </div>
   )
 }

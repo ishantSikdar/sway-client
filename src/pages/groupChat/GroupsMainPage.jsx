@@ -18,18 +18,38 @@ export default function GroupsMainPage() {
     <div className={`flex pt-12 pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       <div
-        className="h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray"
+        className={`h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray transition-width duration-500 ease-in-out`}
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
+          msOverflowStyle: 'none',
         }}
       >
-        {communityElements.sideBarWidth >= 52 && <>
-          <JoinedGroups />
-          <CommunityButtons />
-        </>}
+        {/* {communityElements.sideBarWidth >= 56 && (
+          <>
+            <JoinedGroups />
+            <CommunityButtons />
+          </>
+        )} */}
       </div>
+
+      <div
+        className={`z-30 absolute h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray transition-transform duration-500 ease-in-out`}
+        style={{
+          transform: communityElements.sideBarWidth === 0 ? 'translateX(-70%)' : 'translateX(0)',
+          width: 56,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        {communityElements.sideBarWidth >= 56 && (
+          <>
+            <JoinedGroups />
+            <CommunityButtons />
+          </>
+        )}
+      </div>
+
 
       <div className="h-full flex flex-col flex-grow bg-midDark">
         {selectedChat ?
