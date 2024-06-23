@@ -38,7 +38,7 @@ export default function GroupsMainPage() {
     }
   };
 
-  const sendMessage = (message) => {
+  const sendMessage = (message, setMessage) => {
     console.log(message);
     setMessage('');
   }
@@ -47,7 +47,7 @@ export default function GroupsMainPage() {
     <div className={`flex pt-12 pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       <div
-        className="h-full bg-black items-center px-2 overflow-y-scroll"
+        className="h-full bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray"
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',
@@ -80,10 +80,7 @@ export default function GroupsMainPage() {
                 </button>
               </div>
             </div>
-          </>
-          : <Wumpus />}
-
-
+          </> : <Wumpus />}
       </div>
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}

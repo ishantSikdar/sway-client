@@ -1,5 +1,5 @@
-import { atom } from "recoil";
-import { fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors";
+import { atom, atomFamily } from "recoil";
+import { fetchCommunityDetailsByIdSelectorFamily, fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors";
 
 export const joinedCommunitiesAtom = atom({
     key: "joinedCommunitiesAtom",
@@ -19,4 +19,9 @@ export const communityUserInterfaceAtom = atom({
 export const selectedChatAtom = atom({
     key: 'selectedChat',
     default: null,
+})
+
+export const communityDetailsAtomFamily = atomFamily({
+    key: 'communityDetailsAtomFamily',
+    default: (id) => fetchCommunityDetailsByIdSelectorFamily(id)
 })

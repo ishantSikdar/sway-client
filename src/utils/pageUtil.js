@@ -55,3 +55,21 @@ export const redirectToLoginPage = (location, navigate) => {
     navigate(`${ROUTE_LOGIN}`, { state: { from: location } });
     window.location.reload();
 }
+
+export const handleCloseByClickOutside = (ref, callback, exceptionRefs = []) => {
+    const handleClick = (event) => {
+        const isException = exceptionRefs.some(
+            exceptionRef => exceptionRef.current && exceptionRef.current.contains(event.target)
+        );
+
+        if (ref.current && !ref.current.contains(event.target) && !isException) {
+            callback();
+        }
+    };
+
+    document.addEventListener('mousedown', handleClick);
+
+    return () => {
+        document.removeEventListener('mousedown', handleClick);
+    };
+};

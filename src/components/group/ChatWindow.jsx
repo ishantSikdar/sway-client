@@ -1,22 +1,22 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { communityDetailsAtomFamily, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import ChatMessage from "../chat/ChatMessage";
-import { selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import GroupChatOptions from "./GroupChatOptions";
 
 export default function ChatWindow({ chatDivRef }) {
   const selectedChat = useRecoilValue(selectedChatAtom);
-  console.log(selectedChat)
+  const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(selectedChat));
+  console.log(communityDetailsLoadable);
 
   return (
     <div
       ref={chatDivRef}
-      className="overflow-y-auto pb-3 flex h-full flex-col-reverse "
+      className="relative overflow-y-auto pb-3 flex h-full items-center flex-col-reverse "
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
+      <GroupChatOptions communityId={selectedChat} />
 
-      {selectedChat}
-      {/* <ChatMessage messageComponents={["ok", ""]}/>
-      <ChatMessage messageComponents={["nothing much", "what about you"]}/>
-      <ChatMessage messageComponents={["Hey bro", "whatsup"]}/> */}
+      <ChatMessage messageComponents={["haha", "hello"]} />
     </div>
   )
 }
