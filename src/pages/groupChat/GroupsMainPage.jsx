@@ -23,6 +23,21 @@ export default function GroupsMainPage() {
 
   const handleMessageInput = (event) => {
     setMessage(event.target.value);
+    event.target.style.height = 'auto';
+    event.target.style.height = `${event.target.scrollHeight}px`;
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage(message, setMessage);
+      event.target.style.height = 'auto';
+    }
+  };
+
+  const sendMessage = (message) => {
+    console.log(message);
+    setMessage('');
   }
 
   return (
@@ -46,16 +61,18 @@ export default function GroupsMainPage() {
       <div className="h-full flex flex-col flex-grow bg-midDark">
         <ChatWindow chatDivRef={chatDivRef} />
 
-        <div className="px-3 pb-3 w-full">
-          <div className="relative w-full rounded-lg h-[50px] flex">
-            <input
-              type="text"
+        <div className="px-3 pb-2 w-full">
+          <div className="relative w-full h-auto flex">
+            <textarea
               onChange={handleMessageInput}
+              onKeyDown={handleKeyDown}
               placeholder="Message"
-              className="rounded-lg p-4 flex-grow text-lg outline-none bg-black h-full"
+              className="rounded-md px-4 py-3 flex-grow outline-none bg-black resize-none overflow-hidden"
+              rows="1"
+              value={message}
             />
-            <button onClick={() => console.log(message)} className="absolute right-3 bottom-2 z-10">
-              <FontAwesomeIcon icon={faLocationArrow} className="text-3xl rotate-45" />
+            <button onClick={sendMessage} className="absolute right-3 bottom-2 z-10">
+              <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
             </button>
           </div>
         </div>
