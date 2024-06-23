@@ -10,11 +10,11 @@ import ChatWindow from "../../components/group/ChatWindow";
 import { useRecoilValue } from "recoil";
 import { communityUserInterfaceAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import Wumpus from "../../components/common/Wumpus";
+import MessageSendButton from "../../components/chat/MessageSendButton";
 
 export default function GroupsMainPage() {
 
   const chatDivRef = useRef(null);
-  const [message, setMessage] = useState("");
   const communityElements = useRecoilValue(communityUserInterfaceAtom);
   const selectedChat = useRecoilValue(selectedChatAtom);
 
@@ -24,24 +24,6 @@ export default function GroupsMainPage() {
     }
   }, []);
 
-  const handleMessageInput = (event) => {
-    setMessage(event.target.value);
-    event.target.style.height = 'auto';
-    event.target.style.height = `${event.target.scrollHeight}px`;
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      sendMessage(message, setMessage);
-      event.target.style.height = 'auto';
-    }
-  };
-
-  const sendMessage = (message, setMessage) => {
-    console.log(message);
-    setMessage('');
-  }
 
   return (
     <div className={`flex pt-12 pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
@@ -55,9 +37,9 @@ export default function GroupsMainPage() {
         }}
       >
         {communityElements.sideBarWidth >= 52 && <>
-          <CommunityButtons />
-          <div className="w-full h-[1px] bg-white mt-4 mb-2"></div>
           <JoinedGroups />
+          <div className="w-full h-[1px] bg-white mb-4 mt-2"></div>
+          <CommunityButtons />
         </>}
       </div>
 
@@ -65,21 +47,7 @@ export default function GroupsMainPage() {
         {selectedChat ?
           <>
             <ChatWindow chatDivRef={chatDivRef} />
-            <div className="px-3 pb-2 w-full">
-              <div className="relative w-full h-auto flex">
-                <textarea
-                  onChange={handleMessageInput}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Message"
-                  className="rounded-md px-4 py-3 flex-grow outline-none bg-black resize-none overflow-hidden"
-                  rows="1"
-                  value={message}
-                />
-                <button onClick={sendMessage} className="absolute right-3 bottom-2 z-10">
-                  <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
-                </button>
-              </div>
-            </div>
+            <MessageSendButton />
           </> : <Wumpus />}
       </div>
 

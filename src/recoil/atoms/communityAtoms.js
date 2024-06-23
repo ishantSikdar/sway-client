@@ -6,6 +6,11 @@ export const joinedCommunitiesAtom = atom({
     default: fetchJoinedCommunitiesSelector
 });
 
+export const chatTextMesssageAtom = atom({
+    key: 'chatTextMesssageAtom',
+    default: '',
+})
+
 export const communityUserInterfaceAtom = atom({
     key: 'communityUserInterfaceAtom',
     default: {
