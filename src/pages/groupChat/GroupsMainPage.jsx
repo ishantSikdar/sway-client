@@ -24,30 +24,19 @@ export default function GroupsMainPage() {
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
         }}
-      >
-        {/* {communityElements.sideBarWidth >= 56 && (
-          <>
-            <JoinedGroups />
-            <CommunityButtons />
-          </>
-        )} */}
-      </div>
+      ></div>
 
       <div
-        className={`z-30 absolute h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray transition-transform duration-500 ease-in-out`}
+        className={`z-30 absolute h-full py-2 bg-black items-center px-2 overflow-y-scroll  border-gray transition-transform duration-500 ease-in-out`}
         style={{
-          transform: communityElements.sideBarWidth === 0 ? 'translateX(-70%)' : 'translateX(0)',
+          transform: communityElements.sideBarWidth === 0 ? 'translateX(-100%)' : 'translateX(0)',
           width: 56,
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
         }}
       >
-        {communityElements.sideBarWidth >= 56 && (
-          <>
-            <JoinedGroups />
-            <CommunityButtons />
-          </>
-        )}
+        <JoinedGroups />
+        <CommunityButtons />
       </div>
 
 
