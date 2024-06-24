@@ -2,14 +2,15 @@ import { useRecoilValue } from "recoil"
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
 import ProfileButton from "../../components/common/ProfileButton";
 import { faPenToSquare, faPhone, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
 import LogoutConfirm from "../../components/user/LogoutConfirm";
-import { supportsDynamicViewport } from "../../utils/pageUtil";
+import { handleCloseByClickOutside, supportsDynamicViewport } from "../../utils/pageUtil";
 import CenterOverlay from "../../components/common/CenterOverlay";
 
 export default function UserPageData() {
+  const userPhotoRef = useRef();
   const [showContact, setShowContact] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -20,6 +21,15 @@ export default function UserPageData() {
     setShowContact(false);
     setShowEditUser(true);
   }
+
+  useEffect(() => {
+    const cleanup = handleCloseByClickOutside(
+      userPhotoRef,
+      () => setShowPicture(false),
+      []
+    );
+    return cleanup;
+  }, [])
 
   return (
     <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
@@ -66,15 +76,15 @@ export default function UserPageData() {
         </div>
       </div>
 
-      {showPicture && <CenterOverlay bgClickHandler={() => setShowPicture(false)}>
-        <div className="w-[300px] h-[300px]" style={{
+      {showPicture && <CenterOverlay>
+        <div ref={userPhotoRef} className="w-[300px] h-[300px]" style={{
           backgroundImage: `url('${userDetails.photoUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
         </div>
       </CenterOverlay>}
-      
+
       {showLogoutConfirm && <LogoutConfirm cancel={() => setShowLogoutConfirm(false)} />}
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
