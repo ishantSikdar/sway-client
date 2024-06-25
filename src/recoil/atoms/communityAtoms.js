@@ -29,4 +29,4 @@ export const selectedChatAtom = atom({
 export const communityDetailsAtomFamily = atomFamily({
     key: 'communityDetailsAtomFamily',
     default: (id) => fetchCommunityDetailsByIdSelectorFamily(id)
-})
+});

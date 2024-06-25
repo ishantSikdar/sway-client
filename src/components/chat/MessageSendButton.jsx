@@ -1,11 +1,14 @@
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRecoilState } from "recoil";
-import { chatTextMesssageAtom } from "../../recoil/atoms/communityAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { chatTextMesssageAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import { communityChatSocketAtomFamily } from "../../recoil/atoms/chatAtoms";
 
 export default function MessageSendButton() {
 
+  const selectedChat = useRecoilValue(selectedChatAtom);
   const [message, setMessage] = useRecoilState(chatTextMesssageAtom);
+  const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat));
 
   const handleMessageInput = (event) => {
     setMessage(event.target.value);
@@ -22,8 +25,13 @@ export default function MessageSendButton() {
   };
 
   const sendMessage = (message, setMessage) => {
-    console.log(message);
-    setMessage('');
+    if (message !== '') {
+      const messagePayload = {
+        content: message
+      }
+      socket.send(JSON.stringify(messagePayload));
+      setMessage('');
+    }
   }
 
   return <div className="px-3 pb-2 w-full">
@@ -36,7 +44,7 @@ export default function MessageSendButton() {
         rows="1"
         value={message}
       />
-      <button onClick={sendMessage} className="absolute right-3 bottom-2 z-10">
+      <button onClick={() => sendMessage(message, setMessage)} className="absolute right-3 bottom-2 z-10">
         <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
       </button>
     </div>
