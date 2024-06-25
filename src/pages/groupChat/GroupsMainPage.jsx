@@ -18,7 +18,7 @@ export default function GroupsMainPage() {
     <div className={`flex pt-12 pb-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       <div
-        className={`h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray transition-width duration-500 ease-in-out`}
+        className={`h-full py-2 bg-black items-center overflow-y-scroll border-r-[1pt] border-gray transition-width duration-500 ease-in-out`}
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',

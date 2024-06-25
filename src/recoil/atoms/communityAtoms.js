@@ -9,12 +9,11 @@ export const joinedCommunitiesAtom = atom({
 export const chatTextMesssageAtom = atom({
     key: 'chatTextMesssageAtom',
     default: '',
-})
+});
 
 export const communityUserInterfaceAtom = atom({
     key: 'communityUserInterfaceAtom',
     default: {
-        sideBarVisible: true,
         sideBarWidth: 56,
         showCreateChat: false,
         showJoinChat: false,
@@ -25,7 +24,7 @@ export const communityUserInterfaceAtom = atom({
 export const selectedChatAtom = atom({
     key: 'selectedChat',
     default: null,
-})
+});
 
 export const communityDetailsAtomFamily = atomFamily({
     key: 'communityDetailsAtomFamily',
