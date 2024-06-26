@@ -1,21 +1,18 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import ChatMessage from "../chat/ChatMessage";
 import GroupChatOptions from "./GroupChatOptions";
 import { useEffect, useRef } from "react";
-import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily } from "../../recoil/atoms/chatAtoms";
+import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChatsOfGroupAtomFamily } from "../../recoil/atoms/chatAtoms";
 
 export default function ChatWindow() {
   const chatWindowDivRef = useRef(null);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat));
+  const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat, 1]));
   const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat));
 
   useEffect(() => {
-    if (chatWindowDivRef.current) {
-      chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
-    }
-
     socket.onopen = () => {
       console.log("Connected");
     }
@@ -40,6 +37,25 @@ export default function ChatWindow() {
 
   }, [liveMessages]);
 
+  useEffect(() => {
+    if (chatWindowDivRef.current) {
+      chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (savedMessagesLoadable.state === 'hasValue') {
+      setLiveMessages((prev) => {
+        if (prev.length <= 0) {
+          return [...savedMessagesLoadable.contents, ...prev]
+        } else {
+          return [...prev];
+        }
+      })
+    }
+  }, [savedMessagesLoadable]);
+
+  console.log(liveMessages);
 
   return (
     <div
@@ -48,8 +64,8 @@ export default function ChatWindow() {
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       <GroupChatOptions communityId={selectedChat} />
-
-      {liveMessages.map((msgData) => <ChatMessage key={msgData.message[0].id} messageData={msgData} messageId={msgData.id} />)}
+      {savedMessagesLoadable.state === 'hasValue' &&
+        liveMessages.map((msgData, idx) => <ChatMessage key={msgData.msgGroupId} messageData={msgData} messageId={msgData.id} />)}
     </div>
   )
 }

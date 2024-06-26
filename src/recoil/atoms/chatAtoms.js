@@ -13,7 +13,7 @@ export const allChatsOfGroupAtomFamily = atomFamily({
 
 export const savedChatsOfGroupAtomFamily = atomFamily({
     key: 'savedChatsOfGroupAtomFamily',
-    default: (communityId) => savedChatsOfGroupSelectorFamily(communityId),
+    default: (args) => savedChatsOfGroupSelectorFamily(args)
 });
 
 export const liveMessagesOfGroupAtomFamily = atomFamily({
