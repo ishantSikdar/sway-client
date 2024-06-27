@@ -23,12 +23,17 @@ export default {
         mukta: ['Mukta', 'sans-serif'],
       },
       animation: {
-        'black-gray-pulse': 'black-gray-pulse 2s infinite',
+        'black-gray-pulse': 'black-gray-pulse 2.4s infinite',
+        'light-gray-pulse': 'light-gray-pulse 1s infinite',
       },
       keyframes: {
         'black-gray-pulse': {
-          '50%': { backgroundColor: '#1e1f22' },
+          '50%': { backgroundColor: '#1f1f1f' },
           '0%, 100%': { backgroundColor: '#2a2a2a' },
+        },
+        'light-gray-pulse': {
+          '0%, 100%': { backgroundColor: '#e6e5e3' },
+          '50%': { backgroundColor: '#9e9d9b' },
         },
       },
     },

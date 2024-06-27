@@ -4,6 +4,7 @@ import ChatMessage from "../chat/ChatMessage";
 import GroupChatOptions from "./GroupChatOptions";
 import { useEffect, useRef } from "react";
 import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChatsOfGroupAtomFamily } from "../../recoil/atoms/chatAtoms";
+import ChatSkeleton from "../chat/ChatSkeleton";
 
 export default function ChatWindow() {
   const chatWindowDivRef = useRef(null);
@@ -55,15 +56,23 @@ export default function ChatWindow() {
     }
   }, [savedMessagesLoadable]);
 
-  console.log(liveMessages);
-
   return (
     <div
       ref={chatWindowDivRef}
-      className="relative overflow-y-auto pb-3 flex h-full items-center flex-col-reverse "
+      className="relative overflow-y-auto pb-3 flex h-full flex-col-reverse"
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
-      <GroupChatOptions communityId={selectedChat} />
+      {savedMessagesLoadable.state === 'loading' &&
+        <>
+          <ChatSkeleton />
+          <ChatSkeleton />
+          <ChatSkeleton />
+          <ChatSkeleton />
+          <ChatSkeleton />
+          <ChatSkeleton />
+        </>
+      }
+
       {savedMessagesLoadable.state === 'hasValue' &&
         liveMessages.map((msgData, idx) => <ChatMessage key={msgData.msgGroupId} messageData={msgData} messageId={msgData.id} />)}
     </div>

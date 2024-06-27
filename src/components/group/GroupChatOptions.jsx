@@ -20,8 +20,8 @@ export default function GroupChatOptions({ communityId }) {
   return <>
     {communityDetailsLoadable.state === 'hasValue' &&
       <>
-        <div className="fixed top-14 z-10 h-12 w-[80%] px-5 bg-black rounded-md flex justify-between items-center" >
-          <p className="text-frostWhite text">
+        <div className="h-14 w-full px-6 py-5 bg-black flex justify-between items-center" >
+          <p className="text-frostWhite text text-ellipsis overflow-hidden line-clamp-1">
             {communityDetailsLoadable.contents.community.name}
           </p>
           <button ref={showOptionsButtonRef} onClick={() => setShowSettings((prev) => !prev)}>
@@ -29,7 +29,7 @@ export default function GroupChatOptions({ communityId }) {
           </button>
         </div>
 
-        {showSettings && <div ref={communityOptionsRef} className="fixed top-28 w-[80%] text-sm px-6 py-2 flex flex-col items-start bg-black rounded-md">
+        {showSettings && <div ref={communityOptionsRef} className="w-[90%] mt-2 mx-auto text-sm px-6 py-2 flex flex-col items-start bg-black rounded-md">
           <ProfileButton btnName={'Members'} icon={faUserGroup} />
           <ProfileButton btnName={'Invite People'} icon={faUserPlus}/>
         </div>}
@@ -37,6 +37,6 @@ export default function GroupChatOptions({ communityId }) {
     }
 
     {communityDetailsLoadable.state === 'loading' &&
-      <div className="fixed top-14 z-10 h-12 w-[80%] bg-black rounded-md animate-pulse"></div>}
+      <div className="h-14 w-full py-5 bg-black animate-pulse"></div>}
   </>
 }

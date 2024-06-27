@@ -62,7 +62,7 @@ export default function EditUser({ setShowEditUser }) {
 
   return (
     <GrayContainer submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={!showSuccess ? (handleEditRequest) : (refreshPage)}>
-      <div className="w-[300px]">
+      <div className="w-[270px]">
         {!showSuccess ?
           (<div className="">
             <h1 className="text-center uppercase font-medium text-frostWhite">Edit your details</h1>

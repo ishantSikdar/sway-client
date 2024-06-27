@@ -3,14 +3,17 @@ import NotFoundPage from './pages/others/NotFoundPage';
 import { APP_ROUTES, ROUTE_ANY, ROUTE_LOGIN, ROUTE_SIGNUP } from './constants/routes';
 import NavBar from './components/common/NavBar';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { lastVisitedRouteAtom } from './recoil/atoms/routeAtoms';
 import TimerOverlay from './components/common/TimerOverlay';
 import TopBar from './components/common/TopBar';
+import { screenWidthAtom } from './recoil/atoms/appAtoms';
+import DesktopWarning from './components/common/DesktopWarning';
 
 function App() {
   const location = useLocation();
   const [lastVisitedRoutes, setLastVisitedRoutes] = useRecoilState(lastVisitedRouteAtom);
+  const screenWidth = useRecoilValue(screenWidthAtom);
 
   const outsideAppRoutes = [ROUTE_SIGNUP, ROUTE_LOGIN];
   const insideApp = !outsideAppRoutes.includes(location.pathname);
@@ -42,6 +45,7 @@ function App() {
       </Routes>
       {insideApp && <NavBar />}
       {insideApp && <TimerOverlay />}
+      {/* {screenWidth > 450 && <DesktopWarning />} */}
     </div>
   )
 }

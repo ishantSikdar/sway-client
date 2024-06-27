@@ -1,13 +1,14 @@
 import { useRecoilValue } from "recoil"
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
 import ProfileButton from "../../components/common/ProfileButton";
-import { faPenToSquare, faPhone, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPenToSquare, faPencil, faPhone, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
 import LogoutConfirm from "../../components/user/LogoutConfirm";
 import { handleCloseByClickOutside, supportsDynamicViewport } from "../../utils/pageUtil";
 import CenterOverlay from "../../components/common/CenterOverlay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserPageData() {
   const userPhotoRef = useRef();
@@ -35,20 +36,34 @@ export default function UserPageData() {
     <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
       <div className="relative">
         {/* banner */}
-        <div className="bg-[#ababab] h-28"></div>
+        <div className="bg-[#ababab] h-28 w-full" style={{
+          backgroundImage: `url('${userDetails.photoUrl}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}>
+          <button className="rounded-full h-8 w-8 bg-blue right-2 top-2 absolute text-xs">
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+
+        </div>
 
         {/* user */}
         <div className="relative">
           {/* image */}
-          <div
-            onClick={() => setShowPicture(true)}
-            style={{
-              backgroundImage: `url("${userDetails.photoUrl}")`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover'
-            }}
-            className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden"
-          ></div>
+          <div className="relative">
+            <div
+              onClick={() => setShowPicture(true)}
+              style={{
+                backgroundImage: `url("${userDetails.photoUrl}")`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover'
+              }}
+              className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden"
+            ></div>
+            <button className="absolute text-xs border-2 border-gray top-4 left-32 rounded-full h-8 w-8 bg-blue">
+              <FontAwesomeIcon icon={faPencil} />
+            </button>
+          </div>
 
           <div className="h-20"></div>
 
@@ -63,7 +78,7 @@ export default function UserPageData() {
 
             {/* Additional */}
             {userDetails.joined && <div className="py-5 border-b-[1pt] border-white pb-4">
-              <h2 className="uppercase text-frostWhite font-bold">Member Since</h2>
+              <h2 className="uppercase text-frostWhite font-bold">Learner Since</h2>
               <p className="font-medium">{userDetails.joined}</p>
             </div>}
 

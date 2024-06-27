@@ -70,7 +70,7 @@ export default function CreateNewGroupChat() {
 
   return (
     <GrayContainer close={close} submit={handleCreate} closeLabel={"Cancel"} submitLabel={"Create"}>
-      <div className="w-[300px]">
+      <div className="w-[270px]">
         <h1 className="text-lg font-bold text-center text-frostWhite">Customize Your Group Chat</h1>
         <p className="text-center text-xs">Give your new group a personality with a name and an icon. You can always change later.</p>
 
