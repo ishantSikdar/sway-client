@@ -3,9 +3,6 @@ import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
 import { ROUTE_LOGIN } from "../../constants/routes";
 import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
-import ImageInputButton from "../../components/common/ImageInputButton";
 import LoaderOverlay from "../../components/common/LoaderOverlay";
 
 export default function SignUpPage() {
@@ -100,9 +97,6 @@ export default function SignUpPage() {
           <div className="mb-5 text-xs flex flex-col gap-1">
             <p className="mb-3 font-light text-sm text-center text-red-500">{errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}</p>
 
-            <ImageInputButton image={signUpForm.image} inputHandler={handleSignUpInput} />
-
-            <p className="text-center text-xs font-medium uppercase">Profile Picture</p>
 
             <div>
               <p className="uppercase py-1">Email</p>

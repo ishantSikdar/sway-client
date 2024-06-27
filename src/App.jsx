@@ -45,7 +45,7 @@ function App() {
       </Routes>
       {insideApp && <NavBar />}
       {insideApp && <TimerOverlay />}
-      {/* {screenWidth > 450 && <DesktopWarning />} */}
+      {screenWidth > 450 && <DesktopWarning />}
     </div>
   )
 }

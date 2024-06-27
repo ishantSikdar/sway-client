@@ -68,9 +68,8 @@ export default function EditUser({ setShowEditUser }) {
             <h1 className="text-center uppercase font-medium text-frostWhite">Edit your details</h1>
             <p className="text-center text-sm">{editUserErrorMessage ? <span className="text-red-600 text-center">{editUserErrorMessage}</span> : <span>Only entered fields will be updated</span>} </p>
 
-            <ImageInputButton image={newDetails.image} inputHandler={handleInput} />
 
-            <div className="text-sm">
+            <div className="text-sm mt-10">
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-1">
                   <p>New Name</p>

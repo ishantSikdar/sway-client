@@ -153,3 +153,24 @@ export const postMultipartFormDataRequest = async (url, formData) => {
         }
     }
 }
+
+export const patchMultipartFormDataAuthenticatedRequest = async (url, formData, token) => {
+    try {
+        const response = await axios.patch(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return { status: response.status, data: response.data };
+
+    } catch (error) {
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+
+        } else {
+            console.error(`POST Multipart Authenticated request failed, ${error.message}`);
+            throw error;
+        }
+    }
+}

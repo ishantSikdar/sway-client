@@ -1,4 +1,4 @@
-import { faEnvelope, faPhone, faX } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GrayContainer from "../common/GrayContainer";
 

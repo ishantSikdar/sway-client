@@ -1,7 +1,7 @@
 import { useRecoilValueLoadable } from 'recoil';
-import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
+import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_EDIT_BANNER, API_URI_USER_EDIT_PHOTO, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
-import { getAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
+import { getAuthenticatedRequest, patchMultipartFormDataAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
 import { userDetailsAtom } from '../recoil/atoms/userAtoms';
 import { useEffect } from 'react';
 
@@ -64,10 +64,26 @@ export const sendEditUserDetailsRequest = async (userDetails) => {
     }
 }
 
-// export function useUser() {
-//     const userDetails = useRecoilValueLoadable(userDetailsAtom);
+export const sendEditProfilePicRequest = async (image) => {
+    try {
+        const formData = new FormData();
+        formData.append('image', image);
+        return await patchMultipartFormDataAuthenticatedRequest(`${API_BASE_URL}${API_URI_USER_EDIT_PHOTO}`, formData, getAuthToken());
 
-//     useEffect(() => {
+    } catch (error) {
+        console.error(`Edit User Details request failed, ${error.message}`);
+        throw new Error(`${error.message}`);
+    }
+}
 
-//     }, [])
-// }
+export const sendEditBannerPicRequest = async (image) => {
+    try {
+        const formData = new FormData();
+        formData.append('image', image);
+        return await patchMultipartFormDataAuthenticatedRequest(`${API_BASE_URL}${API_URI_USER_EDIT_BANNER}`, formData, getAuthToken());
+
+    } catch (error) {
+        console.error(`Edit User Details request failed, ${error.message}`);
+        throw new Error(`${error.message}`);
+    }
+}

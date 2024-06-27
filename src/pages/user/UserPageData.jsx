@@ -9,9 +9,13 @@ import LogoutConfirm from "../../components/user/LogoutConfirm";
 import { handleCloseByClickOutside, supportsDynamicViewport } from "../../utils/pageUtil";
 import CenterOverlay from "../../components/common/CenterOverlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditProfilePic from "../../components/user/EditProfilePic";
+import EditBannerPic from "../../components/user/EditBannerPic";
 
 export default function UserPageData() {
   const userPhotoRef = useRef();
+  const [showEditPhoto, setShowEditPhoto] = useState(false);
+  const [showEditBanner, setShowEditBanner] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -37,11 +41,11 @@ export default function UserPageData() {
       <div className="relative">
         {/* banner */}
         <div className="bg-[#ababab] h-28 w-full" style={{
-          backgroundImage: `url('${userDetails.photoUrl}')`,
+          backgroundImage: `url('${userDetails.bannerUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}>
-          <button className="rounded-full h-8 w-8 bg-blue right-2 top-2 absolute text-xs">
+          <button onClick={() => setShowEditBanner(true)} className="rounded-full h-8 w-8 bg-blue right-2 top-2 absolute  text-xs">
             <FontAwesomeIcon icon={faEdit} />
           </button>
 
@@ -60,7 +64,7 @@ export default function UserPageData() {
               }}
               className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden"
             ></div>
-            <button className="absolute text-xs border-2 border-gray top-4 left-32 rounded-full h-8 w-8 bg-blue">
+            <button onClick={() => setShowEditPhoto(true)} className="absolute text-xs border-2 border-black top-4 left-32 rounded-full h-8 w-8 bg-blue">
               <FontAwesomeIcon icon={faPencil} />
             </button>
           </div>
@@ -100,6 +104,8 @@ export default function UserPageData() {
         </div>
       </CenterOverlay>}
 
+      {showEditBanner && <EditBannerPic close={() => setShowEditBanner(false)}  />}
+      {showEditPhoto && <EditProfilePic close={() => setShowEditPhoto(false)}  />}
       {showLogoutConfirm && <LogoutConfirm cancel={() => setShowLogoutConfirm(false)} />}
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}
