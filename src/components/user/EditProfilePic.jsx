@@ -17,7 +17,10 @@ export default function EditProfilePic({ close: closeWindow }) {
   const [profilePic, setProfilePic] = useState({
     image: null
   });
-  const [userDetails, setUserDetails] = useRecoilState(userDetailsAtom); 
+  const [userDetails, setUserDetails] = useRecoilState(userDetailsAtom);
+  const [firstTimePic, setFirstTimePic] = useState(!userDetails.photoUrl);
+
+  console.log(firstTimePic);
 
   const imageInputHandler = (event) => {
     const { name, files } = event.target;
@@ -70,6 +73,9 @@ export default function EditProfilePic({ close: closeWindow }) {
             className="bg-blue w-full rounded-md py-2 mt-5"
             onClick={() => {
               closeWindow();
+              if (firstTimePic) {
+                window.location.reload();
+              }
             }}>OK</button>
         </div>
       </CenterOverlay>}

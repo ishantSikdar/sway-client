@@ -10,6 +10,7 @@ export default {
         'light-gray': '#383a40',
         gray: '#2a2a2a',
         black: "#1f1f1f",
+        'ease-gray': '#ababab',
         'dark-black': "#0f0f0f",
         'light-black': "#313338",
         midDark: '#2b2d31',

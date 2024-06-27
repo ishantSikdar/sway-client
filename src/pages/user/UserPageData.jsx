@@ -2,24 +2,27 @@ import { useRecoilValue } from "recoil"
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms"
 import ProfileButton from "../../components/common/ProfileButton";
 import { faEdit, faPenToSquare, faPencil, faPhone, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Contacts from "../../components/user/Contacts";
 import EditUser from "../../components/user/EditUser";
 import LogoutConfirm from "../../components/user/LogoutConfirm";
 import { handleCloseByClickOutside, supportsDynamicViewport } from "../../utils/pageUtil";
-import CenterOverlay from "../../components/common/CenterOverlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditProfilePic from "../../components/user/EditProfilePic";
 import EditBannerPic from "../../components/user/EditBannerPic";
+import UserProfilePicture from "../../components/user/UserProfilePicture";
+import CenterOverlay from "../../components/common/CenterOverlay";
+import { getInitials } from "../../utils/stringUtil";
 
 export default function UserPageData() {
   const userPhotoRef = useRef();
+  const [showPicture, setShowPicture] = useState(false);
+
   const [showEditPhoto, setShowEditPhoto] = useState(false);
   const [showEditBanner, setShowEditBanner] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [showPicture, setShowPicture] = useState(false);
   const userDetails = useRecoilValue(userDetailsAtom);
 
   const handleEditUser = () => {
@@ -40,7 +43,7 @@ export default function UserPageData() {
     <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
       <div className="relative">
         {/* banner */}
-        <div className="bg-[#ababab] h-28 w-full" style={{
+        <div className="bg-ease-gray h-28 w-full" style={{
           backgroundImage: `url('${userDetails.bannerUrl}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
@@ -55,15 +58,10 @@ export default function UserPageData() {
         <div className="relative">
           {/* image */}
           <div className="relative">
-            <div
-              onClick={() => setShowPicture(true)}
-              style={{
-                backgroundImage: `url("${userDetails.photoUrl}")`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover'
-              }}
-              className="absolute -top-20 left-5 w-36 h-36 border-4 rounded-full border-black bg-coal overflow-hidden"
-            ></div>
+            <button onClick={() => setShowPicture(true)} className="absolute -top-20 left-5 w-36 h-36 border-4 border-black rounded-full overflow-hidden">
+              <UserProfilePicture name={userDetails.name} imageUrl={userDetails.photoUrl} size={48} />
+            </button>
+
             <button onClick={() => setShowEditPhoto(true)} className="absolute text-xs border-2 border-black top-4 left-32 rounded-full h-8 w-8 bg-blue">
               <FontAwesomeIcon icon={faPencil} />
             </button>
@@ -101,11 +99,17 @@ export default function UserPageData() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>
+          {!userDetails.photoUrl &&
+            <div className="w-full h-full bg-purple-800 flex justify-center items-center">
+              <p className="text-6xl font-extrabold">
+                {getInitials(userDetails.name)}
+              </p>
+            </div>}
         </div>
       </CenterOverlay>}
 
-      {showEditBanner && <EditBannerPic close={() => setShowEditBanner(false)}  />}
-      {showEditPhoto && <EditProfilePic close={() => setShowEditPhoto(false)}  />}
+      {showEditBanner && <EditBannerPic close={() => setShowEditBanner(false)} />}
+      {showEditPhoto && <EditProfilePic close={() => setShowEditPhoto(false)} />}
       {showLogoutConfirm && <LogoutConfirm cancel={() => setShowLogoutConfirm(false)} />}
       {showEditUser && <EditUser setShowEditUser={setShowEditUser} />}
       {showContact && <Contacts email={userDetails.email} mobile={userDetails.mobile} setShowContact={setShowContact} />}

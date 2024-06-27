@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoi
 import { playlistSubjectSearchTagAtom } from "../../recoil/atoms/playlistAtoms";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
 import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
+import UserProfilePicture from "../user/UserProfilePicture";
 
 export default function TopBar() {
   const location = useLocation();
@@ -37,16 +38,9 @@ export default function TopBar() {
     <div
       className={`z-40 fixed h-12 w-full bg-gray border-b-[0.5pt] border-light-gray text-xl flex flex-row-reverse justify-between items-center transition-opacity duration-300`}
     >
-      <button onClick={() => navigate(ROUTE_USER_PAGE)} className="h-10 w-10 rounded-full border-[1pt] border-light-gray mr-2">
+      <button onClick={() => navigate(ROUTE_USER_PAGE)} className="h-10 w-10 rounded-full overflow-hidden border-[1pt] border-light-gray mr-2">
         {userDetailsLoadable.state === 'hasValue' ?
-          <div
-            style={{
-              backgroundImage: `url('${userDetailsLoadable.contents.photoUrl}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            className="w-full h-full overflow-hidden rounded-full"
-          ></div>
+        <UserProfilePicture imageUrl={userDetailsLoadable.contents.photoUrl} name={userDetailsLoadable.contents.name} size={20} />
           :
           <FontAwesomeIcon icon={faUser} />}
       </button>
