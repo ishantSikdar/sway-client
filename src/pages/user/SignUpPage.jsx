@@ -95,7 +95,10 @@ export default function SignUpPage() {
           </div>
 
           <div className="mb-5 text-xs flex flex-col gap-1">
-            <p className="mb-3 font-light text-sm text-center text-red-500">{errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}</p>
+            <p className="mb-3 font-light text-sm text-center text-red-500">
+              <p className="text-white">Mail & Mobile doesn't need to be real</p>
+              {errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}
+            </p>  
 
 
             <div>
