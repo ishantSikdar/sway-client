@@ -1,11 +1,8 @@
-import { faCheck, faCamera } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { sendEditUserDetailsRequest } from "../../services/userServices";
 import GrayContainer from "../common/GrayContainer";
 import LoaderOverlay from "../common/LoaderOverlay";
-import ImageInputButton from "../common/ImageInputButton";
 
 export default function EditUser({ setShowEditUser }) {
   const [showSuccess, setShowSuccess] = useState(false);

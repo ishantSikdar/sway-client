@@ -49,13 +49,14 @@ export const sendEditUserDetailsRequest = async (userDetails) => {
     try {
         const localToken = getAuthToken();
         const formData = new FormData();
+        const body = {
+            name: userDetails.name !== '' ? userDetails.name : undefined,
+            username: userDetails.username !== '' ? userDetails.username : undefined,
+            mobile: userDetails.mobile !== '' ? userDetails.mobile : undefined,
+            email: userDetails.email !== '' ? userDetails.email : undefined,
+        };
         formData.append('image', userDetails.image);
-        formData.append('json', JSON.stringify(JSON.stringify({
-            name: userDetails.name,
-            username: userDetails.username,
-            mobile: userDetails.mobile,
-            email: userDetails.email,
-        })))
+        formData.append('json', JSON.stringify(JSON.stringify(body)))
         return await putMultipartFormDataAuthenticatedRequest(`${API_BASE_URL}${API_URI_USER_DETAILS}`, formData, localToken);
 
     } catch (error) {
