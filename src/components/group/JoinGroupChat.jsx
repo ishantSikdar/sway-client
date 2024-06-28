@@ -44,7 +44,7 @@ export default function JoinGroupChat() {
 
   return (
     <GrayContainer close={close} submit={sendJoinCommunityRequest} closeLabel={"Cancel"} submitLabel={"Join"}>
-      <div className="w-[270px]">
+      <div className="w-[270px] p-5">
         <div className="flex flex-col items-center gap-2">
           <div>
             <h1 className="text-lg font-bold text-center text-frostWhite">Join a Server</h1>

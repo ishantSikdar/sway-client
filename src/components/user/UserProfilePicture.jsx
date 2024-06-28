@@ -13,7 +13,7 @@ export default function UserProfilePicture({ name, imageUrl, size }) {
       }}
       className={`bg-white  h-full w-full flex justify-center items-center`}
     >
-      {imageUrl.slice(0,9) === 'undefined' &&
+      {(!imageUrl || imageUrl.slice(0,9) === 'undefined') &&
         <p style={{ fontSize: size }} className="text-black z-50 font-extrabold">{initials}</p>}
     </div>
   )

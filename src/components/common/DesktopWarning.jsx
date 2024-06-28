@@ -3,7 +3,7 @@ import GrayContainer from "./GrayContainer";
 export default function DesktopWarning() {
   return (
     <GrayContainer>
-      <div className="w-[270px] p-5 text-center flex flex-col gap-2">
+      <div className="w-[270px] p-10 text-center flex flex-col gap-2">
         <p>
           The App is not optimized for Tab and Desktop Size screens.
         </p>

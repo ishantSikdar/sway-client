@@ -60,12 +60,14 @@ export default function EditGoalTime({ reset }) {
   }
 
   return <GrayContainer closeLabel={"Cancel"} close={closeEditGoalTimeWindow} submitLabel={"Set Goal Time"} submit={handleUpdateGoalTime}>
+    <div className="p-5">
 
-    <h2 className='text-center mb-5 text-xl'>New Goal Time</h2>
-    <div className='flex gap-4 w-full'>
-      <input type="number" name="hh" value={newGoalTime.hh} onChange={handleInput} max={23} placeholder='HH' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
-      <input type="number" name="mm" value={newGoalTime.mm} onChange={handleInput} max={59} placeholder='MM' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
-      <input type="number" name="ss" value={newGoalTime.ss} onChange={handleInput} max={59} placeholder='SS' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
+      <h2 className='text-center mb-5 text-xl'>New Goal Time</h2>
+      <div className='flex gap-4 w-full'>
+        <input type="number" name="hh" value={newGoalTime.hh} onChange={handleInput} max={23} placeholder='HH' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
+        <input type="number" name="mm" value={newGoalTime.mm} onChange={handleInput} max={59} placeholder='MM' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
+        <input type="number" name="ss" value={newGoalTime.ss} onChange={handleInput} max={59} placeholder='SS' className='w-16 rounded-md h-16 outline-none bg-coal text-center text-2xl' />
+      </div>
     </div>
 
   </GrayContainer>

@@ -1,7 +1,6 @@
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import ChatMessage from "../chat/ChatMessage";
-import GroupChatOptions from "./GroupChatOptions";
 import { useEffect, useRef } from "react";
 import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChatsOfGroupAtomFamily } from "../../recoil/atoms/chatAtoms";
 import ChatSkeleton from "../chat/ChatSkeleton";
@@ -12,6 +11,7 @@ export default function ChatWindow() {
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat));
   const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat, 1]));
   const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat));
+
 
   useEffect(() => {
     socket.onopen = () => {

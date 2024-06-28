@@ -9,6 +9,9 @@ import { communityUserInterfaceAtom, joinedCommunitiesAtom, selectedChatAtom } f
 import Wumpus from "../../components/common/Wumpus";
 import MessageSendButton from "../../components/chat/MessageSendButton";
 import GroupChatOptions from "../../components/group/GroupChatOptions";
+import InviteUser from "../../components/group/InviteUser";
+import MembersList from "../../components/group/MembersList";
+import ExplorePublicCommunities from "../../components/group/ExplorePublicCommunities";
 
 export default function GroupsMainPage() {
 
@@ -72,6 +75,9 @@ export default function GroupsMainPage() {
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
+      {communityElements.showExploreGroups && <ExplorePublicCommunities />}
+      {communityElements.showInviteComponent && <InviteUser />}
+      {communityElements.showMembersList && <MembersList communityId={selectedChat} />}
     </div >
   );
 }

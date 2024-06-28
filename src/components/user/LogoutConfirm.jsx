@@ -17,7 +17,7 @@ export default function LogoutConfirm({ cancel }) {
 
   return (
     <GrayContainer closeLabel={`Cancel`} close={cancel} submit={logoutUser} submitLabel={`Yes`}>
-      <div className="w-[270px]">
+      <div className="w-[270px] p-5">
         <p className="text-center">Are you sure you want to logout from {userDetails.name}'s account?</p>
       </div>
     </GrayContainer>

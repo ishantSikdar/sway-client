@@ -16,3 +16,4 @@ export const API_URI_COMMUNITY_GENERATE_INVITATION_CODE = "/community/getInvitat
 export const API_URI_COMMUNITY_JOINED_COMMUNITIES = "/community/joinedCommunities";
 export const API_URI_COMMUNITY_COMMUNITY_DETAILS = "/community/communityDetails";
 export const API_URI_COMMUNITY_COMMUNITY_CHATS = "/community/communityChats";
+export const API_URI_COMMUNITY_COMMUNITY_MEMBERS = "/community/communityMembers";

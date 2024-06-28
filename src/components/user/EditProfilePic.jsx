@@ -56,7 +56,7 @@ export default function EditProfilePic({ close: closeWindow }) {
 
   return (
     <GrayContainer close={closeWindow} submit={updateProfilePicture} submitLabel={'Change'} closeLabel={'Cancel'}>
-      <div className="w-[270px] text-center relative">
+      <div className="w-[270px] p-5 text-center relative">
         <ImageInputButton image={profilePic.image} inputHandler={imageInputHandler} />
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         <button className="absolute right-4 bottom-5 text-xl rounded-full bg-blue h-12 w-12 ">

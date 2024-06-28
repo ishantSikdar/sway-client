@@ -1,5 +1,5 @@
 import { atom, atomFamily } from "recoil";
-import { fetchCommunityDetailsByIdSelectorFamily, fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors";
+import { fetchCommunityDetailsByIdSelectorFamily, fetchCommunityMembersByCommunityIdSelectorFamily, fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors";
 
 export const joinedCommunitiesAtom = atom({
     key: "joinedCommunitiesAtom",
@@ -18,6 +18,8 @@ export const communityUserInterfaceAtom = atom({
         showCreateChat: false,
         showJoinChat: false,
         showExploreGroups: false,
+        showInviteComponent: false,
+        showMembersList: false,
     }
 });
 
@@ -30,3 +32,8 @@ export const communityDetailsAtomFamily = atomFamily({
     key: 'communityDetailsAtomFamily',
     default: (id) => fetchCommunityDetailsByIdSelectorFamily(id)
 });
+
+export const communityMembersAtomFamily = atomFamily({
+    key: 'communityMembersAtomFamily',
+    default: (id) => fetchCommunityMembersByCommunityIdSelectorFamily(id)
+})
