@@ -75,7 +75,7 @@ export default function GroupsMainPage() {
 
 
       {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
-      {communityElements.showMembersList && <MembersList communityId={selectedChat} />}
+      {communityElements.showMembersList && <MembersList communityId={selectedChat.communityId} />}
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
