@@ -4,7 +4,7 @@ import MemberCard from "./MemberCard";
 import { communityMembersAtomFamily, communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 import { useEffect, useRef } from "react";
 import { handleCloseByClickOutside } from "../../utils/pageUtil";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 
 export default function MembersList({ communityId }) {
   const memberWindowRef = useRef(null);
@@ -28,7 +28,7 @@ export default function MembersList({ communityId }) {
     return cleanup;
   }, []);
 
-  return <GrayContainer close={closeMemberWindow} closeLabel={'Close'}>
+  return <ElevatedWindow close={closeMemberWindow} closeLabel={'Close'}>
     <div ref={memberWindowRef}
       className="max-w-[80dvw] min-w-[70dvw] max-h-[50dvh] px-4 py-5 overflow-scroll rounded-md"
       style={{
@@ -42,5 +42,5 @@ export default function MembersList({ communityId }) {
       }
 
     </div>
-  </GrayContainer>
+  </ElevatedWindow>
 }

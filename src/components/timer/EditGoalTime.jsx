@@ -3,7 +3,7 @@ import { hhMMssToSeconds } from "../../utils/timeUtil";
 import { setGoalTime as saveGoalTimeToLocalStorage } from "../../utils/localStorageUtil";
 import { timerDataAtom, timerFlagsAtom } from "../../recoil/atoms/timerAtoms";
 import { useSetRecoilState } from "recoil";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 
 export default function EditGoalTime({ reset }) {
 
@@ -59,7 +59,7 @@ export default function EditGoalTime({ reset }) {
     }))
   }
 
-  return <GrayContainer closeLabel={"Cancel"} close={closeEditGoalTimeWindow} submitLabel={"Set Goal Time"} submit={handleUpdateGoalTime}>
+  return <ElevatedWindow closeLabel={"Cancel"} close={closeEditGoalTimeWindow} submitLabel={"Set Goal Time"} submit={handleUpdateGoalTime}>
     <div className="p-5">
 
       <h2 className='text-center mb-5 text-xl'>New Goal Time</h2>
@@ -70,5 +70,5 @@ export default function EditGoalTime({ reset }) {
       </div>
     </div>
 
-  </GrayContainer>
+  </ElevatedWindow>
 }

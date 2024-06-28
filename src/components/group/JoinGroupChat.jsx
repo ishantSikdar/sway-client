@@ -3,7 +3,7 @@ import { joinCommunityRequest } from "../../services/communityServices";
 import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
 import LoaderOverlay from "../common/LoaderOverlay";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 import { useSetRecoilState } from "recoil";
 import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
@@ -43,7 +43,7 @@ export default function JoinGroupChat() {
   }
 
   return (
-    <GrayContainer close={close} submit={sendJoinCommunityRequest} closeLabel={"Cancel"} submitLabel={"Join"}>
+    <ElevatedWindow close={close} submit={sendJoinCommunityRequest} closeLabel={"Cancel"} submitLabel={"Join"}>
       <div className="w-[270px] p-5">
         <div className="flex flex-col items-center gap-2">
           <div>
@@ -73,6 +73,6 @@ export default function JoinGroupChat() {
 
         {joiningLoading && <LoaderOverlay />}
       </div>
-    </GrayContainer>
+    </ElevatedWindow>
   )
 }

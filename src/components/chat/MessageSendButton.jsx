@@ -8,7 +8,7 @@ export default function MessageSendButton() {
 
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [message, setMessage] = useRecoilState(chatTextMesssageAtom);
-  const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat));
+  const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
 
   const handleMessageInput = (event) => {
     setMessage(event.target.value);

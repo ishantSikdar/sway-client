@@ -8,10 +8,9 @@ import ChatSkeleton from "../chat/ChatSkeleton";
 export default function ChatWindow() {
   const chatWindowDivRef = useRef(null);
   const selectedChat = useRecoilValue(selectedChatAtom);
-  const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat));
-  const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat, 1]));
-  const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat));
-
+  const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
+  const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat.communityId, 1]));
+  const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat.communityId));
 
   useEffect(() => {
     socket.onopen = () => {

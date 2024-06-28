@@ -20,12 +20,21 @@ export const communityUserInterfaceAtom = atom({
         showExploreGroups: false,
         showInviteComponent: false,
         showMembersList: false,
+
+        invitationCode: '',
+        inviteCodeApiError: '',
+        copyInviteCodeSuccess: false,
+        inviteCodeLoading: false,
     }
 });
 
 export const selectedChatAtom = atom({
     key: 'selectedChat',
-    default: null,
+    default: {
+        communityId: null,
+        communityName: null,
+        iconUrl: null,
+    },
 });
 
 export const communityDetailsAtomFamily = atomFamily({

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 import { deleteBearerToken } from "../../utils/localStorageUtil";
 import { useRecoilValue } from "recoil";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
@@ -16,10 +16,10 @@ export default function LogoutConfirm({ cancel }) {
   }
 
   return (
-    <GrayContainer closeLabel={`Cancel`} close={cancel} submit={logoutUser} submitLabel={`Yes`}>
+    <ElevatedWindow closeLabel={`Cancel`} close={cancel} submit={logoutUser} submitLabel={`Yes`}>
       <div className="w-[270px] p-5">
         <p className="text-center">Are you sure you want to logout from {userDetails.name}'s account?</p>
       </div>
-    </GrayContainer>
+    </ElevatedWindow>
   )
 }

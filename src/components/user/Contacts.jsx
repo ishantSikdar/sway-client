@@ -1,10 +1,10 @@
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 
 export default function Contacts({ email, mobile, setShowContact }) {
   return (
-    <GrayContainer close={() => setShowContact(false)} closeLabel={"Close"}>
+    <ElevatedWindow close={() => setShowContact(false)} closeLabel={"Close"}>
       <div className="flex flex-col gap-2 w-[270px] p-5">
 
         <div className="flex">
@@ -29,6 +29,6 @@ export default function Contacts({ email, mobile, setShowContact }) {
           </div>
         </div>
       </div>
-    </GrayContainer >
+    </ElevatedWindow >
   );
 }

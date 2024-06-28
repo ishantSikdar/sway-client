@@ -5,7 +5,12 @@ export default function GroupChatIconButton({ id, name, iconUrl }) {
   const setSelectedChat = useSetRecoilState(selectedChatAtom);
 
   const openChat = () => {
-    setSelectedChat(id);
+    setSelectedChat((prev) => ({
+      ...prev,
+      communityId: id,
+      communityName: name,
+      iconUrl: iconUrl
+    }));
   }
 
   return (

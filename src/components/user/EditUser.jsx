@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { sendEditUserDetailsRequest } from "../../services/userServices";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 import LoaderOverlay from "../common/LoaderOverlay";
 
 export default function EditUser({ setShowEditUser }) {
@@ -58,7 +58,7 @@ export default function EditUser({ setShowEditUser }) {
   }
 
   return (
-    <GrayContainer submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={!showSuccess ? (handleEditRequest) : (refreshPage)}>
+    <ElevatedWindow submitLabel={'Done'} close={() => setShowEditUser(false)} closeLabel={"Cancel"} submit={!showSuccess ? (handleEditRequest) : (refreshPage)}>
       <div className="w-[270px] p-5">
         {!showSuccess ?
           (<div className="">
@@ -96,7 +96,7 @@ export default function EditUser({ setShowEditUser }) {
 
         {loading && <LoaderOverlay />}
       </div>
-    </GrayContainer>
+    </ElevatedWindow>
   )
 
 

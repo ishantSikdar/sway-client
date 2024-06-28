@@ -1,6 +1,6 @@
 import CenterOverlay from "./CenterOverlay";
 
-export default function GrayContainer({ children, close, closeLabel, submit, submitLabel }) {
+export default function ElevatedWindow({ children, close, closeLabel, submit, submitLabel }) {
   return (
     <CenterOverlay>
       <div>

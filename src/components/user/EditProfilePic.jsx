@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 import ImageInputButton from "../common/ImageInputButton";
 import 'react-image-crop/dist/ReactCrop.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -55,7 +55,7 @@ export default function EditProfilePic({ close: closeWindow }) {
   }
 
   return (
-    <GrayContainer close={closeWindow} submit={updateProfilePicture} submitLabel={'Change'} closeLabel={'Cancel'}>
+    <ElevatedWindow close={closeWindow} submit={updateProfilePicture} submitLabel={'Change'} closeLabel={'Cancel'}>
       <div className="w-[270px] p-5 text-center relative">
         <ImageInputButton image={profilePic.image} inputHandler={imageInputHandler} />
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -79,6 +79,6 @@ export default function EditProfilePic({ close: closeWindow }) {
             }}>OK</button>
         </div>
       </CenterOverlay>}
-    </GrayContainer>
+    </ElevatedWindow>
   )
 }

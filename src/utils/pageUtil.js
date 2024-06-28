@@ -73,3 +73,13 @@ export const handleCloseByClickOutside = (ref, callback, exceptionRefs = []) => 
         document.removeEventListener('mousedown', handleClick);
     };
 };
+
+export const copyToClipboard = async (text) => {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch(error) {
+        console.error("Error in copying to clipboard", error);
+        return false;
+    }
+};

@@ -9,9 +9,9 @@ import { communityUserInterfaceAtom, joinedCommunitiesAtom, selectedChatAtom } f
 import Wumpus from "../../components/common/Wumpus";
 import MessageSendButton from "../../components/chat/MessageSendButton";
 import GroupChatOptions from "../../components/group/GroupChatOptions";
+import ExplorePublicCommunities from "../../components/group/ExplorePublicCommunities";
 import InviteUser from "../../components/group/InviteUser";
 import MembersList from "../../components/group/MembersList";
-import ExplorePublicCommunities from "../../components/group/ExplorePublicCommunities";
 
 export default function GroupsMainPage() {
 
@@ -65,19 +65,21 @@ export default function GroupsMainPage() {
 
 
       <div className="h-full flex flex-col flex-grow bg-midDark w-full relative">
-        {selectedChat ?
+        {selectedChat.communityId ?
           <>
-            <GroupChatOptions communityId={selectedChat} />
+            <GroupChatOptions communityId={selectedChat.communityId} />
             <ChatWindow />
             <MessageSendButton />
           </> : <Wumpus />}
       </div>
 
+
+      {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
+      {communityElements.showMembersList && <MembersList communityId={selectedChat} />}
+
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
       {communityElements.showExploreGroups && <ExplorePublicCommunities />}
-      {communityElements.showInviteComponent && <InviteUser />}
-      {communityElements.showMembersList && <MembersList communityId={selectedChat} />}
     </div >
   );
 }

@@ -84,3 +84,14 @@ export const fetchCommunityMembersByCommunityId = async (communityId) => {
         throw new Error(`Failed fetching members of communities, ${error.message}`);
     }  
 }
+
+export const sendGenerateInvitationCodeRequest = async (communityId) => {
+    try {
+        const localToken = getAuthToken();
+        return await getAuthenticatedRequest(`${API_BASE_URL}${API_URI_COMMUNITY_GENERATE_INVITATION_CODE}?communityId=${communityId}`, localToken);
+
+    } catch (error) {
+        console.error(`Failed generating invite code, ${error.message}`);
+        throw new Error(`Failed generating invite code, ${error.message}`);
+    }  
+}

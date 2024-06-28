@@ -6,7 +6,7 @@ import { createNewCommunityRequest } from "../../services/communityServices";
 import LoaderOverlay from "../common/LoaderOverlay";
 import CenterOverlay from "../common/CenterOverlay";
 import { useNavigate } from 'react-router-dom';
-import GrayContainer from "../common/GrayContainer";
+import ElevatedWindow from "../common/ElevatedWindow";
 import ImageInputButton from "../common/ImageInputButton";
 import { useSetRecoilState } from "recoil";
 import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
@@ -69,7 +69,7 @@ export default function CreateNewGroupChat() {
   };
 
   return (
-    <GrayContainer close={close} submit={handleCreate} closeLabel={"Cancel"} submitLabel={"Create"}>
+    <ElevatedWindow close={close} submit={handleCreate} closeLabel={"Cancel"} submitLabel={"Create"}>
       <div className="w-[270px] p-5">
         <h1 className="text-lg font-bold text-center text-frostWhite">Customize Your Group Chat</h1>
         <p className="text-center text-xs">Give your new group a personality with a name and an icon. You can always change later.</p>
@@ -112,6 +112,6 @@ export default function CreateNewGroupChat() {
           </div>
         </CenterOverlay>}
       </div>
-    </GrayContainer>
+    </ElevatedWindow>
   );
 }
