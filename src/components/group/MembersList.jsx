@@ -4,7 +4,7 @@ import MemberCard from "./MemberCard";
 import { communityMembersAtomFamily, communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 import { useEffect, useRef } from "react";
 import { handleCloseByClickOutside } from "../../utils/pageUtil";
-import ElevatedWindow from "../common/ElevatedWindow";
+import LoaderOverlay from "../common/LoaderOverlay";
 
 export default function MembersList({ communityId }) {
   const memberWindowRef = useRef(null);
@@ -28,9 +28,9 @@ export default function MembersList({ communityId }) {
     return cleanup;
   }, []);
 
-  return <ElevatedWindow close={closeMemberWindow} closeLabel={'Close'}>
+  return <CenterOverlay>
     <div ref={memberWindowRef}
-      className="max-w-[80dvw] min-w-[70dvw] max-h-[50dvh] px-4 py-5 overflow-scroll rounded-md"
+      className="max-w-[80dvw] min-w-[70dvw] max-h-[50dvh] bg-gray px-4 py-5 overflow-scroll rounded-md"
       style={{
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
@@ -41,6 +41,9 @@ export default function MembersList({ communityId }) {
           <MemberCard key={member.userId} id={member.userId} name={member.name} imageUrl={member.photoUrl} username={member.username} />)
       }
 
+      {communityMembersLoadable.state === 'loading' &&
+        <LoaderOverlay />
+      }
     </div>
-  </ElevatedWindow>
+  </CenterOverlay>
 }
