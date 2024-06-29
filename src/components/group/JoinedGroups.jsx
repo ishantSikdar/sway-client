@@ -10,8 +10,6 @@ export default function JoinedGroups() {
       <>
         {joinedCommunitiesLoadable.contents.joinedCommunities.map((community) =>
           <GroupChatIconButton key={community.id} id={community.id} name={community.name} iconUrl={community.imageUrl} />)}
-        <div className="w-full h-[1px] bg-white mb-4 mt-2"></div>
-
       </>
     )
 

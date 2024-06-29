@@ -24,7 +24,7 @@ export default function GroupsMainPage() {
 
       {/* Side Bar Background layer (not absolute, used to occupy space over page) */}
       <div
-        className={`h-full py-2 mr-2 bg-black items-center overflow-y-scroll transition-width duration-500 ease-in-out`}
+        className={`h-full py-2 ${communityElements.sideBarWidth === 0 ? "": "mr-2"} bg-black items-center overflow-y-scroll transition-width duration-500 ease-in-out`}
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',

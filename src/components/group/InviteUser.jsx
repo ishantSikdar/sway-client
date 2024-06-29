@@ -70,7 +70,7 @@ export default function InviteUser({ groupName }) {
     <ElevatedWindow closeLabel={'Close'} submitLabel={'Generate'} close={closeWindow} submit={sendGenerateCodeRequest} >
       <div className="p-5 w-[270px]">
         <p className="text-lg font-medium text-center px-4">
-          Generate invitation code{groupName && ` ${groupName}`}?
+          Generate invitation code{groupName && ` for ${groupName}`}?
         </p>
         <p className="mx-auto p-2 bg-light-gray w-max rounded-md my-1">
           {communityUIElements.invitationCode ?
