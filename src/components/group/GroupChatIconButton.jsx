@@ -1,5 +1,5 @@
-import { useSetRecoilState } from "recoil"
-import { selectedChatAtom } from "../../recoil/atoms/communityAtoms"
+import { useSetRecoilState } from "recoil";
+import { selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function GroupChatIconButton({ id, name, iconUrl }) {
   const setSelectedChat = useSetRecoilState(selectedChatAtom);
@@ -9,7 +9,8 @@ export default function GroupChatIconButton({ id, name, iconUrl }) {
       ...prev,
       communityId: id,
       communityName: name,
-      iconUrl: iconUrl
+      iconUrl: iconUrl,
+      chatPageNumber: 1,
     }));
   }
 

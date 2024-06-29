@@ -1,9 +1,14 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CenterOverlay from "./CenterOverlay";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import "./loader.css";
 
 export default function LoaderOverlay() {
-  return <CenterOverlay>
-    <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-  </CenterOverlay>
+  return (
+    <CenterOverlay>
+      <div className="loader triangle">
+        <svg viewBox="0 0 86 80">
+          <polygon points="43 8 79 72 7 72"></polygon>
+        </svg>
+      </div>
+    </CenterOverlay>
+  );
 }

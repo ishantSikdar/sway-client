@@ -24,7 +24,7 @@ export default function GroupsMainPage() {
 
       {/* Side Bar Background layer (not absolute, used to occupy space over page) */}
       <div
-        className={`h-full py-2 bg-black items-center overflow-y-scroll  transition-width duration-500 ease-in-out`}
+        className={`h-full py-2 mr-2 bg-black items-center overflow-y-scroll transition-width duration-500 ease-in-out`}
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',
@@ -33,7 +33,7 @@ export default function GroupsMainPage() {
       ></div>
 
       {/* SideBar, is absolute */}
-      {joinedCommunitiesLoadable.state === 'hasValue' &&
+      {joinedCommunitiesLoadable.state === 'hasValue' &&  
         < div
           className={`z-30 fixed h-full py-2 bg-black items-center px-2 overflow-y-scroll  transition-transform duration-500 ease-in-out`}
           style={{
@@ -47,22 +47,6 @@ export default function GroupsMainPage() {
           <CommunityButtons />
         </div>
       }
-
-      {/* SideBar, is absolute */}
-      {joinedCommunitiesLoadable.state === 'loading' &&
-        < div
-          className={`z-30 fixed h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[0.1pt] border-gray transition-transform duration-500 ease-in-out animate-black-gray-pulse`}
-          style={{
-            transform: communityElements.sideBarWidth === 0 ? 'translateX(-100%)' : 'translateX(0)',
-            width: 56,
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-          }}
-        >
-          
-        </div>
-      }
-
 
       <div className="h-full flex flex-col flex-grow bg-midDark w-full relative">
         {selectedChat.communityId ?
@@ -80,6 +64,6 @@ export default function GroupsMainPage() {
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
       {communityElements.showExploreGroups && <ExplorePublicCommunities />}
-    </div >
+    </div>
   );
 }

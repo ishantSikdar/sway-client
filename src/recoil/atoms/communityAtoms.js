@@ -15,6 +15,7 @@ export const communityUserInterfaceAtom = atom({
     key: 'communityUserInterfaceAtom',
     default: {
         sideBarWidth: 56,
+
         showCreateChat: false,
         showJoinChat: false,
         showExploreGroups: false,
@@ -36,6 +37,14 @@ export const selectedChatAtom = atom({
         iconUrl: null,
     },
 });
+
+export const chatPageAtom = atom({
+    key: 'chatPageAtom',
+    default: {
+        chatPageNumber: 1,
+        isFetchingNewPage: false,
+    },
+})
 
 export const communityDetailsAtomFamily = atomFamily({
     key: 'communityDetailsAtomFamily',
