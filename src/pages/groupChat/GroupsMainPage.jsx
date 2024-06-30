@@ -23,18 +23,18 @@ export default function GroupsMainPage() {
   const selectedChat = useRecoilValue(selectedChatAtom);
   const joinedCommunitiesLoadable = useRecoilValueLoadable(joinedCommunitiesAtom);
 
-    useEffect(() => {
-      if (!checkLoggedIn()) {
-        redirectToLoginPage(location, navigate);
-      }
-    }, [navigate, location]);
+  useEffect(() => {
+    if (!checkLoggedIn()) {
+      redirectToLoginPage(location, navigate);
+    }
+  }, [navigate, location]);
 
   return (
     <div className={`flex pt-12 pb-12 w-full ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>
 
       {/* Side Bar Background layer (not absolute, used to occupy space over page) */}
       <div
-        className={`h-full py-2 ${communityElements.sideBarWidth === 0 ? "": "mr-2"} bg-black items-center overflow-y-scroll transition-width duration-500 ease-in-out`}
+        className={`h-full py-2 ${communityElements.sideBarWidth === 0 ? "" : "mr-2"} bg-black items-center overflow-y-scroll transition-width duration-500 ease-in-out`}
         style={{
           width: `${communityElements.sideBarWidth}px`,
           scrollbarWidth: 'none',
@@ -43,7 +43,7 @@ export default function GroupsMainPage() {
       ></div>
 
       {/* SideBar, is absolute */}
-      {joinedCommunitiesLoadable.state === 'hasValue' &&  
+      {joinedCommunitiesLoadable.state === 'hasValue' &&
         < div
           className={`z-30 fixed h-full py-2 bg-black items-center px-2 overflow-y-scroll  transition-transform duration-500 ease-in-out`}
           style={{
@@ -58,13 +58,19 @@ export default function GroupsMainPage() {
         </div>
       }
 
+      {/* Community WorkSpace */}
       <div className="h-full flex flex-col flex-grow bg-midDark w-full relative">
-        {selectedChat.communityId ?
+        {selectedChat.communityId &&
           <>
             <GroupChatOptions communityId={selectedChat.communityId} />
             <ChatWindow />
-            <MessageSendButton />
-          </> : <Wumpus />}
+
+            {!selectedChat.isTrial &&
+              <MessageSendButton />}
+          </>
+        }
+
+        {!selectedChat.communityId && <ExplorePublicCommunities />}
       </div>
 
 
@@ -73,7 +79,6 @@ export default function GroupsMainPage() {
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
-      {communityElements.showExploreGroups && <ExplorePublicCommunities />}
-    </div>
+    </div >
   );
 }

@@ -1,5 +1,5 @@
 import { atom, atomFamily } from "recoil";
-import { fetchCommunityDetailsByIdSelectorFamily, fetchCommunityMembersByCommunityIdSelectorFamily, fetchJoinedCommunitiesSelector } from "../selectors/communitySelectors";
+import { fetchCommunityDetailsByIdSelectorFamily, fetchCommunityMembersByCommunityIdSelectorFamily, fetchJoinedCommunitiesSelector, fetchPublicCommunitiesByNameSelectorFamily } from "../selectors/communitySelectors";
 
 export const joinedCommunitiesAtom = atom({
     key: "joinedCommunitiesAtom",
@@ -18,16 +18,23 @@ export const communityUserInterfaceAtom = atom({
 
         showCreateChat: false,
         showJoinChat: false,
-        showExploreGroups: false,
-        showInviteComponent: false,
         showMembersList: false,
-
+        
+        showInviteComponent: false,
         invitationCode: '',
         inviteCodeApiError: '',
         copyInviteCodeSuccess: false,
         inviteCodeLoading: false,
+        
+        communitySearchTag: '',
+
     }
 });
+
+export const publicCommunitiesAtomFamily = atomFamily({
+    key: "publicCommunitiesAtomFamily",
+    default: (name) => fetchPublicCommunitiesByNameSelectorFamily(name)
+})
 
 export const selectedChatAtom = atom({
     key: 'selectedChat',
@@ -35,6 +42,7 @@ export const selectedChatAtom = atom({
         communityId: null,
         communityName: null,
         iconUrl: null,
+        chatPageNumber: 1,
     },
 });
 

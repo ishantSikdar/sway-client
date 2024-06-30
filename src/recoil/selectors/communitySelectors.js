@@ -1,5 +1,5 @@
 import { selector, selectorFamily } from "recoil";
-import { fetchCommunityDetailsById, fetchCommunityMembersByCommunityId, fetchJoinedCommunities } from "../../services/communityServices";
+import { fetchCommunityDetailsById, fetchCommunityMembersByCommunityId, fetchJoinedCommunities, sendFetchPublicCommunitiesByNameRequest } from "../../services/communityServices";
 
 export const fetchJoinedCommunitiesSelector = selector({
     key: "fetchJoinedCommunitiesSelector",
@@ -23,6 +23,15 @@ export const fetchCommunityMembersByCommunityIdSelectorFamily = selectorFamily({
     key: 'fetchCommunityMembersByCommunityIdSelectorFamily',
     get: (id) => async () => {
         const response = await fetchCommunityMembersByCommunityId(id);
+        console.log(response);
+        return response.data.data;
+    }
+})
+
+export const fetchPublicCommunitiesByNameSelectorFamily = selectorFamily({
+    key: 'fetchPublicCommunitiesByNameSelectorFamily',
+    get: (name) => async () => {
+        const response = await sendFetchPublicCommunitiesByNameRequest(name);
         console.log(response);
         return response.data.data;
     }

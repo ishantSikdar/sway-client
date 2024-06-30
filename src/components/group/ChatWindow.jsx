@@ -44,9 +44,13 @@ export default function ChatWindow() {
 
   }, [liveMessages]);
 
+  const scrollToBottom = () => {
+    chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
+  }
+
   useEffect(() => {
     if (chatWindowDivRef.current) {
-      chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
+      scrollToBottom()
     }
   }, []);
 
@@ -118,9 +122,16 @@ export default function ChatWindow() {
   return (
     <div
       ref={chatWindowDivRef}
-      className="overflow-y-scroll pb-3 flex h-full flex-col-reverse"
-    // style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      className="overflow-y-scroll pb-3 flex h-full flex-col-reverse relative"
+      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
+
+      {selectedChat.isTrial &&
+        <button className="fixed bottom-12 h-14 text-center bg-black w-full">
+          <p>Click to Join</p>
+        </button>
+      }
+
       {savedMessagesLoadable.state === 'loading' &&
         <>
           <ChatSkeleton />
