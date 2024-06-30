@@ -4,6 +4,7 @@ import { ROUTE_LOGIN } from "../../constants/routes";
 import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
 import LoaderOverlay from "../../components/common/LoaderOverlay";
+import CenterOverlay from "../../components/common/CenterOverlay";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -77,123 +78,111 @@ export default function SignUpPage() {
   }
 
   return (
-    <div
-      className={`flex justify-center items-center w-full ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}
-      style={{
-        backgroundImage: 'url("/login-bg.svg")',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover'
-      }}
-    >
+    <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} bg-coal px-4`}>
 
-      {!showSuccess ?
+      <div className="text-center pt-14">
+        <h2 className="text-frostWhite text-lg font-medium">Create an account</h2>
+      </div>
 
-        (<div className="bg-light-black w-[350px] h-max px-10 py-7 rounded-md">
+      <div className="mb-5 text-sm flex flex-col gap-1 text-center">
+        <p className="text-white">Mail & Mobile doesn't need to be real</p>
+        {errorMessage ? <span className="text-red-700">{errorMessage}</span> : <span className="text-red-700">All fields are required</span>}
+      </div>
 
-          <div className="text-center">
-            <h2 className="text-frostWhite text-lg font-medium">Create an account</h2>
-          </div>
+      <div className="flex flex-col gap-2">
+        <div>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.email}
+            name="email"
+            type="text"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Email"
+          />
+        </div>
 
-          <div className="mb-5 text-xs flex flex-col gap-1">
-            <p className="mb-3 font-light text-sm text-center text-red-500">
-              <p className="text-white">Mail & Mobile doesn't need to be real</p>
-              {errorMessage ? <span>{errorMessage}</span> : <span>All fields are required</span>}
-            </p>  
+        <div>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.name}
+            name="name"
+            type="text"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Name"
+          />
+        </div>
+        <div>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.username}
+            name="username"
+            type="text"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Username"
+          />
+        </div>
 
+        <div>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.mobile}
+            name="mobile"
+            type="text"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Mobile"
+          />
+        </div>
 
-            <div>
-              <p className="uppercase py-1">Email</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.email}
-                name="email"
-                type="text"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
+        <div>
+          <p className={`uppercase ${!passwordsMatch ? 'text-red-600' : ''}`}>{!passwordsMatch && <span className="italic normal-case">Passwords do not match</span>}</p>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.password}
+            name="password"
+            type="password"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Password"
+          />
+        </div>
 
-            <div>
-              <p className="uppercase py-1">Name</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.name}
-                name="name"
-                type="text"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
+        <div>
+          <p className={`uppercase ${!passwordsMatch ? 'text-red-600' : ''}`}>{!passwordsMatch && <span className="italic normal-case">Passwords do not match</span>}</p>
+          <input
+            onChange={handleSignUpInput}
+            value={signUpForm.confirmPassword}
+            name="confirmPassword"
+            type="password"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 font-light outline-none"
+            placeholder="Confirm Password"
+          />
+        </div>
+      </div>
+      <button className="text-lightBlue mt-1 text-sm" onClick={handleLoginRoute}>
+        Already have an account?
+      </button>
 
-            <div>
-              <p className="uppercase py-1">Username</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.username}
-                name="username"
-                type="text"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
+      <button
+        className="w-full h-10 mt-5 bg-purple-700 rounded-sm text-frostWhite"
+        onClick={handleSignUpRequest}
+      >
+        Create My Account
+      </button>
 
-            <div>
-              <p className="uppercase py-1">Mobile</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.mobile}
-                name="mobile"
-                type="text"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
+      {showSuccess && <CenterOverlay>
+        <div className="p-5 bg-black rounded-md">
+          <p>
+            Your Account has been registered
+          </p>
 
-            <div>
-              <p className={`uppercase py-1 ${!passwordsMatch ? 'text-red-600' : ''}`}>password {!passwordsMatch && <span className="italic normal-case">- Passwords do not match</span>}</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.password}
-                name="password"
-                type="password"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
-
-            <div>
-              <p className={`uppercase py-1  ${!passwordsMatch ? 'text-red-600' : ''}`}>confirm password {!passwordsMatch && <span className="italic normal-case">- Passwords do not match</span>}</p>
-              <input
-                onChange={handleSignUpInput}
-                value={signUpForm.confirmPassword}
-                name="confirmPassword"
-                type="password"
-                className="bg-coal w-full h-10 rounded-sm p-2 outline-none"
-              />
-            </div>
-          </div>
-
-
-          <button
-            className="w-full h-10 bg-blue rounded-sm text-frostWhite"
-            onClick={handleSignUpRequest}
-          >
+          <button onClick={() => {
+            setShowSuccess(false)
+            handleLoginRoute()
+          }} className="w-full h-10 bg-purple-800 mt-4 rounded-sm">
             Continue
           </button>
-
-          <button className="text-lightBlue text-sm" onClick={handleLoginRoute}>Already have an account?</button>
-
-        </div>) : (<div className="bg-black p-10 w-[350px] rounded-md text-center">
-
-          <p>Your account has been registered</p>
-          <p>Login to start your learing journey!</p>
-
-          <button
-            className="bg-blue mt-5 w-full h-10 rounded-sm text-frostWhite"
-            onClick={handleToLoginPage}
-          >
-            Continue
-          </button>
-
-        </div>)
-      }
-
+        </div>
+      </CenterOverlay>}
       {signupLoading && <LoaderOverlay />}
-    </div>
+    </div >
   );
 }
