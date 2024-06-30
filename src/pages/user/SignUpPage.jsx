@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
-import { ROUTE_LOGIN } from "../../constants/routes";
+import { ROUTE_LOGIN, ROUTE_PLAYLIST } from "../../constants/routes";
 import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
 import LoaderOverlay from "../../components/common/LoaderOverlay";
@@ -74,6 +74,10 @@ export default function SignUpPage() {
 
   const handleToLoginPage = () => {
     changeRoute(navigate, ROUTE_LOGIN);
+  }
+
+  const goToApp = () => {
+    navigate(ROUTE_PLAYLIST);
   }
 
   return (
@@ -176,7 +180,8 @@ export default function SignUpPage() {
             Continue
           </button>
 
-          <button className="text-lightBlue text-sm" onClick={handleLoginRoute}>Already have an account?</button>
+          <button className="pt-4 text-lightBlue text-sm" onClick={handleLoginRoute}>Already have an account?</button>
+          <button className="text-lightBlue text-sm" onClick={goToApp}>Continue without login</button>
 
         </div>) : (<div className="bg-black p-10 w-[350px] rounded-md text-center">
 

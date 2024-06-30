@@ -1,7 +1,7 @@
 import { useRecoilValueLoadable } from "recoil";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAuthToken } from "../../utils/authUtil";
+import { checkLoggedIn, getAuthToken } from "../../utils/authUtil";
 import { INVALID_AUTH_TOKEN, NO_AUTH_TOKEN } from "../../constants/message";
 import { userDetailsAtom } from "../../recoil/atoms/userAtoms";
 import UserPageData from "./UserPageData";
@@ -14,7 +14,7 @@ export default function UserMainPage() {
   const userDetailsLoadable = useRecoilValueLoadable(userDetailsAtom);
 
   useEffect(() => {
-    if (!getAuthToken) {
+    if (!checkLoggedIn()) {
       redirectToLoginPage(location, navigate);
     }
   }, [navigate, location]);

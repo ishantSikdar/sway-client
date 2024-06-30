@@ -1,4 +1,4 @@
-import { supportsDynamicViewport } from "../../utils/pageUtil";
+import { redirectToLoginPage, supportsDynamicViewport } from "../../utils/pageUtil";
 import CreateNewGroupChat from "../../components/group/CreateNewGroupChat";
 import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";
@@ -12,12 +12,22 @@ import GroupChatOptions from "../../components/group/GroupChatOptions";
 import ExplorePublicCommunities from "../../components/group/ExplorePublicCommunities";
 import InviteUser from "../../components/group/InviteUser";
 import MembersList from "../../components/group/MembersList";
+import { useEffect } from "react";
+import { checkLoggedIn } from "../../utils/authUtil";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function GroupsMainPage() {
-
+  const location = useLocation();
+  const navigate = useNavigate();
   const communityElements = useRecoilValue(communityUserInterfaceAtom);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const joinedCommunitiesLoadable = useRecoilValueLoadable(joinedCommunitiesAtom);
+
+    useEffect(() => {
+      if (!checkLoggedIn()) {
+        redirectToLoginPage(location, navigate);
+      }
+    }, [navigate, location]);
 
   return (
     <div className={`flex pt-12 pb-12 w-full ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '}`}>

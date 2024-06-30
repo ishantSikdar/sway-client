@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { supportsDynamicViewport } from "../../utils/pageUtil";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ROUTE_SIGNUP } from "../../constants/routes";
+import { ROUTE_PLAYLIST, ROUTE_SIGNUP } from "../../constants/routes";
 import { sendLoginRequest } from "../../services/userServices";
 import { setBearerToken } from "../../utils/localStorageUtil";
 import LoaderOverlay from "../../components/common/LoaderOverlay";
@@ -50,6 +50,10 @@ export default function LoginPage() {
 
   const handleSignUp = () => {
     navigate(ROUTE_SIGNUP)
+  }
+
+  const goToApp = () => {
+    navigate(ROUTE_PLAYLIST);
   }
 
   return (
@@ -106,10 +110,11 @@ export default function LoginPage() {
           Log In
         </button>
 
-        <div className="py-2 text-sm">Need an account? <button className="text-lightBlue" onClick={handleSignUp}>Register</button></div>
+        <div className="pt-4 text-sm">Need an account? <button className="text-lightBlue" onClick={handleSignUp}>Register</button></div>
+        <button className="text-lightBlue text-sm" onClick={goToApp}>Continue without login</button>
       </div>
 
       {loginLoading && <LoaderOverlay />}
-    </div>
+    </div >
   )
 }
