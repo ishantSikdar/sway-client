@@ -58,7 +58,7 @@ export default function ChatWindow() {
     const handleScroll = async () => {
       const chatWindowHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
 
-      if ((Math.abs(chatWindow.scrollTop) / chatWindowHeight > 0.7) && !chatPage.isFetchingNewPage) {
+      if ((Math.abs(chatWindow.scrollTop) / chatWindowHeight > 0.75) && !chatPage.isFetchingNewPage) {
         try {
           setChatPage((prev) => ({
             ...prev,

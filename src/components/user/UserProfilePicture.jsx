@@ -4,6 +4,10 @@ export default function UserProfilePicture({ name, imageUrl, size }) {
 
   const initials = getInitials(name);
 
+  const imageAbsent = () => {
+    return !imageUrl || imageUrl.slice(0,9) === 'undefined';
+  }
+
   return (
     <div
       style={{
@@ -11,10 +15,10 @@ export default function UserProfilePicture({ name, imageUrl, size }) {
         backgroundPosition: 'center',
         backgroundSize: 'cover'
       }}
-      className={`bg-white  h-full w-full flex justify-center items-center`}
+      className={`${imageAbsent() ? 'bg-purple-800' : 'bg-midDark'}  h-full w-full flex justify-center items-center`}
     >
-      {(!imageUrl || imageUrl.slice(0,9) === 'undefined') &&
-        <p style={{ fontSize: size }} className="text-black z-50 font-extrabold">{initials}</p>}
+      {imageAbsent() &&
+        <p style={{ fontSize: size }} className="text-frostWhite font-bold">{initials}</p>}
     </div>
   )
 }
