@@ -38,6 +38,7 @@ export default function LoginPage() {
       setLoginLoading(true);
       const loginResponse = await sendLoginRequest(loginForm);
       setLoginLoading(false);
+      console.log(loginResponse)
 
       if (loginResponse.status === 200) {
         setBearerToken(loginResponse.data.data.authToken);
@@ -46,12 +47,13 @@ export default function LoginPage() {
         navigate(from);
 
       } else {
-        setErrorMessage(loginResponse.data.data.message);
+        console.log('set')
+        setErrorMessage(loginResponse.data.message);
       }
 
     } catch (error) {
       setLoginLoading(false);
-      alert("Error during Login,", error.message);
+      alert("Error during Login,", error);
     }
   }
 
@@ -73,9 +75,9 @@ export default function LoginPage() {
       <div className="text-center pt-20 pb-10">
         <h2 className="text-frostWhite text-2xl font-medium">Welcome Back!</h2>
         <p className="font-light">We're so excited to so you again!</p>
+        {errorMessage && <p className="text-red-700 text-center text-base">{errorMessage}</p>}
       </div>
 
-      {errorMessage && <p className="text-red-700 text-center text-base">{errorMessage}</p>}
 
       <p className="text-sm pb-2">Account Information</p>
 
