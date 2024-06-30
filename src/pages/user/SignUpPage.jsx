@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { changeRoute, supportsDynamicViewport } from "../../utils/pageUtil";
-import { ROUTE_LOGIN } from "../../constants/routes";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
+import { ROUTE_LOGIN, ROUTE_PLAYLIST } from "../../constants/routes";
 import { useState } from "react";
 import { sendSignUpRequest } from "../../services/userServices";
 import LoaderOverlay from "../../components/common/LoaderOverlay";
 import CenterOverlay from "../../components/common/CenterOverlay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ export default function SignUpPage() {
   }
 
   const handleLoginRoute = () => {
-    changeRoute(navigate, ROUTE_LOGIN);
+    navigate(ROUTE_LOGIN);
   }
 
   const handleSignUpRequest = async () => {
@@ -73,12 +75,15 @@ export default function SignUpPage() {
     }
   }
 
-  const handleToLoginPage = () => {
-    changeRoute(navigate, ROUTE_LOGIN);
+  const goToApp = () => {
+    navigate(ROUTE_PLAYLIST);
   }
 
   return (
-    <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} bg-coal px-4`}>
+    <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} bg-coal px-4 relative`}>
+      <button onClick={goToApp} className="absolute top-2 text-xl h-10 w-10 flex justify-center items-center">
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
 
       <div className="text-center pt-14">
         <h2 className="text-frostWhite text-lg font-medium">Create an account</h2>

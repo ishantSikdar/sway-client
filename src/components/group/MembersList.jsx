@@ -30,7 +30,7 @@ export default function MembersList({ communityId }) {
 
   return <CenterOverlay>
     <div ref={memberWindowRef}
-      className="max-w-[80dvw] min-w-[70dvw] max-h-[50dvh] bg-gray px-4 py-5 overflow-scroll rounded-md"
+      className="max-w-[80dvw] min-w-[70dvw] max-h-[50dvh] bg-gray px-4 overflow-scroll rounded-md"
       style={{
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
