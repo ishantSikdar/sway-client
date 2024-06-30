@@ -86,7 +86,7 @@ export default function LoginPage() {
             value={loginForm.username}
             name="username"
             type="text"
-            className="bg-light-gray w-full h-12 rounded-md px-4 outline-none"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 outline-none"
             placeholder="Email, Username or Mobile number"
           />
         </div>
@@ -97,7 +97,7 @@ export default function LoginPage() {
             value={loginForm.password}
             name="password"
             type={showPassword ? 'text' : 'password'}
-            className="bg-light-gray w-full h-12 rounded-md px-4 outline-none pr-12"
+            className="bg-light-gray w-full h-12 rounded-sm px-4 outline-none pr-12"
             placeholder="Password"
           />
           <button
