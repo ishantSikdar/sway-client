@@ -44,7 +44,10 @@ export default function MessageSendButton() {
         rows="1"
         value={message}
       />
-      <button onClick={() => sendMessage(message, setMessage)} className="absolute right-3 bottom-2 z-10">
+      <button
+        onClick={() => sendMessage(message, setMessage)}
+        className="absolute right-3 bottom-2 z-10"
+      >
         <FontAwesomeIcon icon={faLocationArrow} className="text-2xl rotate-45" />
       </button>
     </div>
