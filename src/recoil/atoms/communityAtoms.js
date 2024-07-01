@@ -46,7 +46,6 @@ export const selectedChatAtom = atom({
         communityId: null,
         communityName: null,
         iconUrl: null,
-        chatPageNumber: 1,
         isTrial: false,
     },
 });

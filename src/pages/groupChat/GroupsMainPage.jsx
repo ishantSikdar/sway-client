@@ -3,7 +3,7 @@ import CreateNewGroupChat from "../../components/group/CreateNewGroupChat";
 import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";
 import JoinedGroups from "../../components/group/JoinedGroups";
-import ChatWindow from "../../components/group/ChatWindow";
+import ChatWindow from "../../components/chat/ChatWindow";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { communityUserInterfaceAtom, sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import Wumpus from "../../components/common/Wumpus";
