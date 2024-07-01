@@ -1,16 +1,21 @@
-import { useSetRecoilState } from "recoil";
-import { selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { actualJoinedCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function GroupChatIconButton({ id, name, iconUrl }) {
   const setSelectedChat = useSetRecoilState(selectedChatAtom);
+  const actualJoinedCommunties = useRecoilValue(actualJoinedCommunitiesAtom);
+
+  const checkIsTrialChat = () => {
+    return !actualJoinedCommunties.joinedCommunities.some(community => community.id === id);
+  }
 
   const openChat = () => {
     setSelectedChat((prev) => ({
-      ...prev,
       communityId: id,
       communityName: name,
       iconUrl: iconUrl,
       chatPageNumber: 1,
+      isTrial: checkIsTrialChat()
     }));
   }
 

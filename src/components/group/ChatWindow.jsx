@@ -126,12 +126,6 @@ export default function ChatWindow() {
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
 
-      {selectedChat.isTrial &&
-        <button className="fixed bottom-12 h-14 text-center bg-black w-full">
-          <p>Click to Join</p>
-        </button>
-      }
-
       {savedMessagesLoadable.state === 'loading' &&
         <>
           <ChatSkeleton />

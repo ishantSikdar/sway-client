@@ -11,7 +11,7 @@ export default function SubjectCard({ id, name, thumbnail, desc }) {
   return (
     <button
       onClick={goToSubjectPage}
-      className="bg-gray shadow-md flex justify-between w-[90%] h-24 rounded-full"
+      className="bg-gray shadow-md flex justify-between w-[90%] h-24 rounded-r-full"
     >
       <div className="h-full aspect-square" style={{
         backgroundImage: `url("${thumbnail}")`,

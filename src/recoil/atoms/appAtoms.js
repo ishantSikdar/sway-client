@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { callSplashSelector } from '../selectors/appSelectors';
 
 export const screenWidthAtom = atom({
     key: 'screenWidthAtom',
@@ -18,3 +19,8 @@ export const screenWidthAtom = atom({
         }
     ]
 });
+
+export const isConnectedToServerAtom = atom({
+    key: 'isConnectedToServerAtom',
+    default: callSplashSelector
+})

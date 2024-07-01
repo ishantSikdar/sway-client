@@ -41,9 +41,9 @@ export default function ExplorePublicCommunities() {
           placeholder="Explore communities"
           type="text"
           onChange={handleCommunitySearch}
-          className="w-full h-12 rounded-md shadow-md bg-frostWhite mt-2 text-black font-medium outline-none px-4"
+          className="w-full h-10 rounded-md shadow-md bg-frostWhite mt-2 text-black font-medium outline-none px-4"
         />
-        <button className="absolute top-5 right-4">
+        <button className="absolute top-4 right-4">
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>

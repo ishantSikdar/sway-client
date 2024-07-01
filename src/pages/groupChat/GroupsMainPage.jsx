@@ -5,7 +5,7 @@ import CommunityButtons from "../../components/group/CommunityButtons";
 import JoinedGroups from "../../components/group/JoinedGroups";
 import ChatWindow from "../../components/group/ChatWindow";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import { communityUserInterfaceAtom, joinedCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import { communityUserInterfaceAtom, sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import Wumpus from "../../components/common/Wumpus";
 import MessageSendButton from "../../components/chat/MessageSendButton";
 import GroupChatOptions from "../../components/group/GroupChatOptions";
@@ -15,13 +15,15 @@ import MembersList from "../../components/group/MembersList";
 import { useEffect } from "react";
 import { checkLoggedIn } from "../../utils/authUtil";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 
 export default function GroupsMainPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const communityElements = useRecoilValue(communityUserInterfaceAtom);
   const selectedChat = useRecoilValue(selectedChatAtom);
-  const joinedCommunitiesLoadable = useRecoilValueLoadable(joinedCommunitiesAtom);
+  const joinedCommunitiesLoadable = useRecoilValueLoadable(sideBarCommunitiesAtom);
 
   useEffect(() => {
     if (!checkLoggedIn()) {
@@ -45,7 +47,7 @@ export default function GroupsMainPage() {
       {/* SideBar, is absolute */}
       {joinedCommunitiesLoadable.state === 'hasValue' &&
         < div
-          className={`z-30 fixed h-full py-2 bg-black items-center px-2 overflow-y-scroll  transition-transform duration-500 ease-in-out`}
+          className={`z-30 fixed h-full py-2 bg-black items-center px-2 overflow-y-scroll border-r-[1pt] border-gray  transition-transform duration-500 ease-in-out`}
           style={{
             transform: communityElements.sideBarWidth === 0 ? 'translateX(-100%)' : 'translateX(0)',
             width: 56,
@@ -65,8 +67,14 @@ export default function GroupsMainPage() {
             <GroupChatOptions communityId={selectedChat.communityId} />
             <ChatWindow />
 
-            {!selectedChat.isTrial &&
-              <MessageSendButton />}
+            {!selectedChat.isTrial ?
+              <MessageSendButton /> :
+              <div className="px-3 pb-2 w-full">
+                <div className="relative w-full h-12 rounded-md flex bg-black justify-center items-center">
+                  <p>Click to Join & Start Chatting</p>
+                </div>
+              </div>
+            }
           </>
         }
 

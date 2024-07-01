@@ -1,10 +1,15 @@
 import { atom, atomFamily } from "recoil";
 import { fetchCommunityDetailsByIdSelectorFamily, fetchCommunityMembersByCommunityIdSelectorFamily, fetchJoinedCommunitiesSelector, fetchPublicCommunitiesByNameSelectorFamily } from "../selectors/communitySelectors";
 
-export const joinedCommunitiesAtom = atom({
-    key: "joinedCommunitiesAtom",
+export const sideBarCommunitiesAtom = atom({
+    key: "sideBarCommunitiesAtom",
     default: fetchJoinedCommunitiesSelector
 });
+
+export const actualJoinedCommunitiesAtom = atom({
+    key: 'actualJoinedCommunities',
+    default: fetchJoinedCommunitiesSelector
+})
 
 export const chatTextMesssageAtom = atom({
     key: 'chatTextMesssageAtom',
@@ -27,7 +32,6 @@ export const communityUserInterfaceAtom = atom({
         inviteCodeLoading: false,
         
         communitySearchTag: '',
-
     }
 });
 
@@ -43,6 +47,7 @@ export const selectedChatAtom = atom({
         communityName: null,
         iconUrl: null,
         chatPageNumber: 1,
+        isTrial: false,
     },
 });
 

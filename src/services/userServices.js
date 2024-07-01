@@ -1,9 +1,17 @@
-import { useRecoilValueLoadable } from 'recoil';
 import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_EDIT_BANNER, API_URI_USER_EDIT_PHOTO, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
-import { getAuthenticatedRequest, patchMultipartFormDataAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
-import { userDetailsAtom } from '../recoil/atoms/userAtoms';
-import { useEffect } from 'react';
+import { getAuthenticatedRequest, getNoOptionsRequest, patchMultipartFormDataAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
+
+
+export const splashRequest = async () => {
+    try {
+        return await getNoOptionsRequest(`${API_BASE_URL}`);
+        
+    } catch (error) {
+        console.error("Server is down", error);
+        throw new Error('Server is Down, ' + error.message);
+    }
+}
 
 export const sendLoginRequest = async (loginForm) => {
     try {
