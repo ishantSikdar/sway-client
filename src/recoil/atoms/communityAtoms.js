@@ -55,6 +55,7 @@ export const chatPageAtom = atom({
     default: {
         chatPageNumber: 1,
         isFetchingNewPage: false,
+        hasMore: true,
     },
 })
 

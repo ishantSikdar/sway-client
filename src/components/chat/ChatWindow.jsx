@@ -6,6 +6,10 @@ import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChat
 import ChatSkeleton from "./ChatSkeleton";
 import { fetchChatMessagesByCommunityId } from "../../services/communityServices";
 import { ChatWindowContext } from "../../context/ChatWindowProvider";
+import TriangularLoader from "../common/TriangularLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import ThreeBarsLoader from "../common/ThreeBarsLoader";
 
 export default function ChatWindow() {
   const chatWinRef = useContext(ChatWindowContext);
@@ -63,7 +67,7 @@ export default function ChatWindow() {
     const handleScroll = async () => {
       const chatWindowHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
 
-      if ((Math.abs(chatWindow.scrollTop) / chatWindowHeight > 0.75) && !chatPage.isFetchingNewPage) {
+      if ((Math.abs(chatWindow.scrollTop) / chatWindowHeight > 0.75) && !chatPage.isFetchingNewPage && chatPage.hasMore) {
         try {
           setChatPage((prev) => ({
             ...prev,
@@ -71,19 +75,29 @@ export default function ChatWindow() {
           }));
 
           const nextChatPageResponse = await fetchChatMessagesByCommunityId(selectedChat.communityId, chatPage.chatPageNumber + 1);
-          console.log(nextChatPageResponse)
+          console.log(nextChatPageResponse);
 
-          if (nextChatPageResponse.status === 200 && nextChatPageResponse.data.data.chatMessages.length > 0) {
-            setLiveMessages((prev) => [
-              ...prev,
-              ...nextChatPageResponse.data.data.chatMessages
-            ]);
+          if (nextChatPageResponse.status === 200) {
+            if (nextChatPageResponse.data.data.chatMessages.length > 0) {
+              setLiveMessages((prev) => [
+                ...prev,
+                ...nextChatPageResponse.data.data.chatMessages
+              ]);
+              
+              setChatPage((prev) => ({
+                ...prev,
+                chatPageNumber: prev.chatPageNumber + 1,
+                isFetchingNewPage: false,
+              }));
 
-            setChatPage((prev) => ({
-              ...prev,
-              chatPageNumber: prev.chatPageNumber + 1,
-              isFetchingNewPage: false,
-            }))
+            } else {
+              setChatPage((prev) => ({
+                ...prev,
+                hasMore: false,
+                isFetchingNewPage: false
+              }));
+
+            }
           }
 
         } catch (error) {
@@ -127,6 +141,7 @@ export default function ChatWindow() {
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
 
+
       {savedMessagesLoadable.state === 'loading' &&
         <>
           <ChatSkeleton />
@@ -143,6 +158,11 @@ export default function ChatWindow() {
 
       {savedMessagesLoadable.state === 'hasValue' &&
         liveMessages.map((msgData) => <ChatMessage key={msgData.msgGroupId} messageData={msgData} />)}
+
+      {chatPage.isFetchingNewPage &&
+        <div className="flex justify-center items-center w-full pb-6">
+          <ThreeBarsLoader />
+        </div>}
     </div>
   )
 }
