@@ -9,7 +9,6 @@ import TimerOverlay from './components/common/TimerOverlay';
 import TopBar from './components/common/TopBar';
 import { screenWidthAtom } from './recoil/atoms/appAtoms';
 import DesktopWarning from './components/common/DesktopWarning';
-import SplashLoader from './components/common/SplashLoader';
 
 function App() {
   const location = useLocation();
@@ -47,7 +46,6 @@ function App() {
       {insideApp && <NavBar />}
       {insideApp && <TimerOverlay />}
       {screenWidth > 450 && <DesktopWarning />}
-      <SplashLoader />
     </div>
   )
 }
