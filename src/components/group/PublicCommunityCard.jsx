@@ -1,42 +1,44 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilStateLoadable, useSetRecoilState } from "recoil";
 import UserProfilePicture from "../user/UserProfilePicture";
 import { sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function PublicCommunityCard({ thumbnail, name, id }) {
 
   const setSelectedChat = useSetRecoilState(selectedChatAtom);
-  const [sideBarCommunities, setSideBarCommunities] = useRecoilState(sideBarCommunitiesAtom);
+  const [sideBarCommunitiesLoadable, setSideBarCommunitiesLoadable] = useRecoilStateLoadable(sideBarCommunitiesAtom);
 
   const handleOnClick = () => {
 
-    if (!sideBarCommunities.joinedCommunities.some(community => community.id === id)) {
-      setSideBarCommunities((prev) => ({
-        ...prev,
-        joinedCommunities: [
-          {
-            id: id,
-            name: name,
-            imageUrl: thumbnail,
-          },
-          ...prev.joinedCommunities
-        ]
-      }))
+    if (sideBarCommunitiesLoadable.state === 'hasValue') {
+      if (!sideBarCommunitiesLoadable.contents.joinedCommunities.some(community => community.id === id)) {
+        setSideBarCommunitiesLoadable((prev) => ({
+          ...prev,
+          joinedCommunities: [
+            {
+              id: id,
+              name: name,
+              imageUrl: thumbnail,
+            },
+            ...prev.joinedCommunities
+          ]
+        }))
 
-      setSelectedChat({
-        communityId: id,
-        communityName: name,
-        iconUrl: thumbnail,
-        isTrial: true
-      });
+        setSelectedChat({
+          communityId: id,
+          communityName: name,
+          iconUrl: thumbnail,
+          isTrial: true
+        });
 
-    } else {
+      } else {
 
-      setSelectedChat({
-        communityId: id,
-        communityName: name,
-        iconUrl: thumbnail,
-        isTrial: true
-      });
+        setSelectedChat({
+          communityId: id,
+          communityName: name,
+          iconUrl: thumbnail,
+          isTrial: true
+        });
+      }
     }
   }
 

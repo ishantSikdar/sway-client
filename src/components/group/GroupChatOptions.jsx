@@ -1,5 +1,5 @@
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil"
-import { communityDetailsAtomFamily, communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms"
+import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil"
+import { actualJoinedCommunitiesAtom, communityDetailsAtomFamily, communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms"
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faUserGroup, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -12,11 +12,17 @@ export default function GroupChatOptions({ communityId }) {
   const [showSettings, setShowSettings] = useState(false);
   const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(communityId));
   const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
+  const actualJoinedCommunities = useRecoilValue(actualJoinedCommunitiesAtom);
 
   useEffect(() => {
     const cleanup = handleCloseByClickOutside(communityOptionsRef, () => setShowSettings(false), [showOptionsButtonRef]);
     return cleanup;
-  }, [])
+  }, []);
+
+
+  const isPartOfGroup = () => {
+    return actualJoinedCommunities.joinedCommunities.some(community => community.id === communityId)
+  }
 
   return <>
     {communityDetailsLoadable.state === 'hasValue' &&
@@ -25,12 +31,12 @@ export default function GroupChatOptions({ communityId }) {
           <p className="text-frostWhite text text-ellipsis overflow-hidden line-clamp-1">
             {communityDetailsLoadable.contents.community.name}
           </p>
-          <button ref={showOptionsButtonRef} onClick={() => setShowSettings((prev) => !prev)}>
+          {isPartOfGroup() && <button ref={showOptionsButtonRef} onClick={() => setShowSettings((prev) => !prev)}>
             <FontAwesomeIcon icon={faAngleDown} />
-          </button>
+          </button>}
         </div>
 
-        {showSettings && <div ref={communityOptionsRef} className="w-[90%] mt-2 mx-auto text-sm px-6 py-2 flex flex-col items-start bg-black rounded-md">
+        {showSettings && isPartOfGroup() && <div ref={communityOptionsRef} className="w-[90%] mt-2 mx-auto text-sm px-6 py-2 flex flex-col items-start bg-black rounded-md">
           <ProfileButton onClickHandler={() => {
             setCommunityUIElements((prev) => ({
               ...prev,
@@ -43,7 +49,7 @@ export default function GroupChatOptions({ communityId }) {
               ...prev,
               showInviteComponent: true
             }))
-          }} btnName={'Invite People'} icon={faUserPlus}/>
+          }} btnName={'Invite People'} icon={faUserPlus} />
         </div>}
       </>
     }

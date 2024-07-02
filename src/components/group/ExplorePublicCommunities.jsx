@@ -20,7 +20,7 @@ export default function ExplorePublicCommunities() {
     return () => {
       clearInterval(debounceTimer);
     }
-  }, [communityUIElements.communitySearchTag]); 
+  }, [communityUIElements.communitySearchTag]);
 
   const handleCommunitySearch = (event) => {
     setCommunityUIElements((prev) => ({
@@ -54,14 +54,18 @@ export default function ExplorePublicCommunities() {
       scrollbarWidth: 'none',
       msOverflowStyle: 'none',
     }}>
-      {publicCommunitiesLoadable.state === 'hasValue' &&
+      {publicCommunitiesLoadable.state === 'hasValue' && publicCommunitiesLoadable.contents.communities.length > 0 ?
         publicCommunitiesLoadable.contents.communities.map((community) =>
           <PublicCommunityCard key={community.id} thumbnail={community.iconUrl} name={community.name} id={community.id} />)
-      }
-
-      {publicCommunitiesLoadable.state === 'loading' &&
-        <div></div>
-      }
+        :
+        <div className="w-full h-full flex flex-col gap-4">
+          <div className="w-full h-32 rounded-full px-4 mt-8" style={{
+            backgroundImage: `url('/wumpus.svg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}></div>
+          <p className="text-center">No more communities around</p>
+        </div>}
     </div>
-  </div>
+  </div >
 }
