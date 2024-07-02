@@ -8,6 +8,10 @@ import {
     ROUTE_USER_PAGE
 } from "../../constants/routes";
 
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist()
+
 export const lastVisitedRouteAtom = atom({
     key: "lastVisitedRouteAtom",
     default: {
@@ -17,5 +21,6 @@ export const lastVisitedRouteAtom = atom({
         [ROUTE_COURSES]: ROUTE_COURSES,
         [ROUTE_SHORTS]: ROUTE_SHORTS,
         [ROUTE_GROUPS]: ROUTE_GROUPS,
-    }
+    },
+    effects_UNSTABLE: [persistAtom],
 })

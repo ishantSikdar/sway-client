@@ -1,5 +1,8 @@
 import { atom, atomFamily } from "recoil";
 import { fetchCommunityDetailsByIdSelectorFamily, fetchCommunityMembersByCommunityIdSelectorFamily, fetchJoinedCommunitiesSelector, fetchPublicCommunitiesByNameSelectorFamily } from "../selectors/communitySelectors";
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist();
 
 export const sideBarCommunitiesAtom = atom({
     key: "sideBarCommunitiesAtom",
@@ -24,15 +27,17 @@ export const communityUserInterfaceAtom = atom({
         showCreateChat: false,
         showJoinChat: false,
         showMembersList: false,
-        
+
         showInviteComponent: false,
         invitationCode: '',
         inviteCodeApiError: '',
         copyInviteCodeSuccess: false,
         inviteCodeLoading: false,
-        
+
         communitySearchTag: '',
-    }
+    },
+
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const publicCommunitiesAtomFamily = atomFamily({
@@ -48,6 +53,7 @@ export const selectedChatAtom = atom({
         iconUrl: null,
         isTrial: false,
     },
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const chatPageAtom = atom({
@@ -57,6 +63,7 @@ export const chatPageAtom = atom({
         isFetchingNewPage: false,
         hasMore: true,
     },
+    effects_UNSTABLE: [persistAtom],
 })
 
 export const communityDetailsAtomFamily = atomFamily({
