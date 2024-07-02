@@ -4,6 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { communityUserInterfaceAtom, publicCommunitiesAtomFamily } from "../../recoil/atoms/communityAtoms";
 import { useEffect, useState } from "react";
+import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function ExplorePublicCommunities() {
 
@@ -19,7 +20,7 @@ export default function ExplorePublicCommunities() {
     return () => {
       clearInterval(debounceTimer);
     }
-  }, [communityUIElements.communitySearchTag]);
+  }, [communityUIElements.communitySearchTag]); 
 
   const handleCommunitySearch = (event) => {
     setCommunityUIElements((prev) => ({
@@ -28,8 +29,8 @@ export default function ExplorePublicCommunities() {
     }));
   }
 
-  return <div className="p-2">
-    <div className=" relative min-h-40 mx-auto mb-4 w-full rounded-lg p-5 flex flex-col justify-center items-center" style={{
+  return <div className={`p-2 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen'} overflow-hidden`}>
+    <div className=" relative h-44 mx-auto mb-4 w-full rounded-lg p-5 flex flex-col justify-center items-center" style={{
       backgroundImage: `url('/communities-bg.svg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
