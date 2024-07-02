@@ -6,19 +6,16 @@ import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChat
 import ChatSkeleton from "./ChatSkeleton";
 import { fetchChatMessagesByCommunityId } from "../../services/communityServices";
 import { ChatWindowContext } from "../../context/ChatWindowProvider";
-import TriangularLoader from "../common/TriangularLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ThreeBarsLoader from "../common/ThreeBarsLoader";
 
 export default function ChatWindow() {
   const chatWinRef = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [chatPage, setChatPage] = useRecoilState(chatPageAtom);
-
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
-  const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat.communityId, selectedChat.chatPageNumber]));
+  const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat.communityId, 1]));
   const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat.communityId));
+
 
   useEffect(() => {
     socket.onopen = () => {
@@ -47,6 +44,9 @@ export default function ChatWindow() {
       console.error(error);
     }
 
+    socket.onclose = () => {
+      console.log("Closed");
+    }
   }, [liveMessages]);
 
   const scrollToBottom = () => {
@@ -57,6 +57,12 @@ export default function ChatWindow() {
     if (chatWinRef.current) {
       scrollToBottom()
     }
+
+    setChatPage({
+      chatPageNumber: 1,
+      isFetchingNewPage: false,
+      hasMore: true
+    })
   }, []);
 
 
@@ -65,9 +71,11 @@ export default function ChatWindow() {
     const chatWindow = chatWinRef.current;
 
     const handleScroll = async () => {
+      const chatWindow = chatWinRef.current;
       const chatWindowHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
+      const scrollPercentage = Math.abs(chatWindow.scrollTop / chatWindowHeight);
 
-      if ((Math.abs(chatWindow.scrollTop) / chatWindowHeight > 0.75) && !chatPage.isFetchingNewPage && chatPage.hasMore) {
+      if (scrollPercentage > 0.8 && !chatPage.isFetchingNewPage && chatPage.hasMore) {
         try {
           setChatPage((prev) => ({
             ...prev,
@@ -75,7 +83,6 @@ export default function ChatWindow() {
           }));
 
           const nextChatPageResponse = await fetchChatMessagesByCommunityId(selectedChat.communityId, chatPage.chatPageNumber + 1);
-          console.log(nextChatPageResponse);
 
           if (nextChatPageResponse.status === 200) {
             if (nextChatPageResponse.data.data.chatMessages.length > 0) {
@@ -83,25 +90,24 @@ export default function ChatWindow() {
                 ...prev,
                 ...nextChatPageResponse.data.data.chatMessages
               ]);
-              
+
+              // Update chatPageNumber after successful fetch
               setChatPage((prev) => ({
                 ...prev,
                 chatPageNumber: prev.chatPageNumber + 1,
-                isFetchingNewPage: false,
               }));
 
             } else {
               setChatPage((prev) => ({
                 ...prev,
                 hasMore: false,
-                isFetchingNewPage: false
               }));
-
             }
           }
-
         } catch (error) {
           console.error(error);
+
+        } finally {
           setChatPage((prev) => ({
             ...prev,
             isFetchingNewPage: false,
@@ -119,7 +125,8 @@ export default function ChatWindow() {
         chatWindow.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [selectedChat, chatPage.isFetchingNewPage]);
+
+  }, [chatPage]);
 
 
   useEffect(() => {
@@ -142,7 +149,7 @@ export default function ChatWindow() {
     >
 
 
-      {savedMessagesLoadable.state === 'loading' &&
+      {savedMessagesLoadable.state === 'loading' && chatPage.chatPageNumber === 1 &&
         <>
           <ChatSkeleton />
           <ChatSkeleton />

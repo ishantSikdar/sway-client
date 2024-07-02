@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { joinCommunityRequest } from "../../services/communityServices";
 import CenterOverlay from "../common/CenterOverlay";
-import { useNavigate } from 'react-router-dom';
 import LoaderOverlay from "../common/LoaderOverlay";
 import ElevatedWindow from "../common/ElevatedWindow";
 import { useSetRecoilState } from "recoil";
-import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
+import { actualJoinedCommunitiesAtom, communityUserInterfaceAtom, sideBarCommunitiesAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function JoinGroupChat() {
-  const navigate = useNavigate();
   const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
 
   const [joiningLoading, setJoiningLoading] = useState(false);
   const [showJoined, setShowJoined] = useState(false);
   const [code, setCode] = useState("");
   const [joiningErrorMessage, setJoiningErrorMessage] = useState('');
+
+  const setSideBarCommunities = useSetRecoilState(sideBarCommunitiesAtom);
+  const setActualJoinedCommunities = useSetRecoilState(actualJoinedCommunitiesAtom);
 
   const close = () => {
     setCommunityUIElements((prev) => ({
@@ -31,6 +32,17 @@ export default function JoinGroupChat() {
 
       if (response.status === 200) {
         setShowJoined(true);
+
+        // setActualJoinedCommunities((prev) => ({
+        //   ...prev,
+        //   joinedCommunities: [
+        //     {
+
+        //     },
+        //     prev.joinedCommunities
+        //   ]
+        // }))
+
       } else {
         setJoiningErrorMessage(response.data.message);
       }
@@ -53,7 +65,7 @@ export default function JoinGroupChat() {
 
           <div className="w-full">
             <p className="font-bold uppercase text-xs mb-1 ml-1">Invitation Code <span className="text-red-600">*</span><span className="ml-4 text-red-600 normal-case font-normal">{joiningErrorMessage}</span></p>
-            <input placeholder="hTKzmak" className="outline-none w-full bg-coal h-10 p-5  rounded-md" type="text" name="" id="" onChange={(e) => setCode(e.target.value)} />
+            <input placeholder="A76BA94E6D" className="outline-none w-full bg-coal h-10 p-5  rounded-md" type="text" name="" id="" onChange={(e) => setCode(e.target.value)} />
           </div>
 
           <div className="text-left text-sm w-full">
@@ -67,7 +79,11 @@ export default function JoinGroupChat() {
         {showJoined && <CenterOverlay>
           <div className="p-5 rounded-md bg-coal flex flex-col justify-center">
             <p className="font-medium text-lg">Joined New Community</p>
-            <button onClick={() => navigate(0)} className="mt-4 px-6 py-2 rounded-md bg-blue">OK</button>
+            <button onClick={() => {
+              close();
+              setShowJoined(false);
+              window.location.reload();
+            }} className="mt-4 px-6 py-2 rounded-md bg-blue">OK</button>
           </div>
         </CenterOverlay>}
 

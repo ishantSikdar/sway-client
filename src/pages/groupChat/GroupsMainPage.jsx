@@ -4,7 +4,7 @@ import JoinGroupChat from "../../components/group/JoinGroupChat";
 import CommunityButtons from "../../components/group/CommunityButtons";
 import JoinedGroups from "../../components/group/JoinedGroups";
 import ChatWindow from "../../components/chat/ChatWindow";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { communityUserInterfaceAtom, sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import MessageSendButton from "../../components/chat/MessageSendButton";
 import GroupChatOptions from "../../components/group/GroupChatOptions";
@@ -15,12 +15,14 @@ import { useEffect } from "react";
 import { checkLoggedIn } from "../../utils/authUtil";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChatWindowProvider from "../../context/ChatWindowProvider";
+import JoinByExplore from "../../components/group/JoinByExplore";
+import NoticeText from "../../components/common/NoticeText";
 
 export default function GroupsMainPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const communityElements = useRecoilValue(communityUserInterfaceAtom);
+  const [communityElements, setCommunityElements] = useRecoilState(communityUserInterfaceAtom);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const joinedCommunitiesLoadable = useRecoilValueLoadable(sideBarCommunitiesAtom);
 
@@ -68,11 +70,7 @@ export default function GroupsMainPage() {
 
             {!selectedChat.isTrial ?
               <MessageSendButton /> :
-              <div className="px-3 pb-2 w-full">
-                <div className="relative w-full h-12 rounded-md flex bg-black justify-center items-center">
-                  <p>Click to Join & Start Chatting</p>
-                </div>
-              </div>
+              <JoinByExplore />
             }
           </ChatWindowProvider>
         }
@@ -80,6 +78,29 @@ export default function GroupsMainPage() {
         {!selectedChat.communityId && <ExplorePublicCommunities />}
       </div>
 
+      {communityElements.joinCommunityByExploreSuccess &&
+        <NoticeText
+          text={`Joined ${selectedChat.communityName}`}
+          setCallback={() => {
+            setCommunityElements((prev) => ({
+              ...prev,
+              joinCommunityByExploreLoading: false,
+              joinCommunityByExploreSuccess: false,
+              joinCommunityByExploreApiError: '',
+            }))
+          }} />}
+
+      {communityElements.joinCommunityByExploreApiError &&
+        <NoticeText
+          text={`Joined ${selectedChat.communityName}`}
+          setCallback={() => {
+            setCommunityElements((prev) => ({
+              ...prev,
+              joinCommunityByExploreLoading: false,
+              joinCommunityByExploreSuccess: false,
+              joinCommunityByExploreApiError: '',
+            }))
+          }} />}
 
       {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
       {communityElements.showMembersList && <MembersList communityId={selectedChat.communityId} />}

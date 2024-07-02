@@ -105,7 +105,7 @@ export default function CreateNewGroupChat() {
             <p className="font-medium text-lg">Your Community has been Created!</p>
             <button className="mt-5 bg-blue px-6 py-2 rounded-md" onClick={() => {
               setShowCreateCommunitySuccess(false);
-              navigate(0);
+              close();
             }}>OK</button>
           </div>
         </CenterOverlay>}

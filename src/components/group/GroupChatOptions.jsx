@@ -12,16 +12,18 @@ export default function GroupChatOptions({ communityId }) {
   const [showSettings, setShowSettings] = useState(false);
   const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(communityId));
   const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
-  const actualJoinedCommunities = useRecoilValue(actualJoinedCommunitiesAtom);
+  const actualJoinedCommunitiesLoadble = useRecoilValueLoadable(actualJoinedCommunitiesAtom);
 
   useEffect(() => {
     const cleanup = handleCloseByClickOutside(communityOptionsRef, () => setShowSettings(false), [showOptionsButtonRef]);
     return cleanup;
   }, []);
 
-
+  
   const isPartOfGroup = () => {
-    return actualJoinedCommunities.joinedCommunities.some(community => community.id === communityId)
+    if (actualJoinedCommunitiesLoadble.state === 'hasValue') {
+      return actualJoinedCommunitiesLoadble.contents.joinedCommunities.some(community => community.id === communityId)
+    }
   }
 
   return <>

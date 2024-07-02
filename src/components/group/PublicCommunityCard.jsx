@@ -1,10 +1,11 @@
 import { useRecoilStateLoadable, useSetRecoilState } from "recoil";
 import UserProfilePicture from "../user/UserProfilePicture";
-import { sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
+import { sideBarCommunitiesAtom, selectedChatAtom, chatPageAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function PublicCommunityCard({ thumbnail, name, id }) {
 
   const setSelectedChat = useSetRecoilState(selectedChatAtom);
+  const setChatPage = useSetRecoilState(chatPageAtom);
   const [sideBarCommunitiesLoadable, setSideBarCommunitiesLoadable] = useRecoilStateLoadable(sideBarCommunitiesAtom);
 
   const handleOnClick = () => {
@@ -30,6 +31,12 @@ export default function PublicCommunityCard({ thumbnail, name, id }) {
           isTrial: true
         });
 
+        setChatPage({
+          chatPageNumber: 1,
+          isFetchingNewPage: false,
+          hasMore: true,
+        })
+
       } else {
 
         setSelectedChat({
@@ -38,6 +45,12 @@ export default function PublicCommunityCard({ thumbnail, name, id }) {
           iconUrl: thumbnail,
           isTrial: true
         });
+
+        setChatPage({
+          chatPageNumber: 1,
+          isFetchingNewPage: false,
+          hasMore: true,
+        })
       }
     }
   }

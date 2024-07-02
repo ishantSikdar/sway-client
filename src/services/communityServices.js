@@ -1,4 +1,4 @@
-import { API_BASE_URL, API_URI_COMMUNITY_COMMUNITY_CHATS, API_URI_COMMUNITY_COMMUNITY_DETAILS, API_URI_COMMUNITY_COMMUNITY_MEMBERS, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOINED_COMMUNITIES, API_URI_COMMUNITY_JOIN_COMMUNITY, API_URI_COMMUNITY_PUBLIC_COMMUNITIES } from "../constants/api";
+import { API_BASE_URL, API_URI_COMMUNITY_COMMUNITY_CHATS, API_URI_COMMUNITY_COMMUNITY_DETAILS, API_URI_COMMUNITY_COMMUNITY_MEMBERS, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOINED_COMMUNITIES, API_URI_COMMUNITY_JOIN_COMMUNITY, API_URI_COMMUNITY_JOIN_COMMUNITY_EXPLORE, API_URI_COMMUNITY_PUBLIC_COMMUNITIES } from "../constants/api";
 import { getAuthToken } from "../utils/authUtil";
 import { getAuthenticatedRequest, patchAuthenticatedNoOptionsRequest, postMultipartFormDataAuthenticatedRequest } from "./apiServices";
 
@@ -104,5 +104,16 @@ export const sendFetchPublicCommunitiesByNameRequest = async (communityName) => 
     } catch (error) {
         console.error(`Failed generating invite code, ${error.message}`);
         throw new Error(`Failed generating invite code, ${error.message}`);
+    }
+}
+
+export const joinCommunityByExploreRequest = async (communityId) => {
+    try {
+        const localToken = getAuthToken();
+        return await patchAuthenticatedNoOptionsRequest(`${API_BASE_URL}${API_URI_COMMUNITY_JOIN_COMMUNITY_EXPLORE}?communityId=${communityId}`, localToken);
+
+    } catch (error) {
+        console.error(`Failed joining community, ${error.message}`);
+        throw new Error(`Failed joining community, ${error.message}`);
     }
 }

@@ -30,7 +30,6 @@ export default function InviteUser({ groupName }) {
 
       const response = await sendGenerateInvitationCodeRequest(selectedChat.communityId);
       console.log(response)
-      console.log(communityUIElements);
 
       if (response.status === 200) {
         setCommunityUIElements((prev) => ({

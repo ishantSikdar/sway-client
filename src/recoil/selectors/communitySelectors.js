@@ -5,7 +5,7 @@ export const fetchJoinedCommunitiesSelector = selector({
     key: "fetchJoinedCommunitiesSelector",
     get: async () => {
         const response = await fetchJoinedCommunities();
-        console.log(response);
+        console.log(`Joined Communities`, response);
         return response.data.data;
     }
 })
