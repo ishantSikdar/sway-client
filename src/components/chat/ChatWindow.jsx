@@ -1,20 +1,21 @@
 import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { chatPageAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import ChatMessage from "./ChatMessage";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { communityChatSocketAtomFamily, liveMessagesOfGroupAtomFamily, savedChatsOfGroupAtomFamily } from "../../recoil/atoms/chatAtoms";
 import ChatSkeleton from "./ChatSkeleton";
 import { fetchChatMessagesByCommunityId } from "../../services/communityServices";
+import { ChatWindowContext } from "../../context/ChatWindowProvider";
 
 export default function ChatWindow() {
-  const chatWindowDivRef = useRef(null);
+  const chatWinRef = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [chatPage, setChatPage] = useRecoilState(chatPageAtom);
 
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
   const savedMessagesLoadable = useRecoilValueLoadable(savedChatsOfGroupAtomFamily([selectedChat.communityId, selectedChat.chatPageNumber]));
   const [liveMessages, setLiveMessages] = useRecoilState(liveMessagesOfGroupAtomFamily(selectedChat.communityId));
-  
+
   useEffect(() => {
     socket.onopen = () => {
       console.log("Connected");
@@ -45,11 +46,11 @@ export default function ChatWindow() {
   }, [liveMessages]);
 
   const scrollToBottom = () => {
-    chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
+    chatWinRef.current.scrollTop = chatWinRef.current.scrollHeight;
   }
 
   useEffect(() => {
-    if (chatWindowDivRef.current) {
+    if (chatWinRef.current) {
       scrollToBottom()
     }
   }, []);
@@ -57,7 +58,7 @@ export default function ChatWindow() {
 
   // pagination on scroll top
   useEffect(() => {
-    const chatWindow = chatWindowDivRef.current;
+    const chatWindow = chatWinRef.current;
 
     const handleScroll = async () => {
       const chatWindowHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
@@ -121,13 +122,16 @@ export default function ChatWindow() {
 
   return (
     <div
-      ref={chatWindowDivRef}
-      className="overflow-y-scroll pb-3 flex h-full flex-col-reverse relative"
+      ref={chatWinRef}
+      className={`${savedMessagesLoadable.state === 'loading' ? 'overflow-y-hidden' : 'overflow-y-scroll'} pb-3 flex h-full flex-col-reverse relative`}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
 
       {savedMessagesLoadable.state === 'loading' &&
         <>
+          <ChatSkeleton />
+          <ChatSkeleton />
+          <ChatSkeleton />
           <ChatSkeleton />
           <ChatSkeleton />
           <ChatSkeleton />

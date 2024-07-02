@@ -6,7 +6,6 @@ import JoinedGroups from "../../components/group/JoinedGroups";
 import ChatWindow from "../../components/chat/ChatWindow";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { communityUserInterfaceAtom, sideBarCommunitiesAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
-import Wumpus from "../../components/common/Wumpus";
 import MessageSendButton from "../../components/chat/MessageSendButton";
 import GroupChatOptions from "../../components/group/GroupChatOptions";
 import ExplorePublicCommunities from "../../components/group/ExplorePublicCommunities";
@@ -15,10 +14,10 @@ import MembersList from "../../components/group/MembersList";
 import { useEffect } from "react";
 import { checkLoggedIn } from "../../utils/authUtil";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import ChatWindowProvider from "../../context/ChatWindowProvider";
 
 export default function GroupsMainPage() {
+
   const location = useLocation();
   const navigate = useNavigate();
   const communityElements = useRecoilValue(communityUserInterfaceAtom);
@@ -63,7 +62,7 @@ export default function GroupsMainPage() {
       {/* Community WorkSpace */}
       <div className="h-full flex flex-col flex-grow bg-midDark w-full relative">
         {selectedChat.communityId &&
-          <>
+          <ChatWindowProvider>
             <GroupChatOptions communityId={selectedChat.communityId} />
             <ChatWindow />
 
@@ -75,7 +74,7 @@ export default function GroupsMainPage() {
                 </div>
               </div>
             }
-          </>
+          </ChatWindowProvider>
         }
 
         {!selectedChat.communityId && <ExplorePublicCommunities />}

@@ -3,12 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { chatTextMesssageAtom, selectedChatAtom } from "../../recoil/atoms/communityAtoms";
 import { communityChatSocketAtomFamily } from "../../recoil/atoms/chatAtoms";
+import { useContext } from "react";
+import { ChatWindowContext } from "../../context/ChatWindowProvider";
 
 export default function MessageSendButton() {
-
+  const chatWinRef = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [message, setMessage] = useRecoilState(chatTextMesssageAtom);
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
+
+
+  const scrollToBottom = () => {
+    if (chatWinRef && chatWinRef.current) {
+      chatWinRef.current.scrollTop = chatWinRef.current.scrollHeight;
+    }
+  }
 
   const handleMessageInput = (event) => {
     setMessage(event.target.value);
@@ -31,6 +40,7 @@ export default function MessageSendButton() {
       }
       socket.send(JSON.stringify(messagePayload));
       setMessage('');
+      scrollToBottom();
     }
   }
 
