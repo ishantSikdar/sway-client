@@ -6,6 +6,7 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { copyToClipboard } from "../../utils/pageUtil";
 import { sendGenerateInvitationCodeRequest } from "../../services/communityServices";
 import LoaderOverlay from "../common/LoaderOverlay";
+import { useEffect } from "react";
 
 export default function InviteUser({ groupName }) {
   const selectedChat = useRecoilValue(selectedChatAtom);
@@ -57,13 +58,37 @@ export default function InviteUser({ groupName }) {
 
   }
 
-  const copyInviteLink = async (event) => {
-    const copyStatus = await copyToClipboard(event.target.innerText);
-    setCommunityUIElements((prev) => ({
-      ...prev,
-      copyInviteCodeSuccess: !!copyStatus
-    }));
+  const copyInviteLink = async () => {
+    const invitationCode = communityUIElements.invitationCode;
+
+    if (invitationCode) {
+      const copyStatus = await copyToClipboard(invitationCode);
+      setCommunityUIElements((prev) => ({
+        ...prev,
+        copyInviteCodeSuccess: !!copyStatus
+      }));
+    }
   }
+
+
+  useEffect(() => {
+    let timerId;
+    if (communityUIElements.copyInviteCodeSuccess) {
+      timerId = setInterval(() => {
+        setCommunityUIElements((prev) => ({
+          ...prev,
+          copyInviteCodeSuccess: false,
+        }));
+      }, 2 * 1000);
+    }
+
+    return () => {
+      if (timerId) {
+        clearInterval(timerId);
+      }
+    }
+
+  }, [communityUIElements.copyInviteCodeSuccess])
 
   return (
     <ElevatedWindow closeLabel={'Close'} submitLabel={'Generate'} close={closeWindow} submit={sendGenerateCodeRequest} >
