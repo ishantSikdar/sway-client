@@ -35,7 +35,7 @@ function App() {
   }, [location.pathname, location.search]);
 
   return (
-    <div className='font-mukta bg-black text-white'>
+    <div className='font-mukta bg-dark-blue text-white'>
       {insideApp && <TopBar />}
       <Routes>
         {APP_ROUTES.map((route) => (

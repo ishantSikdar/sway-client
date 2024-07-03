@@ -73,7 +73,7 @@ export default function JoinByExplore({ }) {
   }
 
   return <button onClick={handleJoinCommunity} className="px-3 pb-2 w-full">
-    <div className="relative w-full h-12 rounded-md flex bg-black justify-center items-center">
+    <div className="relative w-full h-12 rounded-md flex bg-gray shadow-xl justify-center items-center">
       <p>Click to Join & Start Chatting</p>
     </div>
 

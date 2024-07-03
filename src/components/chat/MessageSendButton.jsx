@@ -44,13 +44,13 @@ export default function MessageSendButton() {
     }
   }
 
-  return <div className="px-3 pb-2 w-full">
-    <div className="relative w-full h-auto flex">
+  return <div className="px-3 z-30 pb-2 w-full">
+    <div className="relative shadow-xl w-full h-auto flex">
       <textarea
         onChange={handleMessageInput}
         onKeyDown={handleKeyDown}
         placeholder="Message"
-        className="rounded-md px-4 py-3 flex-grow outline-none bg-black resize-none overflow-hidden"
+        className="rounded-md shadow-xl px-4 py-3 flex-grow outline-none bg-gray resize-none overflow-hidden"
         rows="1"
         value={message}
       />

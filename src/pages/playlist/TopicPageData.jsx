@@ -23,7 +23,7 @@ export default function TopicPageData({ subjectName, topicName }) {
   return (
     <>
       <TopBar />
-      <div className="pt-12 px-5 bg-gray">
+      <div className="pt-12 px-5 bg-dark-blue">
         {/* Recommended Section */}
         <div className="pt-2">
           <iframe

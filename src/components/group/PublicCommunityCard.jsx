@@ -56,7 +56,7 @@ export default function PublicCommunityCard({ thumbnail, name, id }) {
   }
 
   return (
-    <button onClick={handleOnClick} className="bg-black w-full py-3 px-3 flex items-center gap-4 rounded-md">
+    <button onClick={handleOnClick} className="bg-dark-purple w-full py-3 px-3 flex items-center gap-4 rounded-md">
       <div className="w-12 aspect-square rounded-full overflow-hidden">
         <UserProfilePicture imageUrl={thumbnail} name={name} />
       </div>

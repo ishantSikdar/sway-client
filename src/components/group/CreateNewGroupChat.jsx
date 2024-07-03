@@ -10,7 +10,6 @@ import { useSetRecoilState } from "recoil";
 import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 
 export default function CreateNewGroupChat() {
-  const navigate = useNavigate();
   const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
 
   const [createCommunityLoading, setCreateCommunityLoading] = useState(false);

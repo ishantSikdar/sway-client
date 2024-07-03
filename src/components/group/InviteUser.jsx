@@ -70,7 +70,6 @@ export default function InviteUser({ groupName }) {
     }
   }
 
-
   useEffect(() => {
     let timerId;
     if (communityUIElements.copyInviteCodeSuccess) {

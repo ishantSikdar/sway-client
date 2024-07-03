@@ -174,7 +174,7 @@ export default function SignUpPage() {
       </button>
 
       {showSuccess && <CenterOverlay>
-        <div className="p-5 bg-black rounded-md">
+        <div className="p-5 bg-dark-near-blue rounded-md">
           <p>
             Your Account has been registered
           </p>

@@ -40,7 +40,7 @@ export default function UserPageData() {
   }, [])
 
   return (
-    <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'}`}>
+    <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'} bg-dark-blue`}>
       <div className="relative">
         {/* banner */}
         <div className="bg-ease-gray h-28 w-full" style={{
@@ -58,7 +58,7 @@ export default function UserPageData() {
         <div className="relative">
           {/* image */}
           <div className="relative">
-            <button onClick={() => setShowPicture(true)} className="absolute -top-20 left-5 w-36 h-36 border-4 border-black rounded-full overflow-hidden">
+            <button onClick={() => setShowPicture(true)} className="absolute -top-20 left-5 w-36 h-36 border-8 border-dark-blue rounded-full overflow-hidden">
               <UserProfilePicture name={userDetails.name} imageUrl={userDetails.photoUrl} size={48} />
             </button>
 
@@ -70,7 +70,7 @@ export default function UserPageData() {
           <div className="h-20"></div>
 
           {/* information */}
-          <div className="mx-5 p-5 bg-gray rounded-xl">
+          <div className="mx-5 p-5 bg-near-gray rounded-xl">
 
             {/* Headers */}
             <div className="text-frostWhite border-b-[1pt] border-white pb-4">

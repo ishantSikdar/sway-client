@@ -6,10 +6,14 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'up-2xl': '0 -10px 25px -10px rgba(0, 0, 0, 0.75)',
+      },
       colors: {
-        'light-gray': '#383a40',
-        gray: '#2a2a2a',
-        black: "#1f1f1f",
+        'light-gray': '#25262C',
+        gray: '#2C2D35',
+        'near-gray': '#262730',
+        black: "#212020",
         'ease-gray': '#ababab',
         'dark-black': "#0f0f0f",
         'light-black': "#313338",
@@ -19,6 +23,10 @@ export default {
         frostWhite: '#FFFFFF',
         blue: '#5865f2',
         lightBlue: '#0798e2',
+        'dark-purple': '#131217',
+        'dark-blue' : '#1C1D23',
+        'dark-near-blue' : '#202128',
+        'white-gray': '#3B3D43',
       },
       fontFamily: {
         mukta: ['Mukta', 'sans-serif'],

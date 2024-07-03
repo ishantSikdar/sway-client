@@ -34,15 +34,15 @@ export default function SubjectPageData({ id }) {
             {subject.description}
           </p>
         </div>
-        <div className="px-10 py-5 bg-gray">
+        <div className="px-10 py-5 bg-dark-near-blue">
           <h2 className="text-center  font-bold text-frostWhite">Topics</h2>
-          <div className="pt-5 pb-20  text-lg">
+          <div className="pt-5 pb-20 text-lg">
             {subject.topics.map((topic, idx) => (
               <button
                 key={idx}
                 onClick={sendToTopicPage}
                 value={topic}
-                className="w-full text-left border-t-[1pt] py-3 text-sm font-medium capitalize border-white"
+                className="w-full text-left border-t-2 py-3 text-sm font-medium capitalize border-white-gray"
               >
                 {topic}
               </button>

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 export default function SplashLoader() {
   const isConnectedLoadable = useRecoilValueLoadable(isConnectedToServerAtom);
-  const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
     const warningTimer = setTimeout(() => {
@@ -23,8 +22,7 @@ export default function SplashLoader() {
       <div className="flex flex-col justify-center items-center gap-4">
         <TriangularLoader />
 
-        {showWarning &&
-          <p className="bg-black bg-opacity-80 p-2 rounded-full">First Request may take a while, hang tight!</p>}
+        <p className="bg-black bg-opacity-80 p-2 rounded-full">First Request may take a while, hang tight!</p>
       </div>
     </CenterOverlay>
   }

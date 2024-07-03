@@ -11,7 +11,7 @@ export default function NavBar() {
   const lastVisitedRoutes = useRecoilValue(lastVisitedRouteAtom);
 
   return (
-    <div className="z-40 fixed bottom-0 text-white bg-gray w-full px-4 h-12 text-xl flex justify-between items-center">
+    <div className="z-40 shadow-up-2xl fixed bottom-0 text-white bg-gray w-full px-4 h-12 text-xl flex justify-between items-center">
       <div className="flex justify-around w-full">
         <button onClick={() => navigate(lastVisitedRoutes[ROUTE_FOCUS_TIMER])}>
           <FontAwesomeIcon icon={faClock} />

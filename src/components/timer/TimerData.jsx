@@ -30,7 +30,7 @@ export default function TimerData() {
         <div className='h-[30%] w-[0.1pt] bg-white'>{/* Middle White Bar */}</div>
         <div className='flex flex-col justify-center items-center h-full'>
           <p className='text-xs'>Focus Level</p>
-          <p className='px-4 py-2 bg-black w-max rounded-full mt-2'>
+          <p className='px-4 py-2 bg-gray w-max rounded-full mt-2'>
             {grade === '?' && <FontAwesomeIcon icon={faQuestion} />}
             {grade === 'A' && <FontAwesomeIcon icon={faA} />}
             {grade === 'B' && <FontAwesomeIcon icon={faB} />}

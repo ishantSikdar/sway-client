@@ -19,7 +19,7 @@ export default function FocusTimerMainPage() {
   return (
     <div className={`${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-screen '} pt-12 relative flex flex-col items-center`}>
 
-      <h1 className="my-10  text-center font-bold bg-gray w-max mx-auto px-4 py-2 rounded-full">
+      <h1 className="my-10  text-center font-bold bg-dark-near-blue w-max mx-auto px-4 py-2 rounded-full">
         &gt; Focus Timer
       </h1>
 
@@ -38,7 +38,7 @@ export default function FocusTimerMainPage() {
           role='button'
           tabIndex={0}
           onClick={handleClockToggle}
-          className="z-20 absolute cursor-pointer w-[270px] h-[270px] bg-gray rounded-full"
+          className="z-20 absolute cursor-pointer w-[270px] h-[270px] bg-dark-near-blue rounded-full"
         >
           <div className="absolute h-full w-full rounded-full flex justify-center items-center opacity-10 text-9xl">
             {!timerData.playing ? <FontAwesomeIcon className='ml-4' icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
@@ -61,7 +61,7 @@ export default function FocusTimerMainPage() {
       {timerFlags.showStop && <StopTimer finish={finishFocusTimer} pause={pausePlayTimer} restart={resetFocusTimer} />}
       {timerFlags.showEditGoalTime && <EditGoalTime reset={resetFocusTimer} />}
 
-      <div className="absolute bottom-24 w-[85%] inset h-40 bg-gray rounded-md">
+      <div className="absolute bottom-24 w-[85%] inset h-40 bg-dark-near-blue rounded-md">
         {/* Upload focus timer data */}
         {!checkLoggedIn() && <div className='absolute -top-20 right-0 bg-coal p-4 rounded-full '>
           <FontAwesomeIcon icon={faCloudUploadAlt} className='text-3xl my-auto' />

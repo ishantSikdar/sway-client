@@ -5,7 +5,7 @@ export default function VideoPageSkeleton() {
   return (
     <>
       <TopBar />
-      <div className="pt-12 px-5 bg-gray">
+      <div className="pt-12 px-5 bg-dark-blue">
         {/* Recommended Section */}
         <div className="pt-2">
           <div className="w-full h-[180px] aspect-video rounded-md bg-coal my-3 animate-pulse"></div>
