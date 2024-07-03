@@ -48,7 +48,7 @@ export default function GroupsMainPage() {
       {/* SideBar, is absolute */}
       {joinedCommunitiesLoadable.state === 'hasValue' &&
         < div
-          className={`z-30 w-[60px] fixed h-full py-2 bg-dark-purple items-center px-2 overflow-y-scroll transition-transform duration-500 ease-in-out`}
+          className={` w-[60px] fixed h-full py-2 bg-dark-purple items-center px-2 overflow-y-scroll transition-transform duration-500 ease-in-out`}
           style={{
             transform: communityElements.sideBarWidth === 0 ? 'translateX(-100%)' : 'translateX(0)',
             scrollbarWidth: 'none',
@@ -71,6 +71,9 @@ export default function GroupsMainPage() {
               <MessageSendButton /> :
               <JoinByExplore />
             }
+
+            {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
+            {communityElements.showMembersList && <MembersList communityId={selectedChat.communityId} />}
           </ChatWindowProvider>
         }
 
@@ -101,8 +104,7 @@ export default function GroupsMainPage() {
             }))
           }} />}
 
-      {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
-      {communityElements.showMembersList && <MembersList communityId={selectedChat.communityId} />}
+
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}

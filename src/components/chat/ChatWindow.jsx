@@ -9,7 +9,7 @@ import { ChatWindowContext } from "../../context/ChatWindowProvider";
 import ThreeBarsLoader from "../common/ThreeBarsLoader";
 
 export default function ChatWindow() {
-  const chatWinRef = useContext(ChatWindowContext);
+  const { chatWindowDivRef } = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [chatPage, setChatPage] = useRecoilState(chatPageAtom);
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
@@ -50,11 +50,11 @@ export default function ChatWindow() {
   }, [liveMessages]);
 
   const scrollToBottom = () => {
-    chatWinRef.current.scrollTop = chatWinRef.current.scrollHeight;
+    chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
   }
 
   useEffect(() => {
-    if (chatWinRef.current) {
+    if (chatWindowDivRef.current) {
       scrollToBottom()
     }
 
@@ -68,10 +68,10 @@ export default function ChatWindow() {
 
   // pagination on scroll top
   useEffect(() => {
-    const chatWindow = chatWinRef.current;
+    const chatWindow = chatWindowDivRef.current;
 
     const handleScroll = async () => {
-      const chatWindow = chatWinRef.current;
+      const chatWindow = chatWindowDivRef.current;
       const chatWindowHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
       const scrollPercentage = Math.abs(chatWindow.scrollTop / chatWindowHeight);
 
@@ -143,7 +143,7 @@ export default function ChatWindow() {
 
   return (
     <div
-      ref={chatWinRef}
+      ref={chatWindowDivRef}
       className={`${savedMessagesLoadable.state === 'loading' ? 'overflow-y-hidden' : 'overflow-y-scroll'} pb-3 flex h-full flex-col-reverse relative`}
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >

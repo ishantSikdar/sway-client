@@ -7,15 +7,15 @@ import { useContext } from "react";
 import { ChatWindowContext } from "../../context/ChatWindowProvider";
 
 export default function MessageSendButton() {
-  const chatWinRef = useContext(ChatWindowContext);
+  const { chatWindowDivRef } = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [message, setMessage] = useRecoilState(chatTextMesssageAtom);
   const socket = useRecoilValue(communityChatSocketAtomFamily(selectedChat.communityId));
 
 
   const scrollToBottom = () => {
-    if (chatWinRef && chatWinRef.current) {
-      chatWinRef.current.scrollTop = chatWinRef.current.scrollHeight;
+    if (chatWindowDivRef && chatWindowDivRef.current) {
+      chatWindowDivRef.current.scrollTop = chatWindowDivRef.current.scrollHeight;
     }
   }
 

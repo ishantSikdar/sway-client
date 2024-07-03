@@ -6,9 +6,11 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { copyToClipboard } from "../../utils/pageUtil";
 import { sendGenerateInvitationCodeRequest } from "../../services/communityServices";
 import LoaderOverlay from "../common/LoaderOverlay";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { ChatWindowContext } from "../../context/ChatWindowProvider";
 
 export default function InviteUser({ groupName }) {
+  const { inviteUserRef } = useContext(ChatWindowContext);
   const selectedChat = useRecoilValue(selectedChatAtom);
   const [communityUIElements, setCommunityUIElements] = useRecoilState(communityUserInterfaceAtom);
 
@@ -90,29 +92,31 @@ export default function InviteUser({ groupName }) {
   }, [communityUIElements.copyInviteCodeSuccess])
 
   return (
-    <ElevatedWindow closeLabel={'Close'} submitLabel={'Generate'} close={closeWindow} submit={sendGenerateCodeRequest} >
-      <div className="p-5 w-[270px]">
-        <p className="text-lg font-medium text-center px-4">
-          Generate invitation code{groupName && ` for ${groupName}`}?
-        </p>
-        <p className="mx-auto p-2 bg-light-gray w-max rounded-md my-1">
-          {communityUIElements.invitationCode ?
-            <button onClick={copyInviteLink} className="flex gap-2 items-center">
-              <p>
-                {communityUIElements.invitationCode}
-              </p>
-              <FontAwesomeIcon icon={faLink} />
-            </button>
-            :
-            <span>
-              {communityUIElements.inviteCodeApiError ? <span className="text-red-600 italic">{communityUIElements.inviteCodeApiError}</span> : `Click on Generate`}
-            </span>
-          }
-        </p>
+    <div ref={inviteUserRef}>
+      <ElevatedWindow closeLabel={'Close'} submitLabel={'Generate'} close={closeWindow} submit={sendGenerateCodeRequest} >
+        <div  className="p-5 w-[270px]">
+          <p className="text-lg font-medium text-center px-4">
+            Generate invitation code{groupName && ` for ${groupName}`}?
+          </p>
+          <p className="mx-auto p-2 bg-light-gray w-max rounded-md my-1">
+            {communityUIElements.invitationCode ?
+              <button onClick={copyInviteLink} className="flex gap-2 items-center">
+                <p>
+                  {communityUIElements.invitationCode}
+                </p>
+                <FontAwesomeIcon icon={faLink} />
+              </button>
+              :
+              <span>
+                {communityUIElements.inviteCodeApiError ? <span className="text-red-600 italic">{communityUIElements.inviteCodeApiError}</span> : `Click on Generate`}
+              </span>
+            }
+          </p>
 
-        {communityUIElements.copyInviteCodeSuccess && <p className="text-center">Invitation Code Copied!</p>}
-        {communityUIElements.inviteCodeLoading && <LoaderOverlay />}
-      </div>
-    </ElevatedWindow>
+          {communityUIElements.copyInviteCodeSuccess && <p className="text-center">Invitation Code Copied!</p>}
+          {communityUIElements.inviteCodeLoading && <LoaderOverlay />}
+        </div>
+      </ElevatedWindow>
+    </div>
   )
 }
