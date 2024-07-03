@@ -3,18 +3,21 @@ import PublicCommunityCard from "./PublicCommunityCard";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { communityUserInterfaceAtom, publicCommunitiesAtomFamily } from "../../recoil/atoms/communityAtoms";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { supportsDynamicViewport } from "../../utils/pageUtil";
 
 export default function ExplorePublicCommunities() {
 
   const [communityUIElements, setCommunityUIElements] = useRecoilState(communityUserInterfaceAtom);
-  const [searchDebounced, setSearchDebounced] = useState(communityUIElements.communitySearchTag);
-  const publicCommunitiesLoadable = useRecoilValueLoadable(publicCommunitiesAtomFamily(searchDebounced));
+  const publicCommunitiesLoadable = useRecoilValueLoadable(publicCommunitiesAtomFamily(communityUIElements.communitySearchTagDebounced));
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
-      setSearchDebounced(communityUIElements.communitySearchTag);
+
+      setCommunityUIElements((prev) => ({
+        ...prev,
+        communitySearchTagDebounced: communityUIElements.communitySearchTag
+      }))
     }, 800)
 
     return () => {

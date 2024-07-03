@@ -3,7 +3,6 @@ import Switch from "react-switch";
 import { createNewCommunityRequest } from "../../services/communityServices";
 import LoaderOverlay from "../common/LoaderOverlay";
 import CenterOverlay from "../common/CenterOverlay";
-import { useNavigate } from 'react-router-dom';
 import ElevatedWindow from "../common/ElevatedWindow";
 import ImageInputButton from "../common/ImageInputButton";
 import { useSetRecoilState } from "recoil";

@@ -1,6 +1,6 @@
-import { API_BASE_URL, API_URI_COMMUNITY_COMMUNITY_CHATS, API_URI_COMMUNITY_COMMUNITY_DETAILS, API_URI_COMMUNITY_COMMUNITY_MEMBERS, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOINED_COMMUNITIES, API_URI_COMMUNITY_JOIN_COMMUNITY, API_URI_COMMUNITY_JOIN_COMMUNITY_EXPLORE, API_URI_COMMUNITY_PUBLIC_COMMUNITIES } from "../constants/api";
+import { API_BASE_URL, API_URI_COMMUNITY_COMMUNITY_CHATS, API_URI_COMMUNITY_COMMUNITY_DETAILS, API_URI_COMMUNITY_COMMUNITY_MEMBERS, API_URI_COMMUNITY_CREATE_COMMUNITY, API_URI_COMMUNITY_EDIT_COMMUNITY, API_URI_COMMUNITY_GENERATE_INVITATION_CODE, API_URI_COMMUNITY_JOINED_COMMUNITIES, API_URI_COMMUNITY_JOIN_COMMUNITY, API_URI_COMMUNITY_JOIN_COMMUNITY_EXPLORE, API_URI_COMMUNITY_PUBLIC_COMMUNITIES } from "../constants/api";
 import { getAuthToken } from "../utils/authUtil";
-import { getAuthenticatedRequest, patchAuthenticatedNoOptionsRequest, postMultipartFormDataAuthenticatedRequest } from "./apiServices";
+import { getAuthenticatedRequest, patchAuthenticatedNoOptionsRequest, postMultipartFormDataAuthenticatedRequest, putMultipartFormDataAuthenticatedRequest } from "./apiServices";
 
 export const createNewCommunityRequest = async (communityDetails) => {
     try {
@@ -115,5 +115,23 @@ export const joinCommunityByExploreRequest = async (communityId) => {
     } catch (error) {
         console.error(`Failed joining community, ${error.message}`);
         throw new Error(`Failed joining community, ${error.message}`);
+    }
+}
+
+export const sendEditCommunityRequest = async (communityId, communityDetails) => {
+    try {
+        const localToken = getAuthToken();
+        const formData = new FormData();
+        formData.append('image', communityDetails.image);
+        formData.append('json', JSON.stringify(JSON.stringify({
+            communityId,
+            name: communityDetails.name,
+            visibility: communityDetails.visibility ? 'public' : 'private'
+        })));
+        return await putMultipartFormDataAuthenticatedRequest(`${API_BASE_URL}${API_URI_COMMUNITY_EDIT_COMMUNITY}`, formData, localToken);
+
+    } catch (error) {
+        console.error(`Edit community request failed, ${error.message}`);
+        throw new Error(`${error.message}`);
     }
 }

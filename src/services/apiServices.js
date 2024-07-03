@@ -73,7 +73,7 @@ export const putMultipartFormDataAuthenticatedRequest = async (url, formData, to
             return { status: error.response.status, data: error.response.data };
 
         } else {
-            console.error(`POST Multipart Authenticated request failed, ${error.message}`);
+            console.error(`PUT Multipart Authenticated request failed, ${error.message}`);
             throw error;
         }
     }
@@ -169,7 +169,7 @@ export const patchMultipartFormDataAuthenticatedRequest = async (url, formData, 
             return { status: error.response.status, data: error.response.data };
 
         } else {
-            console.error(`POST Multipart Authenticated request failed, ${error.message}`);
+            console.error(`PATCH Multipart Authenticated request failed, ${error.message}`);
             throw error;
         }
     }

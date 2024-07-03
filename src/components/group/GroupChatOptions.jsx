@@ -10,7 +10,7 @@ import { ChatWindowContext } from "../../context/ChatWindowProvider";
 export default function GroupChatOptions({ communityId }) {
   const communityOptionsRef = useRef(null);
   const showOptionsButtonRef = useRef(null);
-  const { memberListRef, inviteUserRef } = useContext(ChatWindowContext);
+  const { memberListRef, inviteUserRef, editCommunityRef } = useContext(ChatWindowContext);
   const [showSettings, setShowSettings] = useState(false);
   const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(communityId));
   const setCommunityUIElements = useSetRecoilState(communityUserInterfaceAtom);
@@ -20,7 +20,7 @@ export default function GroupChatOptions({ communityId }) {
     const cleanup = handleCloseByClickOutside(
       communityOptionsRef,
       () => setShowSettings(false),
-      [showOptionsButtonRef, memberListRef, inviteUserRef]
+      [showOptionsButtonRef, memberListRef, inviteUserRef, editCommunityRef],
     );
     return cleanup;
   }, []);

@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ChatWindowProvider from "../../context/ChatWindowProvider";
 import JoinByExplore from "../../components/group/JoinByExplore";
 import NoticeText from "../../components/common/NoticeText";
+import EditCommunity from "../../components/group/EditCommunity";
 
 export default function GroupsMainPage() {
 
@@ -72,6 +73,7 @@ export default function GroupsMainPage() {
               <JoinByExplore />
             }
 
+            {communityElements.showEditCommunityDetails && <EditCommunity communityId={selectedChat.communityId} />}
             {communityElements.showInviteComponent && <InviteUser groupName={selectedChat.communityName} />}
             {communityElements.showMembersList && <MembersList communityId={selectedChat.communityId} />}
           </ChatWindowProvider>
@@ -108,6 +110,13 @@ export default function GroupsMainPage() {
 
       {communityElements.showCreateChat && <CreateNewGroupChat />}
       {communityElements.showJoinChat && <JoinGroupChat />}
+      {communityElements.editCommunitySuccess &&
+        <NoticeText text={'Community Updated'} setCallback={() => {
+          setCommunityElements((prev) => ({
+            ...prev,
+            editCommunitySuccess: false,
+          }));
+        }} />}
     </div >
   );
 }

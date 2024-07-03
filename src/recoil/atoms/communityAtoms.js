@@ -35,12 +35,18 @@ export const communityUserInterfaceAtom = atom({
         inviteCodeLoading: false,
 
         communitySearchTag: '',
+        communitySearchTagDebounced: '',
 
         joinCommunityByExploreLoading: false,
         joinCommunityByExploreSuccess: false,
         joinCommunityByExploreApiError: '',
 
         showEditCommunityDetails: false,
+        editCommunityApiError: '',
+        editCommunitySuccess: false,
+        editCommunityLoading: false,
+
+        
     },
 
     effects_UNSTABLE: [persistAtom],
