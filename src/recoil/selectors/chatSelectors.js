@@ -23,7 +23,7 @@ export const savedChatsOfGroupSelectorFamily = selectorFamily({
     key: 'savedChatsOfGroupSelectorFamily',
     get: (args) => async () => {
         const chatMessagesResponse = await fetchChatMessagesByCommunityId(args[0], args[1]);
-        console.log(chatMessagesResponse);
+        console.log(`Chat Page: ${args[1]}`, chatMessagesResponse);
         
         if (chatMessagesResponse.status === 200) {
             return chatMessagesResponse.data.data.chatMessages;

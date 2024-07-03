@@ -22,7 +22,7 @@ export const chatTextMesssageAtom = atom({
 export const communityUserInterfaceAtom = atom({
     key: 'communityUserInterfaceAtom',
     default: {
-        sideBarWidth: 56,
+        sideBarWidth: 60,
 
         showCreateChat: false,
         showJoinChat: false,

@@ -19,7 +19,7 @@ export default function ChatWindow() {
 
   useEffect(() => {
     socket.onopen = () => {
-      console.log("Connected");
+      console.log("Connected To Socket", socket);
     }
 
     socket.onmessage = (message) => {

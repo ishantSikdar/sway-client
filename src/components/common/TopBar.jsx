@@ -30,7 +30,7 @@ export default function TopBar() {
   const toggleCommunitySidebar = () => {
     setCommunityUIElements((prev) => ({
       ...prev,
-      sideBarWidth: prev.sideBarWidth === 0 ? 56 : 0,
+      sideBarWidth: prev.sideBarWidth === 0 ? 60 : 0,
     }));
   }
 

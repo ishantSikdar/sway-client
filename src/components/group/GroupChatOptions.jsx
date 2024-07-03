@@ -29,7 +29,7 @@ export default function GroupChatOptions({ communityId }) {
   return <>
     {communityDetailsLoadable.state === 'hasValue' &&
       <>
-        <div className="h-12 border-t-[1pt] shadow-xl rounded-b-3xl  border-light-gray w-full px-6 py-5 bg-gray flex justify-between items-center" >
+        <div className="h-12 border-t-[1pt] shadow-lg rounded-b-3xl  border-light-gray w-full px-6 py-5 bg-gray flex justify-between items-center" >
           <p className="text-frostWhite text text-ellipsis overflow-hidden line-clamp-1">
             {communityDetailsLoadable.contents.community.name}
           </p>

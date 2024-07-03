@@ -6,7 +6,7 @@ export const userDetailsSelector = selector({
     key: "userDetailsSelector",
     get: async () => {
         const response = await sendUserDetailsRequest();
-        console.log(response);
+        console.log(`User Details`, response);
 
         if (response.status === 200) {
             return response.data.data.loggedInUser;

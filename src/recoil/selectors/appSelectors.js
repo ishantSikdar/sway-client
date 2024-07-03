@@ -5,7 +5,7 @@ export const callSplashSelector = selector({
     key: 'callSplashSelector',
     get: async () => {
         const response = await splashRequest();
-        console.log(response);
+        console.log(`Splash`, response);
         return response;
     }
 })
