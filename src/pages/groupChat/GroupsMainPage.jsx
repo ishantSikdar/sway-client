@@ -49,7 +49,7 @@ export default function GroupsMainPage() {
       {/* SideBar, is absolute */}
       {joinedCommunitiesLoadable.state === 'hasValue' &&
         < div
-          className={` w-[60px] fixed h-full py-2 bg-dark-purple items-center px-2 overflow-y-scroll transition-transform duration-500 ease-in-out`}
+          className={` w-[56px] fixed h-full py-2 bg-dark-purple items-center px-2 overflow-y-scroll transition-transform duration-500 ease-in-out`}
           style={{
             transform: communityElements.sideBarWidth === 0 ? 'translateX(-100%)' : 'translateX(0)',
             scrollbarWidth: 'none',
