@@ -1,0 +1,43 @@
+name: Deploy React App
+
+on:
+  push:           # on every commit on origin main
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code             # Pull commit code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js            # Install node js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies      # Install npm dependencies
+        run: npm install
+
+      - name: Build React app           # Build react app
+        run: npm run build
+
+      - name: Upload to S3                      # upload build files to s3
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.SWAY_CLIENT_AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.MY_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MY_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.MY_AWS_REGION }}
+          SOURCE_DIR: 'dist' 
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.MY_AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.MY_AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ secrets.MY_AWS_REGION }}
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.SWAY_CLIENT_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
