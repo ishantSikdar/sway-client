@@ -23,6 +23,10 @@ jobs:
 
       - name: Build React app           # Build react app
         run: npm run build
+        env:
+          VITE_APP_API_BASE_URL: ${{ vars.VITE_SWAY_API_BASE_URL }}
+          VITE_APP_WS_BASE_URL: ${{ vars.VITE_SWAY_WS_BASE_URL }}
+
 
       - name: Upload to S3                      # upload build files to s3
         uses: jakejarvis/s3-sync-action@v0.5.1
