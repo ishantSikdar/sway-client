@@ -11,6 +11,9 @@ import { screenWidthAtom } from './recoil/atoms/appAtoms';
 import DesktopWarning from './components/common/DesktopWarning';
 
 function App() {
+  console.log(import.meta.env.VITE_APP_API_BASE_URL)
+  console.log(import.meta.env.VITE_APP_WS_BASE_URL)
+
   const location = useLocation();
   const [lastVisitedRoutes, setLastVisitedRoutes] = useRecoilState(lastVisitedRouteAtom);
   const screenWidth = useRecoilValue(screenWidthAtom);
