@@ -26,14 +26,14 @@ jobs:
           echo "VITE_APP_API_BASE_URL: $VITE_APP_API_BASE_URL"
           echo "VITE_APP_WS_BASE_URL: $VITE_APP_WS_BASE_URL"
         env:
-          VITE_APP_API_BASE_URL: $VITE_SWAY_API_BASE_URL
-          VITE_APP_WS_BASE_URL: $VITE_SWAY_WS_BASE_URL
+          VITE_APP_API_BASE_URL: ${{ env.VITE_SWAY_API_BASE_URL }}
+          VITE_APP_WS_BASE_URL: ${{ env.VITE_SWAY_WS_BASE_URL }}
 
       - name: Build React app           # Build react app
         run: npm run build
         env:
-          VITE_APP_API_BASE_URL: $VITE_SWAY_API_BASE_URL
-          VITE_APP_WS_BASE_URL: $VITE_SWAY_WS_BASE_URL
+          VITE_APP_API_BASE_URL: ${{ env.VITE_SWAY_API_BASE_URL }}
+          VITE_APP_WS_BASE_URL: ${{ env.VITE_SWAY_WS_BASE_URL }}
 
 
       - name: Upload to S3                      # upload build files to s3
