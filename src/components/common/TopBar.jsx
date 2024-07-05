@@ -36,7 +36,7 @@ export default function TopBar() {
 
   return (
     <div
-      className={`z-40 shadow-xl fixed h-12 w-full bg-gray text-xl flex flex-row-reverse justify-between items-center transition-opacity duration-300`}
+      className={`z-40 shadow-md fixed h-12 w-full bg-dark-blue text-xl flex flex-row-reverse justify-between items-center transition-opacity duration-300`}
     >
       <button onClick={() => navigate(ROUTE_USER_PAGE)} className="h-10 w-10 rounded-full overflow-hidden border-[1pt] border-light-gray mr-2">
         {userDetailsLoadable.state === 'hasValue' ?

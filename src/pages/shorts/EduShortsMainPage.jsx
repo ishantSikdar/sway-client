@@ -1,5 +1,7 @@
+import VideoShort from "../../components/shorts/VideoShort";
+
 export default function EduShortsMainPage() {
-  return <div className="flex justify-center items-center h-[100dvh]">
-    <p>Page is Under Development</p>
+  return <div className="h-[100dvh] overflow-y-scroll pb-12">
+    <VideoShort />
   </div>
 }
