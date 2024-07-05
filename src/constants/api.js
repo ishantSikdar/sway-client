@@ -3,6 +3,7 @@ export const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 export const API_URI_USER_LOGIN = "/user/signin";
 export const API_URI_USER_SIGNUP = "/user/signup"; 
 export const API_URI_USER_DETAILS = "/user/userDetails"; 
+export const API_URI_USER_PUBLIC_DETAILS = "/user/publicUserDetails"; 
 export const API_URI_USER_EDIT_PHOTO = "/user/editUserProfilePic"; 
 export const API_URI_USER_EDIT_BANNER = "/user/editUserBannerPic"; 
 

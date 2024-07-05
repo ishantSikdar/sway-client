@@ -1,5 +1,5 @@
-import { selector } from "recoil";
-import { sendUserDetailsRequest } from "../../services/userServices";
+import { selector, selectorFamily } from "recoil";
+import { getPublicUserDetails, sendUserDetailsRequest } from "../../services/userServices";
 import { INVALID_AUTH_TOKEN } from "../../constants/message";
 
 export const userDetailsSelector = selector({
@@ -17,3 +17,12 @@ export const userDetailsSelector = selector({
         }
     }
 })
+
+export const fetchOtherUserDetailsSelectorFamily = selectorFamily({
+    key: 'fetchOtherUserDetailsSelectorFamily',
+    get: (userId) => async() => {
+        const response = await getPublicUserDetails(userId);
+        console.log(`Public user details, ${userId}`, response);
+        return response.data.data.user;
+    }
+});

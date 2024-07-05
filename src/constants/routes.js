@@ -10,13 +10,16 @@ import SignUpPage from "../pages/user/SignUpPage";
 import UserMainPage from "../pages/user/UserMainPage";
 import TopicPage from "../pages/playlist/TopicPage";
 import VideoPage from "../pages/playlist/VideoPage";
+import OtherUsersPage from "../pages/user/OtherUsersPage";
 
 
 // ROUTES
 export const ROUTE_DEFAULT = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
+
 export const ROUTE_USER_PAGE = "/user";
+export const ROUTE_PUBLIC_USER_PAGE = "/user/:userId";
 
 export const ROUTE_PLAYLIST = "/playlist";
 export const ROUTE_PLAYLIST_SUBJECT = "/playlist/:id";
@@ -93,5 +96,10 @@ export const APP_ROUTES = [
         id: 10,
         path: ROUTE_PLAYLIST_SUBJECT_VIDEOS,
         element: VideoPage
-    }
+    },
+    {
+        id: 11,
+        path: ROUTE_PUBLIC_USER_PAGE,
+        element: OtherUsersPage,
+    },
 ]

@@ -1,10 +1,13 @@
 import { faComment, faHeart, faShareFromSquare } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisVertical, faLocationArrow, faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import UserProfilePicture from '../user/UserProfilePicture';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PUBLIC_USER_PAGE } from '../../constants/routes';
 
 export default function VideoShort({ videoId }) {
+  const navigate = useNavigate();
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(false);
   const [showVol, setShowVol] = useState(false);
@@ -50,9 +53,12 @@ export default function VideoShort({ videoId }) {
     playVideo();
   };
 
+  const handleViewUser = () => {
+    navigate(ROUTE_PUBLIC_USER_PAGE.replace(":userId", '667dcd463e893942ff5ec03b'));
+  }
 
   return (
-    <div className="text-frostWhite relative h-full w-full overflow-hidden" onClick={playVideo} onContextMenu={disableContextMenu}>
+    <div className="text-frostWhite relative h-full w-full overflow-hidden snap-start" onClick={playVideo} onContextMenu={disableContextMenu}>
       <video
         ref={videoRef}
         onTouchStart={handleHoldStart}
@@ -64,6 +70,7 @@ export default function VideoShort({ videoId }) {
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
         loop
+        muted
       >
         <source src="/trial.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -71,7 +78,7 @@ export default function VideoShort({ videoId }) {
 
       <div className='absolute pb-6 pl-6 flex w-[80%] flex-col bottom-0 z-10'>
         {/* row 1 */}
-        <div className='flex items-center gap-3'>
+        <button onClick={handleViewUser} className='flex items-center gap-3'>
           {/* pic */}
           <div className='rounded-full w-10 h-10 overflow-hidden'>
             <UserProfilePicture imageUrl={'/photo.jpg'} name={"Aman Kumar"} size={12} />
@@ -79,7 +86,7 @@ export default function VideoShort({ videoId }) {
 
           {/* username */}
           <div>easc01</div>
-        </div>
+        </button>
 
         {/* caption */}
         <div className='line-clamp-2 text-sm mt-2'>
@@ -101,7 +108,7 @@ export default function VideoShort({ videoId }) {
 
         <button>
           <FontAwesomeIcon icon={faShareFromSquare} size='xl' />
-          <p className='mt-2 text-xs'>70k</p>
+          <p className='mt-2 text-xs'>Save</p>
         </button>
 
         {/* 3 dot */}

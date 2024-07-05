@@ -1,4 +1,4 @@
-import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_EDIT_BANNER, API_URI_USER_EDIT_PHOTO, API_URI_USER_LOGIN, API_URI_USER_SIGNUP } from '../constants/api';
+import { API_BASE_URL, API_URI_USER_DETAILS, API_URI_USER_EDIT_BANNER, API_URI_USER_EDIT_PHOTO, API_URI_USER_LOGIN, API_URI_USER_PUBLIC_DETAILS, API_URI_USER_SIGNUP } from '../constants/api';
 import { getAuthToken } from '../utils/authUtil';
 import { getAuthenticatedRequest, getNoOptionsRequest, patchMultipartFormDataAuthenticatedRequest, postJSONBodyRequest, postMultipartFormDataRequest, putAuthenticatedJSONBodyRequest, putMultipartFormDataAuthenticatedRequest } from './apiServices';
 
@@ -94,5 +94,15 @@ export const sendEditBannerPicRequest = async (image) => {
     } catch (error) {
         console.error(`Edit User Details request failed, ${error.message}`);
         throw new Error(`${error.message}`);
+    }
+}
+
+export const getPublicUserDetails = async (userId) => {
+    try {
+        return await getNoOptionsRequest(`${API_BASE_URL}${API_URI_USER_PUBLIC_DETAILS}?userId=${userId}`);
+
+    } catch(error) {
+        console.error("Failed to fetch public user details", error);
+        throw new Error(error);   
     }
 }
