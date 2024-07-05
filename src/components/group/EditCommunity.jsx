@@ -2,19 +2,24 @@ import { useContext, useState } from "react"
 import { ChatWindowContext } from "../../context/ChatWindowProvider"
 import ElevatedWindow from "../common/ElevatedWindow";
 import Switch from "react-switch";
-import { useRecoilState } from "recoil";
-import { communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
+import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { communityDetailsAtomFamily, communityUserInterfaceAtom } from "../../recoil/atoms/communityAtoms";
 import ImageInputButton from "../common/ImageInputButton";
 import { sendEditCommunityRequest } from "../../services/communityServices";
 import LoaderOverlay from "../common/LoaderOverlay";
+import NoticeText from "../common/NoticeText";
 
 export default function EditCommunity({ communityId }) {
   const { editCommunityRef } = useContext(ChatWindowContext);
   const [communityUIElements, setCommunityUIElements] = useRecoilState(communityUserInterfaceAtom);
+  const setCurrentCommunityDetails = useSetRecoilState(communityDetailsAtomFamily(communityId));
+  const communityDetailsLoadable = useRecoilValueLoadable(communityDetailsAtomFamily(communityId));
+
+  console.log(communityDetailsLoadable);
 
   const [communityDetails, setCommunityDetails] = useState({
     name: '',
-    image: null,
+    image: null,  
     visibility: false,
   });
 
@@ -42,7 +47,12 @@ export default function EditCommunity({ communityId }) {
           ...prev,
           editCommunitySuccess: true
         }));
+        setCurrentCommunityDetails((prev) => ({
+          ...prev,
+
+        }))
         handleClose();
+        window.location.reload();
 
       } else {
         setCommunityUIElements((prev) => ({
@@ -114,6 +124,16 @@ export default function EditCommunity({ communityId }) {
       </div>
 
       {communityUIElements.editCommunityLoading && <LoaderOverlay />}
+
+      {communityUIElements.editCommunityApiError &&
+        <NoticeText
+          text={communityUIElements.editCommunityApiError}
+          setCallback={() => {
+            setCommunityUIElements((prev) => ({
+              ...prev,
+              editCommunityApiError: ''
+            }));
+          }} />}
     </ElevatedWindow>
   </div>
 }
