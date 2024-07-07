@@ -40,7 +40,7 @@ export default function UserPageData() {
   }, [])
 
   return (
-    <div className={`relative pt-12 ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'} bg-dark-blue`}>
+    <div className={`relative ${supportsDynamicViewport() ? 'h-[100dvh]' : 'h-[100vh]'} bg-dark-blue`}>
       <div className="relative">
         {/* banner */}
         <div className="bg-ease-gray h-28 w-full" style={{

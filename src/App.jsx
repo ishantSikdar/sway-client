@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import NotFoundPage from './pages/others/NotFoundPage';
-import { APP_ROUTES, ROUTE_ANY, ROUTE_GROUPS, ROUTE_LOGIN, ROUTE_SHORTS, ROUTE_SIGNUP } from './constants/routes';
+import { APP_ROUTES, ROUTE_ANY, ROUTE_FOCUS_TIMER, ROUTE_GROUPS, ROUTE_LOGIN, ROUTE_SHORTS, ROUTE_SIGNUP, ROUTE_USER_PAGE } from './constants/routes';
 import NavBar from './components/common/NavBar';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -18,7 +18,7 @@ function App() {
   const outsideAppRoutes = [ROUTE_SIGNUP, ROUTE_LOGIN];
   const insideApp = !outsideAppRoutes.includes(location.pathname);
 
-  const topBarExceptions = [ROUTE_SHORTS, ];
+  const topBarExceptions = [ROUTE_SHORTS, ROUTE_USER_PAGE, ROUTE_FOCUS_TIMER];
 
 
 

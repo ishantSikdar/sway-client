@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        'up-2xl': '0 -10px 25px -10px rgba(0, 0, 0, 0.75)',
+        'up-2xl': '0 -5px 15px -10px rgba(0, 0, 0, 0.75)',
       },
       colors: {
         'light-gray': '#25262C',
