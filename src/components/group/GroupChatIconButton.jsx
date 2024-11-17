@@ -29,7 +29,7 @@ export default function GroupChatIconButton({ id, name, iconUrl }) {
 
   return (
     <button
-      className="rounded-[100%] bg-gray w-[100%] mx-auto aspect-square focus:rounded-xl transition-all ease-in-out"
+      className="rounded-[100%] bg-dark-near-blue w-[100%] mx-auto aspect-square focus:rounded-xl transition-all ease-in-out"
       onClick={openChat}
       name={name}
       style={{

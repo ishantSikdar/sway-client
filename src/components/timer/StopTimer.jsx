@@ -11,7 +11,7 @@ export default function StopTimer({ pause, finish, restart }) {
 
   return (
     <CenterOverlay>
-      <div className='bg-gray py-10 px-5 rounded-md relative'>
+      <div className='bg-dark-near-blue py-10 px-5 rounded-md relative'>
         <h1 className="text-center mb-4">Screen will close in {timerData.showStopDuration} seconds</h1>
         <button
           onClick={pause}

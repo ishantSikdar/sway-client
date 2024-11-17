@@ -6,7 +6,7 @@ export default function SubjectPageSkeleton() {
     <>
       <TopBar />
       <div className="pt-12">
-        <div className="w-full h-32 animate-pulse bg-gray"></div>
+        <div className="w-full h-32 animate-pulse bg-dark-near-blue"></div>
 
         {/* Placeholder Subject Details */}
         <div className="px-5 py-7 flex flex-col gap-2 h-36 animate-pulse">

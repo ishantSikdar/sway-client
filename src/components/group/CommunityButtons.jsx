@@ -11,7 +11,7 @@ export default function CommunityButtons() {
   return (
     <>
       <button
-        className="flex justify-center items-center rounded-full bg-gray text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
+        className="flex justify-center items-center rounded-full bg-dark-blue text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
         onClick={() =>
           setUIElements((prev) => ({
             ...prev,
@@ -22,7 +22,7 @@ export default function CommunityButtons() {
       </button>
 
       <button
-        className="flex justify-center items-center rounded-full bg-gray text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
+        className="flex justify-center items-center rounded-full bg-dark-blue text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
         onClick={() =>
           setUIElements((prev) => ({
             ...prev,
@@ -33,7 +33,7 @@ export default function CommunityButtons() {
       </button>
 
       <button
-        className="flex justify-center items-center rounded-full bg-gray text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
+        className="flex justify-center items-center rounded-full bg-dark-blue text-green-500 text-xl w-[100%] mx-auto aspect-square my-2"
         onClick={() => {
           setUIElements((prev) => ({
             ...prev,

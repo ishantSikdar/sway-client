@@ -24,8 +24,8 @@ export default {
         blue: '#5865f2',
         lightBlue: '#0798e2',
         'dark-purple': '#131217',
-        'dark-blue' : '#1C1D23',
-        'dark-near-blue' : '#202128',
+        'dark-blue' : '#191919',
+        'dark-near-blue' : '#111111',
         'white-gray': '#3B3D43',
       },
       fontFamily: {

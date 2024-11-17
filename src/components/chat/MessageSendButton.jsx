@@ -50,7 +50,7 @@ export default function MessageSendButton() {
         onChange={handleMessageInput}
         onKeyDown={handleKeyDown}
         placeholder="Message"
-        className="rounded-md shadow-xl px-4 py-3 flex-grow outline-none bg-gray resize-none overflow-hidden"
+        className="rounded-md shadow-xl px-4 py-3 flex-grow outline-none bg-coal resize-none overflow-hidden"
         rows="1"
         value={message}
       />

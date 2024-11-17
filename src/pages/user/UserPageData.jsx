@@ -70,7 +70,7 @@ export default function UserPageData() {
           <div className="h-20"></div>
 
           {/* information */}
-          <div className="mx-5 p-5 bg-near-gray rounded-xl">
+          <div className="mx-5 p-5 bg-dark-near-blue rounded-xl">
 
             {/* Headers */}
             <div className="text-frostWhite border-b-[1pt] border-white pb-4">

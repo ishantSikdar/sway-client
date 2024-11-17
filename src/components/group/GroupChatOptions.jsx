@@ -35,7 +35,7 @@ export default function GroupChatOptions({ communityId }) {
   return <>
     {communityDetailsLoadable.state === 'hasValue' &&
       <>
-        <div className="relative h-12 border-t-[1pt] shadow-lg rounded-b-3xl border-light-gray w-full px-6 py-5 bg-gray flex justify-between items-center" >
+        <div className="relative h-12 border-t-[1pt] shadow-lg rounded-b-3xl border-light-gray w-full px-6 py-5 bg-dark-near-blue flex justify-between items-center" >
           <p className="text-frostWhite text text-ellipsis overflow-hidden line-clamp-1">
             {communityDetailsLoadable.contents.community.name}
           </p>
@@ -70,6 +70,6 @@ export default function GroupChatOptions({ communityId }) {
     }
 
     {communityDetailsLoadable.state === 'loading' &&
-      <div className="h-12 rounded-b-3xl w-full py-5 bg-gray animate-pulse"></div>}
+      <div className="h-12 rounded-b-3xl w-full py-5 bg-dark-near-blue animate-pulse"></div>}
   </>
 }
