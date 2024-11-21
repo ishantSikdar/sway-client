@@ -11,6 +11,7 @@ import UserMainPage from "../pages/user/UserMainPage";
 import TopicPage from "../pages/playlist/TopicPage";
 import VideoPage from "../pages/playlist/VideoPage";
 import OtherUsersPage from "../pages/user/OtherUsersPage";
+import AIGeneratedSubjectPage from "../pages/playlist/AIGeneratedSubjectPage";
 
 
 // ROUTES
@@ -25,6 +26,7 @@ export const ROUTE_PLAYLIST = "/playlist";
 export const ROUTE_PLAYLIST_SUBJECT = "/playlist/:id";
 export const ROUTE_PLAYLIST_SUBJECT_TOPIC = "/playlist/:id/videoPage";
 export const ROUTE_PLAYLIST_SUBJECT_VIDEOS = "/playlist/:id/otherVideos";
+export const ROUTE_PLAYLIST_SUBJECT_BY_AI = "/playlist/ai/:name";
 
 export const ROUTE_GROUPS = "/communities";
 
@@ -102,4 +104,9 @@ export const APP_ROUTES = [
         path: ROUTE_PUBLIC_USER_PAGE,
         element: OtherUsersPage,
     },
+    {
+        id: 12,
+        path: ROUTE_PLAYLIST_SUBJECT_BY_AI,
+        element: AIGeneratedSubjectPage
+    }
 ]

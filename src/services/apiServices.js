@@ -95,6 +95,22 @@ export const getNoOptionsRequest = async (url) => {
     }
 }
 
+export const postNoOptionsRequest = async (url) => {
+    try {
+        const response = await axios.post(url);
+        return { status: response.status, data: response.data };
+
+    } catch (error) {
+        if (error.response) {
+            return { status: error.response.status, data: error.response.data };
+
+        } else {
+            console.error(`POST request failed, ${error.message}`);
+            throw error;
+        }
+    }
+}
+
 export const postMultipartFormDataAuthenticatedRequest = async (url, formData, token) => {
     try {
         const response = await axios.post(url, formData, {

@@ -1,5 +1,5 @@
 import { atom, atomFamily } from 'recoil';
-import { fetchSubjectDetailsByIdSelectorFamily, fetchSubjectListSelector, fetchSubjectsByNameSelectorFamily, fetchYoutubeVideosByTitleSelectorFamily } from '../selectors/playlistSelectors';
+import { fetchAIGeneratedSubjectByTitleSelectorFamily, fetchSubjectDetailsByIdSelectorFamily, fetchSubjectListSelector, fetchSubjectsByNameSelectorFamily, fetchYoutubeVideosByTitleSelectorFamily } from '../selectors/playlistSelectors';
 
 export const allSubjectsListAtom = atom({
     key: 'allSubjectsListAtom',
@@ -24,4 +24,9 @@ export const topicVideosAtomFamily = atomFamily({
 export const playlistSubjectSearchTagAtom = atom({
     key: 'playlistSubjectSearchTagAtom',
     default: ''
+})
+
+export const aiGeneratedSubjectAtomFamily = atomFamily({
+    key: 'aiGeneratedSubjectAtomFamily',
+    default: (subjectName) => fetchAIGeneratedSubjectByTitleSelectorFamily(subjectName)
 })

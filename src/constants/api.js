@@ -9,6 +9,7 @@ export const API_URI_USER_EDIT_BANNER = "/user/editUserBannerPic";
 
 export const API_URI_PLAYLIST_SUBJECTS = "/playlist/subjects";
 export const API_URI_PLAYLIST_SUBJECT = "/playlist/subject";
+export const API_URI_PLAYLIST_SUBJECT_BY_AI = "/playlist/subjectByAI";
 export const API_URI_PLAYLIST_SUBJECT_TOPIC = "/playlist/subject/topicVideo";
 
 export const API_URI_COMMUNITY_CREATE_COMMUNITY = "/community/createCommunity";

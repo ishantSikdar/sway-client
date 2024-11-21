@@ -1,5 +1,5 @@
 import { selector, selectorFamily } from "recoil";
-import { fetchAllSubjects, fetchSubjectDetailsById, fetchSubjectsByName, fetchYoutubeVideosByTitle } from "../../services/playlistServices";
+import { fetchAIGeneratedSubjectByTitle, fetchAllSubjects, fetchSubjectDetailsById, fetchSubjectsByName, fetchYoutubeVideosByTitle } from "../../services/playlistServices";
 
 export const fetchSubjectListSelector = selector({
     key: 'fetchSubjectsSelector',
@@ -39,5 +39,14 @@ export const fetchYoutubeVideosByTitleSelectorFamily = selectorFamily({
         } else {
             throw new Error(response.data.message);
         }
+    }
+})
+
+export const fetchAIGeneratedSubjectByTitleSelectorFamily = selectorFamily({
+    key: 'fetchAIGeneratedSubjectByTitleSelectorFamily',
+    get: (subjectName) => async () => {
+        const response = await fetchAIGeneratedSubjectByTitle(subjectName)
+        console.log('Subject', response)
+        return response.data.data
     }
 })

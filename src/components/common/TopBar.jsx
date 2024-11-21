@@ -47,7 +47,7 @@ export default function TopBar() {
 
       {location.pathname === ROUTE_PLAYLIST && <SearchTextBox handleInput={handleSearchTagInput} />}
 
-      {location.pathname.includes(`${ROUTE_PLAYLIST}/`) && <button onClick={goToPrevious} className="h-full aspect-square border-light-gray border-r-[0.1pt]">
+      {location.pathname.includes(`${ROUTE_PLAYLIST}` || `${ROUTE_PLAYLIST}-ai`) && <button onClick={goToPrevious} className="h-full aspect-square border-light-gray border-r-[0.1pt]">
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>}
 

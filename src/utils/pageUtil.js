@@ -1,4 +1,4 @@
-import { ROUTE_LOGIN } from "../constants/routes";
+import { ROUTE_LOGIN, ROUTE_PLAYLIST } from "../constants/routes";
 
 export const scrollToTop = () => {
     window.scrollTo({
@@ -26,6 +26,10 @@ export const trimRouteDescending = (route) => {
     // If '/' is not found, return the original string
     if (lastSlashIndex === -1) {
         return route;
+    }
+
+    if (route.includes('/playlist/ai/')) {
+        return ROUTE_PLAYLIST
     }
 
     // Return the substring up to the last '/'
