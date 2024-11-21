@@ -1,8 +1,8 @@
 import { useRecoilValueLoadable } from "recoil";
 import { aiGeneratedSubjectAtomFamily } from "../../recoil/atoms/playlistAtoms";
-import SubjectPageSkeleton from '../../components/playlist/SubjectCardSkeleton'
 import AIGeneratedSubjectPageData from "./AIGeneratedSubjectPageData";
 import { useParams } from "react-router-dom";
+import LoaderOverlay from "../../components/common/LoaderOverlay";
 
 export default function AIGeneratedSubjectPage() {
   const { name } = useParams()
@@ -18,7 +18,7 @@ export default function AIGeneratedSubjectPage() {
     )
 
   } else if (videoListLoadable.state === "loading") {
-    return <SubjectPageSkeleton />
+    return <LoaderOverlay />
 
   } else if (videoListLoadable.state === "hasError") {
     console.error(videoListLoadable.contents.message);
